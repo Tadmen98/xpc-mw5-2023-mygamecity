@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace MyGameCity.DAL.Entities;
 
-namespace MyGameCity.DAL.Entities
+public record CategoryEntity: EntityBase
 {
-    internal class CategoryEntity
-    {
-    }
+    public string Name { get; set; }
 }

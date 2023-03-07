@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace MyGameCity.DAL.Entities;
 
-namespace MyGameCity.DAL.Entities
+public record ReviewEntity: EntityBase
 {
-    internal class ReviewEntity
-    {
-    }
+    public int Stars { get; set; }
+    public string Title { get; set; }
+    public string Description { get; set; }
 }

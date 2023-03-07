@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace MyGameCity.DAL.Entities;
 
-namespace MyGameCity.DAL.Entities
+public record ComodityEntity : EntityBase
 {
-    internal class ComodityEntity
-    {
-    }
+    public required string Name { get; init; }
+    public int Image { get; set; }
+    public string Description { get; set; }
+    public int Price { get; set; }
+
+    public int Weight { get; set; }
+    public int NumberInStock { get; set; }
+    public CategoryEntity Category { get; set; }
+    public ManufacturerEntity Manufacturer { get; set; }
+    public ICollection<ReviewEntity> Reviews { get; set; }
+
 }

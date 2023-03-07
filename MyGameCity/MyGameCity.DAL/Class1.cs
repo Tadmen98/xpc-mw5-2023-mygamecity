@@ -1,7 +1,3 @@
-﻿namespace MyGameCity.DAL
-{
-    public class Class1
-    {
+﻿namespace MyGameCity.DAL;
 
-    }
-}
+

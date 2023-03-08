@@ -6,7 +6,7 @@ namespace MyGameCity.DAL.DataAccess;
 
 public class DataAccess
 {
-    GamesDbContext context = new GamesDbContext();
+    GamesDbContext context = new();
 
     public void AddDbEntry<TEntity>(TEntity entity) where TEntity : EntityBase
     {

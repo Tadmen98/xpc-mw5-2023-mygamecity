@@ -7,7 +7,7 @@ Project repository for XCP-MW5 project
 |:---------------:|:---------:|:-----------------:|
 | Tadeáš Navrátil |  xnavra65 | xnavra65@vutbr.cz |
 | Zdenek Vejvoda  |  xvejvo02 | xvejvo02@vutbr.cz |
-| Adam Zaujec     |  xzauje01 | adamzaujec247@gmail.com |
+| Adam Zaujec     |  247504   | adamzaujec247@gmail.com |
 
 ## Variants of the project
 We have chosen variant A (Backend + DB)

@@ -2,13 +2,13 @@
 {
     public class Games
     {
-        static string Title { get; set; }
-        static string Description { get; set; }
-        static double Price { get; set; }
-        static double Weight { get; set; }
-        static int Ammount { get; set; }
-        static string Category { get; set; }
-        static Manufacturer Manufacturer { get; set; }
-        static Review Review { get; set; } 
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public double Price { get; set; }
+        public double Weight { get; set; }
+        public int Ammount { get; set; }
+        public string Category { get; set; }
+        public Manufacturer Manufacturer { get; set; }
+        public Review Review { get; set; } 
     }
 }

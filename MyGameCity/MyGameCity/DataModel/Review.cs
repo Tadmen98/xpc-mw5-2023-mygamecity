@@ -2,8 +2,8 @@
 {
     public class Review
     {
-        string Stars;
-        string Title;
-        string Description;
+        public string Stars { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
     }
 }

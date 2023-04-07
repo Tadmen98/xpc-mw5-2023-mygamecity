@@ -14,7 +14,7 @@ namespace MyGameCity.Controllers
             _context = context;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<List<>>>
+        //[HttpGet]
+        //public async Task<ActionResult<List<>>>
     }
 }

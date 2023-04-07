@@ -2,7 +2,8 @@
 
 public record ReviewEntity: EntityBase
 {
-    public int Stars { get; set; }
+    public int StarsCount { get; set; }
     public string Title { get; set; }
     public string Description { get; set; }
+    public GameEntity Game { get; set; }
 }

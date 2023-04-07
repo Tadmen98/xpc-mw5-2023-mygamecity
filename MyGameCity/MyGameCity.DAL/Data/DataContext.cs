@@ -16,15 +16,15 @@ public class DataContext : DbContext
         
     }
     public DbSet<CategoryEntity> Categories { get; set; }
-    //public DbSet<ComodityEntity> Comodity { get; set; }
+    public DbSet<GameEntity> Comodity { get; set; }
     //public DbSet<ManufacturerEntity> Manufacturer { get; set; }
-    //public DbSet<ReviewEntity> Review { get; set; }
+    public DbSet<ReviewEntity> Review { get; set; }
 
-    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    //{
-    //    base.OnConfiguring(optionsBuilder);
-    //    optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=master;Trusted_Connection=True;TrustServerCertificate=True;");//TrustServerCertificate=true?
-    //}
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        base.OnConfiguring(optionsBuilder);
+        optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=master;Trusted_Connection=True;TrustServerCertificate=True;");//TrustServerCertificate=true?
+    }
     //TODO: remove harcoded path
     //TODO: replace with variable databaseName
 }

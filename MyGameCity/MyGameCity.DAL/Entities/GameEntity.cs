@@ -1,6 +1,6 @@
 ﻿namespace MyGameCity.DAL.Entities;
 
-public record ComodityEntity : EntityBase
+public record GameEntity : EntityBase
 {
     public required string Name { get; init; }
     public int Image { get; set; }
@@ -10,7 +10,7 @@ public record ComodityEntity : EntityBase
     public int Weight { get; set; }
     public int NumberInStock { get; set; }
     public CategoryEntity Category { get; set; }
-    public ManufacturerEntity Manufacturer { get; set; }
+    public ManufacturerEntity Developer { get; set; }
     public ICollection<ReviewEntity> Reviews { get; set; }
 
 }

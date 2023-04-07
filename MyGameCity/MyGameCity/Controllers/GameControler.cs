@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace MyGameCity.Controllers
 {
@@ -14,7 +15,11 @@ namespace MyGameCity.Controllers
             _context = context;
         }
 
-        //[HttpGet]
-        //public async Task<ActionResult<List<>>>
+        [HttpGet]
+        public async Task<ActionResult<List<GameEntity>>>GetAllGames()
+        {
+            var games = await _context.Game.ToListAsync();
+            return Ok(games);
+        }
     }
 }

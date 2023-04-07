@@ -9,7 +9,7 @@ public record GameEntity : EntityBase
 
     public int Weight { get; set; }
     public int NumberInStock { get; set; }
-    //public ICollection<CategoryEntity> Category { get; set; }
+    public List<CategoryEntity> Category { get; set; }
     //public ManufacturerEntity Developer { get; set; }
     //public ManufacturerEntity Publisher { get; set; }
     public List<ReviewEntity> Reviews { get; set; }

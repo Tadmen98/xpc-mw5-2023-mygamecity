@@ -1,6 +1,2 @@
-﻿namespace MyGameCity
-{
-    public class GlobalUsings
-    {
-    }
-}
+﻿global using MyGameCity.DAL.Entities;
+

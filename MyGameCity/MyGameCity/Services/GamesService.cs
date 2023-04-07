@@ -1,4 +1,5 @@
-﻿namespace MyGameCity.Services
+﻿using MyGameCity.DataModel;
+namespace MyGameCity.Services
 {
     public class GamesService
     {

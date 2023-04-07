@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Bogus;
+using Microsoft.AspNetCore.Mvc;
+using MyGameCity.Services;
+using MyGameCity.DataModel;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -9,11 +12,9 @@ namespace MyGameCity.Controllers
     public class GamesController : ControllerBase
     {
         // GET: api/<GamesController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
+        [HttpGet("GetDatabase")]
+        public ActionResult<List<Games>> GetAll() => FakeDatabaseService.ModelDatabase;
+        
 
         // GET api/<GamesController>/5
         [HttpGet("{id}")]

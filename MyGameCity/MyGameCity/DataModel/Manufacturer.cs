@@ -8,6 +8,6 @@ namespace MyGameCity.DataModel
         public string Name { get; set; }
         public string Description { get; set; }
         public string CountryOforigin { get; set; }
-        public string ListOfCommodities { get; set; }
+        //public string ListOfCommodities { get; set; }
     }
 }

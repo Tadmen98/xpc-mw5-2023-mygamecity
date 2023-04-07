@@ -1,4 +1,6 @@
-﻿namespace MyGameCity.DataModel
+﻿using System.Text.Json;
+
+namespace MyGameCity.DataModel
 {
     public class Games
     {
@@ -9,6 +11,10 @@
         public int Ammount { get; set; }
         public string Category { get; set; }
         public Manufacturer Manufacturer { get; set; }
-        public Review Review { get; set; } 
-    }
+        public Review Review { get; set; }
+        public override string ToString()
+        {
+            return JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
+        }
+    }  
 }

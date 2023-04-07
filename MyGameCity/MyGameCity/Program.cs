@@ -1,3 +1,4 @@
+
 namespace MyGameCity
 {
     public class Program
@@ -25,6 +26,7 @@ namespace MyGameCity
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
+
 
             app.MapControllers();
 

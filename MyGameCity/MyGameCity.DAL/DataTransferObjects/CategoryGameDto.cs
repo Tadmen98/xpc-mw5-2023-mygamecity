@@ -9,6 +9,6 @@ namespace MyGameCity.DAL.DataTransferObjects;
 
 public record CategoryGameDto
 {
+    public Guid GameId { get; set; }
     public Guid CategoryId { get; set; }
-    public Guid SkillId { get; set; }
 }

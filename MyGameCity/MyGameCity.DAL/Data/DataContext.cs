@@ -4,17 +4,26 @@ using MyGameCity.DAL.Entities;
 
 namespace MyGameCity.DAL.Data;
 
-public class GamesDbContext : DbContext
+public class DataContext : DbContext
 {
+    public DataContext()
+    {
+        
+    }
+
+    public DataContext(DbContextOptions<DataContext> options) : base(options)
+    {
+        
+    }
     public DbSet<CategoryEntity> Categories { get; set; }
-    public DbSet<ComodityEntity> Comodity { get; set; }
-    public DbSet<ManufacturerEntity> Manufacturer { get; set; }
-    public DbSet<ReviewEntity> Review { get; set; }
+    //public DbSet<ComodityEntity> Comodity { get; set; }
+    //public DbSet<ManufacturerEntity> Manufacturer { get; set; }
+    //public DbSet<ReviewEntity> Review { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        //base.OnConfiguring(optionsBuilder);
-        optionsBuilder.UseSqlite("Data Source=C:\\Users\\TAD\\Desktop\\VUT\\10 semestr\\XPC-MW5\\xpc-mw5-2023-mygamecity\\MyGameCity\\MyGameCity.DAL\\Database\\games.db");
+        base.OnConfiguring(optionsBuilder);
+        optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=master;Trusted_Connection=True;TrustServerCertificate=True;");//TrustServerCertificate=true?
     }
     //TODO: remove harcoded path
     //TODO: replace with variable databaseName

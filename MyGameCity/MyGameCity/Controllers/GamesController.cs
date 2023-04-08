@@ -17,28 +17,54 @@ namespace MyGameCity.Controllers
         
 
         // GET api/<GamesController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("Game by Id")]
+        public ActionResult<Games> Get(Guid id)
         {
-            return "value";
+            var game = FakeDatabaseService.Get(id);
+            if(game == null) 
+            {
+                return NotFound();
+            }
+            return game;
         }
 
         // POST api/<GamesController>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpPost("Add game to database")]
+        public IActionResult Create (Games game)
         {
+            FakeDatabaseService.Add(game);
+            return CreatedAtAction(nameof(Get), new {id = game.Id}, game);
         }
 
         // PUT api/<GamesController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("Update existing game")]
+        public IActionResult Update(Guid id,Games game)
         {
+            if(id != game.Id) 
+            {
+                return BadRequest();
+            }
+            var existingGame = FakeDatabaseService.Get(id);
+            if(existingGame is null) 
+            {
+                return NotFound();
+            }
+            FakeDatabaseService.Update(game);
+            return NoContent();
         }
 
         // DELETE api/<GamesController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("Delete game from database")]
+        public IActionResult Delete(Guid id)
         {
+            var game = FakeDatabaseService.Get(id);
+
+            if(game is null)
+            {
+                return NotFound();
+            }
+            FakeDatabaseService.Delete(id);
+            return NoContent();
         }
     }
 }

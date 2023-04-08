@@ -15,7 +15,7 @@ namespace MyGameCity.DataModel
         public Review Review { get; set; }
         public override string ToString()
         {
-            return JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
+            return JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = false });
         }
     }  
 }

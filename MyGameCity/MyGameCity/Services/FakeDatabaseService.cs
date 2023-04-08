@@ -45,12 +45,16 @@ namespace MyGameCity.Services
                 //.RuleFor(x => x.Description, f => f.Commerce.ProductDescription())
                 .RuleFor(x => x.Price, f => f.Random.Number(5, 100))
                 .RuleFor(x => x.Publisher, f => PublisherService.CreatePublisher())
+                //.RuleFor(x => x.Publisher.ListOfGames.Add(x.Title))
                 .RuleFor(x => x.Developer, f => DeveloperService.CreateDeveloepr())
                 .RuleFor(x => x.Review, f => ReviewService.CreateReview())
                 .RuleFor(x => x.Id, f => Guid.NewGuid());
             ModelDatabase = gamesFaker.Generate(5);
+            ModelDatabase.ForEach(x =>x.Publisher.ListOfGames.Add(x.Title));
             //publisherFaker.RuleFor(x => x.ListOfGames, f => f.PickRandomParam(ModelDatabase));
             //developerFaker.RuleFor(x => x.ListOfGames, f => f.PickRandomParam(ModelDatabase));
+            PublisherService.PublisherGames();
+            //DeveloperService.DeveloperGames();
             FakeDatabaseService.ModelDatabase.ForEach(Console.WriteLine);
         }
         public static Games Get(Guid id) => ModelDatabase.FirstOrDefault(x => x.Id == id);

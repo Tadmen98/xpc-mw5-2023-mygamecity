@@ -1,4 +1,6 @@
 ﻿using Bogus;
+using Bogus.DataSets;
+using Microsoft.AspNetCore.Http.HttpResults;
 using MyGameCity.DataModel;
 
 namespace MyGameCity.Services

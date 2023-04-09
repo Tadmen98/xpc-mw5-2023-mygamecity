@@ -19,24 +19,7 @@ namespace MyGameCity.Services
             if(ModelDatabase!=null)
                 ModelDatabase.Clear();
             Randomizer.Seed = new Random(7539743);
-
             var Categories = new[] { "Action", "Adventure", "RPG", "Casual", "Competetive" };
-            //var Developers = new[] { "Coffee Stain Studio", "Square Enix", "RELOGIC", "343 studio", "Mojang"};
-            //var publisherFaker = new Faker<Publisher>()
-            //    .RuleFor(x => x.Title, f => f.Company.CompanyName())
-            //    .RuleFor(x => x.Description, f => f.Company.Bs())
-            //    .RuleFor(x => x.CountryOfOrigin, f => f.Address.Country());
-
-            //var developerFaker = new Faker<Developer>()
-            //    .RuleFor(x => x.Title, f => f.Company.CompanyName())
-            //    .RuleFor(x => x.Description, f => f.Company.Bs())
-            //    .RuleFor(x => x.CountryOfOrigin, f => f.Address.Country());
-
-            //var reviewFaker = new Faker<Review>()
-            //    .RuleFor(x => x.Stars, f => f.Random.Number(0, 5))
-            //    .RuleFor(x => x.Description, f => f.Random.Word())
-            //    .RuleFor(x => x.Title, f => f.Random.Word());
-
             var gamesFaker = new Faker<Games>()
                 .RuleFor(x => x.Title, f => f.Commerce.ProductName())
                 .RuleFor(x => x.Ammount, f => f.Random.Number())

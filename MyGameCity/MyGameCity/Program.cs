@@ -27,7 +27,6 @@ namespace MyGameCity
 
             app.UseAuthorization();
 
-
             app.MapControllers();
 
             app.Run();

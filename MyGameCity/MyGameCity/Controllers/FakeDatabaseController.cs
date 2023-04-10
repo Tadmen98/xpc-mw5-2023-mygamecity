@@ -9,7 +9,7 @@ namespace MyGameCity.Controllers
     [ApiController]
     public class FakeDatabaseController : ControllerBase
     {
-        [HttpGet]
+        [HttpGet("Create fake databse")]
         public void CreatDatabase() => FakeDatabaseService.CreateDatabase();
     }
 }

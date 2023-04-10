@@ -19,6 +19,8 @@ namespace MyGameCity.Services
             if(ModelDatabase!=null)
                 ModelDatabase.Clear();
             Randomizer.Seed = new Random(7539743);
+            PublisherService.CreatePublisher();
+            DeveloperService.CreateDeveloper();
             var Categories = new[] { "Action", "Adventure", "RPG", "Casual", "Competetive" };
             var gamesFaker = new Faker<Games>()
                 .RuleFor(x => x.Title, f => f.Commerce.ProductName())
@@ -27,13 +29,27 @@ namespace MyGameCity.Services
                 .RuleFor(x => x.Ammount, f => f.Random.Number(0, 500))
                 //.RuleFor(x => x.Description, f => f.Commerce.ProductDescription())
                 .RuleFor(x => x.Price, f => f.Random.Number(5, 100))
-                .RuleFor(x => x.Publisher, f => PublisherService.CreatePublisher())
-                .RuleFor(x => x.Developer, f => DeveloperService.CreateDeveloper())
+                .RuleFor(x => x.Publisher, f => f.PickRandom(PublisherService.PublisherList))
+                .RuleFor(x => x.Developer, f => f.PickRandom(DeveloperService.DeveloperList))
                 .RuleFor(x => x.Review, f => ReviewService.CreateReview())
                 .RuleFor(x => x.Id, f => Guid.NewGuid());
             ModelDatabase = gamesFaker.Generate(5);
-            ModelDatabase.ForEach(x =>x.Publisher.ListOfGames.Add(x.Title));
-            ModelDatabase.ForEach(x => x.Developer.ListOfGames.Add(x.Title));
+            foreach (var publisherFromList in PublisherService.PublisherList)
+            {
+                foreach (var game in ModelDatabase)
+                {
+                    PublisherService.AddGameToPublisher(publisherFromList, game);
+                }
+            }
+            foreach (var developerFromList in DeveloperService.DeveloperList)
+            {
+                foreach (var game in ModelDatabase)
+                {
+                    DeveloperService.AddGameToPublisher(developerFromList, game);
+                }
+            }
+            //ModelDatabase.ForEach(x => x.Publisher.ListOfGames.Add(x.Title));
+            //ModelDatabase.ForEach(x => x.Developer.ListOfGames.Add(x.Title));
             PublisherService.PublisherGames();
             DeveloperService.DeveloperGames();
             ModelDatabase.ForEach(Console.WriteLine);

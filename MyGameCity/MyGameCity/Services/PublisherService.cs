@@ -36,6 +36,14 @@ namespace MyGameCity.Services
                 }       
             }
         }
+        public static void AddGameToPublisher(Publisher publisherFromList, Games game)
+        {
+            if (publisherFromList.ListOfGames.Contains(game.Title))
+            {
+                return;
+            }
+            publisherFromList.ListOfGames.Add(game.Title);
+        }
         public static Publisher Get(string title) => PublisherList.FirstOrDefault(x => x.Title == title);
     }
 }

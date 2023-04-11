@@ -7,17 +7,18 @@ namespace MyGameCity.Services
     {
         public static Publisher publisher { get; set; }
         public static List<Publisher> PublisherList = new List<Publisher>();
-        public static Publisher CreatePublisher()
+        public static List<Publisher> CreatePublisher(int numberOfTimeToGenerate)
         {
             var arrayOfPublishers = new[] { "Epic Games", "Microsoft", "EA", "2K", "Square Enix", "Ubisoft", "Supergiant Games" };
             var publisherFaker = new Faker<Publisher>()
                 .RuleFor(x => x.Title, f => f.PickRandom(arrayOfPublishers))
                 .RuleFor(x => x.Description, f => f.Company.Bs())
                 .RuleFor(x => x.CountryOfOrigin, f => f.Address.Country());
-            publisher = publisherFaker.Generate();
-            PublisherList.Add(publisher);
-            publisher.ListOfGames = new List<string>();
-            return publisher;
+            PublisherList = publisherFaker.Generate(numberOfTimeToGenerate);
+            PublisherList.ForEach(x => x.ListOfGames = new List<string>());
+            //PublisherList.Add(publisher);
+            //publisher.ListOfGames = new List<string>();
+            return PublisherList;
         }
         public static void PublisherGames()
         {

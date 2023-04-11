@@ -7,17 +7,18 @@ namespace MyGameCity.Services
     {
         public static Developer developer { get; set; }
         public static List<Developer> DeveloperList = new List<Developer>();
-        public static Developer CreateDeveloper()
+        public static List<Developer> CreateDeveloper(int numberOfTimeToGenerate)
         {
             var arrayOfDevelopers = new[] { "Coffee Stain Studio", "Square Enix", "RELOGIC", "343 studio", "Mojang" };
             var developerFaker = new Faker<Developer>()
                 .RuleFor(x => x.Title, f => f.PickRandom(arrayOfDevelopers))
                 .RuleFor(x => x.Description, f => f.Company.Bs())
                 .RuleFor(x => x.CountryOfOrigin, f => f.Address.Country());
-            developer = developerFaker.Generate();
-            DeveloperList.Add(developer);
-            developer.ListOfGames = new List<string>();
-            return developer;
+            DeveloperList = developerFaker.Generate(numberOfTimeToGenerate);
+            DeveloperList.ForEach(x => x.ListOfGames = new List<string>());
+            //DeveloperList.Add(developer);
+            //developer.ListOfGames = new List<string>();
+            return DeveloperList;
         }
         public static void DeveloperGames()
         {
@@ -36,7 +37,7 @@ namespace MyGameCity.Services
                 }
             }
         }
-        public static void AddGameToPublisher(Developer developerfromlist, Games game)
+        public static void AddGameToDeveloper(Developer developerfromlist, Games game)
         {
             if (developerfromlist.ListOfGames.Contains(game.Title))
             {

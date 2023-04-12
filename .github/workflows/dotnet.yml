@@ -22,10 +22,10 @@ jobs:
         dotnet-version: 7.0.x
     - name: Restore dependencies
       run: dotnet restore 
-      working-directory: MyGameCity/MyGameCity
+      working-directory: ./MyGameCity
     - name: Build
       run: dotnet build --no-restore 
-      working-directory: MyGameCity/MyGameCity.sln
+      working-directory: ./MyGameCity
     - name: Test
       run: dotnet test --no-build --verbosity normal 
-      working-directory: MyGameCity/MyGameCity.sln
+      working-directory: ./MyGameCity

@@ -5,7 +5,7 @@ name: Build .NET solution
 
 on:
   push:
-    branches: [ "develop_fakeDatabase" ]
+    branches: [ "develop_FakeData" ]
   pull_request:
     branches: [ "main" ]
 

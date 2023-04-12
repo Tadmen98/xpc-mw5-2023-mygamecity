@@ -1,4 +1,6 @@
 
+using Microsoft.AspNetCore.HttpLogging;
+
 namespace MyGameCity
 {
     public class Program
@@ -7,6 +9,15 @@ namespace MyGameCity
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            //builder.Services.AddHttpLogging(logging =>
+            //{
+            //    logging.LoggingFields = HttpLoggingFields.All;
+            //    logging.RequestHeaders.Add("sec-ch-ua");
+            //    logging.ResponseHeaders.Add("MyResponseHeader");
+            //    logging.MediaTypeOptions.AddText("application/javascrispt");
+            //    logging.RequestBodyLogLimit = 4096;
+            //    logging.ResponseBodyLogLimit = 4096;
+            //});
             // Add services to the container.
 
             builder.Services.AddControllers();
@@ -15,6 +26,8 @@ namespace MyGameCity
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
+
+            app.UseHttpLogging();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

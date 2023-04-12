@@ -9,7 +9,7 @@ namespace MyGameCity
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            //builder.Services.AddHttpLogging(logging =>
+            //builder.Services.AddHttpLogging(logging =>            (!WIP!) Configuration of HttpLogger (!WIP!)
             //{
             //    logging.LoggingFields = HttpLoggingFields.All;
             //    logging.RequestHeaders.Add("sec-ch-ua");

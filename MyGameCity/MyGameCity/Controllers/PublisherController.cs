@@ -6,7 +6,7 @@ namespace MyGameCity.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PublisherController :ControllerBase
+    public class PublisherController : ControllerBase
     {
         [HttpGet("Publisher and their Games")]
         public ActionResult<Publisher> Get(string title)

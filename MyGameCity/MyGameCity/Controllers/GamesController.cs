@@ -11,12 +11,9 @@ namespace MyGameCity.Controllers
     [ApiController]
     public class GamesController : ControllerBase
     {
-        // GET: api/<GamesController>
         [HttpGet("GetDatabase")]
         public ActionResult<List<Games>> GetAll() => FakeDatabaseService.ModelDatabase;
         
-
-        // GET api/<GamesController>/5
         [HttpGet("Game by Id")]
         public ActionResult<Games> Get(Guid id)
         {
@@ -28,7 +25,6 @@ namespace MyGameCity.Controllers
             return game;
         }
 
-        // POST api/<GamesController>
         [HttpPost("Add game to database")]
         public IActionResult Create (Games game)
         {
@@ -36,7 +32,6 @@ namespace MyGameCity.Controllers
             return CreatedAtAction(nameof(Get), new {id = game.Id}, game);
         }
 
-        // PUT api/<GamesController>/5
         [HttpPut("Update existing game")]
         public IActionResult Update(Guid id,Games game)
         {
@@ -53,7 +48,6 @@ namespace MyGameCity.Controllers
             return NoContent();
         }
 
-        // DELETE api/<GamesController>/5
         [HttpDelete("Delete game from database")]
         public IActionResult Delete(Guid id)
         {

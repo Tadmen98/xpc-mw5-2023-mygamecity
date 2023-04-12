@@ -27,7 +27,7 @@ namespace MyGameCity.Services
                 .RuleFor(x => x.Ammount, f => f.Random.Number())
                 .RuleFor(x => x.Category, f => f.PickRandom(Categories))
                 .RuleFor(x => x.Ammount, f => f.Random.Number(0, 500))
-                //.RuleFor(x => x.Description, f => f.Commerce.ProductDescription())
+                .RuleFor(x => x.Description, f => f.Commerce.ProductDescription())
                 .RuleFor(x => x.Price, f => f.Random.Number(5, 100))
                 .RuleFor(x => x.Publisher, f => f.PickRandom(PublisherService.PublisherList))
                 .RuleFor(x => x.Developer, f => f.PickRandom(DeveloperService.DeveloperList))

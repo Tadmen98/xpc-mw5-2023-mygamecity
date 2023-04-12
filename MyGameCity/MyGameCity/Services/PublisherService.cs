@@ -5,7 +5,7 @@ namespace MyGameCity.Services
 {
     public class PublisherService
     {
-        public static Publisher publisher { get; set; }
+        //public static Publisher publisher { get; set; }   Might be used later
         public static List<Publisher> PublisherList = new List<Publisher>();
         public static List<Publisher> CreatePublisher(int numberOfTimeToGenerate)
         {
@@ -16,7 +16,7 @@ namespace MyGameCity.Services
                 .RuleFor(x => x.CountryOfOrigin, f => f.Address.Country());
             PublisherList = publisherFaker.Generate(numberOfTimeToGenerate);
             PublisherList.ForEach(x => x.ListOfGames = new List<string>());
-            //PublisherList.Add(publisher);
+            //PublisherList.Add(publisher);                     (!WIP!) Different implementation of creating publishers for games (!WIP!)
             //publisher.ListOfGames = new List<string>();
             return PublisherList;
         }

@@ -5,7 +5,7 @@ namespace MyGameCity.Services
 {
     public class DeveloperService
     {
-        public static Developer developer { get; set; }
+        //public static Developer developer { get; set; }   Might be used later
         public static List<Developer> DeveloperList = new List<Developer>();
         public static List<Developer> CreateDeveloper(int numberOfTimeToGenerate)
         {
@@ -16,7 +16,7 @@ namespace MyGameCity.Services
                 .RuleFor(x => x.CountryOfOrigin, f => f.Address.Country());
             DeveloperList = developerFaker.Generate(numberOfTimeToGenerate);
             DeveloperList.ForEach(x => x.ListOfGames = new List<string>());
-            //DeveloperList.Add(developer);
+            //DeveloperList.Add(developer);                     (!WIP!) Different implementation of creating developers for games (!WIP!)
             //developer.ListOfGames = new List<string>();
             return DeveloperList;
         }

@@ -11,8 +11,10 @@ using MyGameCity.Controllers;
 
 namespace MyGameCity.Services
 {
+    // todo-maintability use via singleton and DI
     public class FakeDatabaseService
     {
+        //todo-maintability why is this public field?
         public static List<Games> ModelDatabase;
         public static void CreateDatabase()
         {
@@ -32,8 +34,9 @@ namespace MyGameCity.Services
                 .RuleFor(x => x.Publisher, f => f.PickRandom(PublisherService.PublisherList))
                 .RuleFor(x => x.Developer, f => f.PickRandom(DeveloperService.DeveloperList))
                 .RuleFor(x => x.Review, f => ReviewService.CreateReview())
-                .RuleFor(x => x.Id, f => Guid.NewGuid());
+                .RuleFor(x => x.Id, f => f.Random.Guid() /* Guid.NewGuid()*/);
             ModelDatabase = gamesFaker.Generate(5);
+            //todo-cleancode commented code
             //foreach (var publisherFromList in PublisherService.PublisherList)        (!WIP!) Prototypes for different ways of creating publishers and developers (!WIP!)
             //{
             //    foreach (var game in ModelDatabase)

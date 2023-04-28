@@ -9,6 +9,7 @@ namespace MyGameCity
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            // todo-cleancode why is commented code here?
             //builder.Services.AddHttpLogging(logging =>            (!WIP!) Configuration of HttpLogger (!WIP!)
             //{
             //    logging.LoggingFields = HttpLoggingFields.All;

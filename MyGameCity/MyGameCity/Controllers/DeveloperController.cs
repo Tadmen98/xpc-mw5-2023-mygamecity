@@ -19,5 +19,6 @@ namespace MyGameCity.Controllers
             }
             return publisher;
         }
+        [Http]
     }
 }

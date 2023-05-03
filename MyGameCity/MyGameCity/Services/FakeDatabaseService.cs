@@ -12,7 +12,7 @@ namespace MyGameCity.Services
 {
     public class FakeDatabaseService
     {
-        public static List<Games> ModelDatabase;
+        public static List<Games> ModelDatabase { get; set; }
         public static void CreateDatabase()
         {
             if(ModelDatabase!=null)

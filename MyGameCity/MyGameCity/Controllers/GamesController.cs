@@ -33,13 +33,9 @@ namespace MyGameCity.Controllers
         }
 
         [HttpPut("Update existing game")]
-        public IActionResult Update(Guid id,Games game)
+        public IActionResult Update(Games game)
         {
-            if(id != game.Id) 
-            {
-                return BadRequest();
-            }
-            var existingGame = FakeDatabaseService.Get(id);
+            var existingGame = FakeDatabaseService.Get(game.Id);
             if(existingGame is null) 
             {
                 return NotFound();

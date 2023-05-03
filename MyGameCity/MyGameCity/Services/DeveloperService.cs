@@ -5,7 +5,7 @@ namespace MyGameCity.Services
 {
     public class DeveloperService
     {
-        public static List<Developer> DeveloperList = new List<Developer>();
+        public static List<Developer> DeveloperList { get; set; }
         public static List<Developer> CreateDeveloper(int numberOfTimeToGenerate)
         {
             var arrayOfDevelopers = new[] { "Coffee Stain Studio", "Square Enix", "RELOGIC", "343 studio", "Mojang" };

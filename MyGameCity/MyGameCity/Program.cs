@@ -9,16 +9,7 @@ namespace MyGameCity
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            //builder.Services.AddHttpLogging(logging =>            (!WIP!) Configuration of HttpLogger (!WIP!)
-            //{
-            //    logging.LoggingFields = HttpLoggingFields.All;
-            //    logging.RequestHeaders.Add("sec-ch-ua");
-            //    logging.ResponseHeaders.Add("MyResponseHeader");
-            //    logging.MediaTypeOptions.AddText("application/javascrispt");
-            //    logging.RequestBodyLogLimit = 4096;
-            //    logging.ResponseBodyLogLimit = 4096;
-            //});
-            // Add services to the container.
+            
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

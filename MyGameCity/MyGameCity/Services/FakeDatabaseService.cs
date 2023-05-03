@@ -7,7 +7,6 @@ using MyGameCity.DataModel;
 using System.Xml;
 using MyGameCity.Controllers;
 
-//Temporery Fake Database Solution
 
 namespace MyGameCity.Services
 {
@@ -34,23 +33,6 @@ namespace MyGameCity.Services
                 .RuleFor(x => x.Review, f => ReviewService.CreateReview())
                 .RuleFor(x => x.Id, f => Guid.NewGuid());
             ModelDatabase = gamesFaker.Generate(5);
-            //foreach (var publisherFromList in PublisherService.PublisherList)        (!WIP!) Prototypes for different ways of creating publishers and developers (!WIP!)
-            //{
-            //    foreach (var game in ModelDatabase)
-            //    {
-            //        PublisherService.AddGameToPublisher(publisherFromList, game);   
-            //    }
-            //}
-            //foreach (var developerFromList in DeveloperService.DeveloperList)
-            //{
-            //    foreach (var game in ModelDatabase)
-            //    {
-            //        DeveloperService.AddGameToDeveloper(developerFromList, game);
-            //    }
-            //}
-            //PublisherService.PublisherGames();
-            //DeveloperService.DeveloperGames();
-            //ModelDatabase.ForEach(Console.WriteLine);
             ModelDatabase.ForEach(x => x.Publisher.ListOfGames.Add(x.Title));
             ModelDatabase.ForEach(x => x.Developer.ListOfGames.Add(x.Title));
         }

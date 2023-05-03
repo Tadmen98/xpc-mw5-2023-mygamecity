@@ -18,7 +18,7 @@ namespace MyGameCity.Services
             if(ModelDatabase!=null)
                 ModelDatabase.Clear();
             Randomizer.Seed = new Random(7539743);
-            PublisherService.CreatePublisher(5);
+            PublisherService.CreatePublisherList(5);
             DeveloperService.CreateDeveloperList(5);
             var Categories = new[] { "Action", "Adventure", "RPG", "Casual", "Competetive" };
             var gamesFaker = new Faker<Games>()

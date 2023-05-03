@@ -31,8 +31,8 @@ namespace MyGameCity.Controllers
         [HttpDelete("Delete publisher")]
         public IActionResult Delete(string title)
         {
-            var developer = PublisherService.Get(title);
-            if (developer is null)
+            var publisher = PublisherService.Get(title);
+            if (publisher is null)
             {
                 return NotFound();
             }

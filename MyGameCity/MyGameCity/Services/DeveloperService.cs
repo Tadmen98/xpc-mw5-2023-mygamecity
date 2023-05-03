@@ -6,7 +6,7 @@ namespace MyGameCity.Services
     public class DeveloperService
     {
         public static List<Developer> DeveloperList { get; set; }
-        public static List<Developer> CreateDeveloper(int numberOfTimeToGenerate)
+        public static List<Developer> CreateDeveloperList(int numberOfTimeToGenerate)
         {
             var arrayOfDevelopers = new[] { "Coffee Stain Studio", "Square Enix", "RELOGIC", "343 studio", "Mojang" };
             var developerFaker = new Faker<Developer>()
@@ -17,6 +17,9 @@ namespace MyGameCity.Services
             DeveloperList.ForEach(x => x.ListOfGames = new List<string>());
             return DeveloperList;
         }
+        public static void CreateDeveloper(Developer developer) => DeveloperList.Add(developer);
+        public static void DeleteDeveloper(Developer developer) => DeveloperList.Remove(developer);
+        
         public static void DeveloperGames()
         {
             Random random = new Random();
@@ -44,5 +47,12 @@ namespace MyGameCity.Services
         }
         public static Developer Get(string title) => DeveloperList.FirstOrDefault(x => x.Title == title);
 
+        public static void Update(Developer developer)
+        {
+            var index = DeveloperList.FindIndex(x => x.Title == developer.Title);
+            if (index == -1)
+                return;
+            DeveloperList[index] = developer;
+        }
     }
 }

@@ -9,6 +9,8 @@ namespace MyGameCity.Controllers
     [ApiController]
     public class DeveloperController : ControllerBase
     {
+        [HttpGet("All developers")]
+        public ActionResult<List<Developer>> GetAll() => DeveloperService.DeveloperList;
         [HttpGet("Developer and their games")]
         public ActionResult<Developer> Get(string title)
         {
@@ -19,6 +21,12 @@ namespace MyGameCity.Controllers
             }
             return publisher;
         }
-        [Http]
+        [HttpPost("Create new developer")]
+        public IActionResult Create(Developer developer)
+        {
+            DeveloperService.CreateDeveloper(developer);
+            //return developer;
+            return NoContent();
+        }
     }
 }

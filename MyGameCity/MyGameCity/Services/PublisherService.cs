@@ -6,7 +6,7 @@ namespace MyGameCity.Services
     public class PublisherService
     {
         public static List<Publisher> PublisherList { get; set; }
-        public static List<Publisher> CreatePublisher(int numberOfTimeToGenerate)
+        public static List<Publisher> CreatePublisherList(int numberOfTimeToGenerate)
         {
             var arrayOfPublishers = new[] { "Epic Games", "Microsoft", "EA", "2K", "Square Enix", "Ubisoft", "Supergiant Games" };
             var publisherFaker = new Faker<Publisher>()
@@ -34,6 +34,8 @@ namespace MyGameCity.Services
                 }       
             }
         }
+        public static void CreatePublisher(Publisher publisher) => PublisherList.Add(publisher);
+        public static void DeletePublisher(Publisher publisher) => PublisherList.Remove(publisher);
         public static void AddGameToPublisher(Publisher publisherFromList, Games game)
         {
             if (publisherFromList.ListOfGames.Contains(game.Title))
@@ -43,5 +45,13 @@ namespace MyGameCity.Services
             publisherFromList.ListOfGames.Add(game.Title);
         }
         public static Publisher Get(string title) => PublisherList.FirstOrDefault(x => x.Title == title);
+
+        public static void Update(Publisher publisher)
+        {
+            var index = PublisherList.FindIndex(x => x.Title == publisher.Title);
+            if (index == -1)
+                return;
+            PublisherList[index] = publisher;
+        }
     }
 }

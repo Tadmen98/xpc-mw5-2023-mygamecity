@@ -29,7 +29,7 @@ namespace MyGameCity.Controllers
         public IActionResult Create (Games game)
         {
             FakeDatabaseService.Add(game);
-            return CreatedAtAction(nameof(Get), new {id = game.Id}, game);
+            return NoContent();
         }
 
         [HttpPut("Update existing game")]

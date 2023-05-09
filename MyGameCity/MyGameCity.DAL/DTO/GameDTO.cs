@@ -2,8 +2,25 @@
 
 namespace MyGameCity.DAL.DTO;
 
-public record GameEntity : EntityBase
+public record GameDTO : EntityBase
 {
+    public GameDTO()
+    {
+        
+    }
+
+    public GameDTO(GameEntity game)
+    {
+        Title = game.Title;
+        ImagePath = game.ImagePath;
+        Description = game.Description;
+        Price = game.Price;
+        Weight = game.Weight;
+        NumberInStock = game.NumberInStock;
+        Category = game.Category;
+        Developer = game.Developer;
+    }
+
     public required string Title { get; init; }
     public string ImagePath { get; set; }
     public string Description { get; set; }

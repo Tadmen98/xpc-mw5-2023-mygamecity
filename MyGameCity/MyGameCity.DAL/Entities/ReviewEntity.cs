@@ -1,7 +1,19 @@
-﻿namespace MyGameCity.DAL.Entities;
+﻿using MyGameCity.DAL.DTO;
+
+namespace MyGameCity.DAL.Entities;
 
 public record ReviewEntity: EntityBase
 {
+    public ReviewEntity() { }
+
+    public ReviewEntity(ReviewDTO review)
+    {
+        StarsCount = review.StarsCount;
+        Title = review.Title;
+        Description = review.Description;
+        // TODO: non nullable property
+    }
+
     public int StarsCount { get; set; }
     public string Title { get; set; }
     public string Description { get; set; }

@@ -2,8 +2,20 @@
 
 namespace MyGameCity.DAL.DTO;
 
-public record DeveloperEntity : EntityBase
+public record DeveloperDTO : EntityBase
 {
+    public DeveloperDTO()
+    {
+
+    }
+
+    public DeveloperDTO(DeveloperEntity entity)
+    {
+        Title = entity.Title;
+        Description = entity.Description;
+        LogoImg = entity.LogoImg;
+        CountryOfOrigin = entity.CountryOfOrigin;
+    }
     public string Title { get; set; }
     public string Description { get; set; }
     public string LogoImg { get; set; }

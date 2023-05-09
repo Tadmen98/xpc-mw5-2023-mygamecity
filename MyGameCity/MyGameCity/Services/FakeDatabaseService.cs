@@ -12,7 +12,7 @@ namespace MyGameCity.Services
 {
     public class FakeDatabaseService
     {
-        public static List<Games> ModelDatabase { get; set; }
+        public static List<Game> ModelDatabase { get; set; }
         public static void CreateDatabase()
         {
             if(ModelDatabase!=null)
@@ -21,7 +21,7 @@ namespace MyGameCity.Services
             PublisherService.CreatePublisherList(5);
             DeveloperService.CreateDeveloperList(5);
             var Categories = new[] { "Action", "Adventure", "RPG", "Casual", "Competetive" };
-            var gamesFaker = new Faker<Games>()
+            var gamesFaker = new Faker<Game>()
                 .RuleFor(x => x.Title, f => f.Commerce.ProductName())
                 .RuleFor(x => x.Ammount, f => f.Random.Number())
                 .RuleFor(x => x.Category, f => f.PickRandom(Categories))
@@ -36,8 +36,8 @@ namespace MyGameCity.Services
             ModelDatabase.ForEach(x => x.Publisher.ListOfGames.Add(x.Title));
             ModelDatabase.ForEach(x => x.Developer.ListOfGames.Add(x.Title));
         }
-        public static Games Get(Guid id) => ModelDatabase.FirstOrDefault(x => x.Id == id);
-        public static void Add(Games game) => ModelDatabase.Add(game);
+        public static Game Get(Guid id) => ModelDatabase.FirstOrDefault(x => x.Id == id);
+        public static void Add(Game game) => ModelDatabase.Add(game);
         public static void Delete(Guid id)
         {
             var game = Get(id);
@@ -45,7 +45,7 @@ namespace MyGameCity.Services
                 return;
             ModelDatabase.Remove(game);
         }
-        public static void Update(Games game)
+        public static void Update(Game game)
         {
             var index = ModelDatabase.FindIndex(x=>x.Id == game.Id);
             if (index == -1)

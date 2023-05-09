@@ -1,4 +1,4 @@
-﻿namespace MyGameCity.DAL.Entities;
+﻿  namespace MyGameCity.DAL.Entities;
 
 public record GameEntity : EntityBase
 {

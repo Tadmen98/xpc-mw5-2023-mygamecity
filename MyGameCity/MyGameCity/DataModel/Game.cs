@@ -2,7 +2,7 @@
 
 namespace MyGameCity.DataModel
 {
-    public class Games
+    public class Game
     {
         public Guid Id { get; set; }
         public string Title { get; set; }

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MyGameCity.Services;
 using MyGameCity.DataModel;
+using MyGameCity.Services.GameService;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -9,13 +10,21 @@ namespace MyGameCity.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GamesController : ControllerBase
+    public class GameController : ControllerBase
     {
+        private readonly IGameService _gameService;
+
+        public GameController(IGameService gameService)
+        {
+            _gameService = gameService;
+            // TODO: implement all functions using new game
+        }
+
         [HttpGet("GetDatabase")]
-        public ActionResult<List<Games>> GetAll() => FakeDatabaseService.ModelDatabase;
+        public ActionResult<List<Game>> GetAll() => FakeDatabaseService.ModelDatabase;
         
         [HttpGet("Game by Id")]
-        public ActionResult<Games> Get(Guid id)
+        public ActionResult<Game> Get(Guid id)
         {
             var game = FakeDatabaseService.Get(id);
             if(game == null) 
@@ -26,14 +35,14 @@ namespace MyGameCity.Controllers
         }
 
         [HttpPost("Add game to database")]
-        public IActionResult Create (Games game)
+        public IActionResult Create (Game game)
         {
             FakeDatabaseService.Add(game);
             return NoContent();
         }
 
         [HttpPut("Update existing game")]
-        public IActionResult Update(Games game)
+        public IActionResult Update(Game game)
         {
             var existingGame = FakeDatabaseService.Get(game.Id);
             if(existingGame is null) 

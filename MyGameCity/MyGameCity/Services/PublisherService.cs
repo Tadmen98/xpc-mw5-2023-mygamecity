@@ -36,7 +36,7 @@ namespace MyGameCity.Services
         }
         public static void CreatePublisher(Publisher publisher) => PublisherList.Add(publisher);
         public static void DeletePublisher(Publisher publisher) => PublisherList.Remove(publisher);
-        public static void AddGameToPublisher(Publisher publisherFromList, Games game)
+        public static void AddGameToPublisher(Publisher publisherFromList, Game game)
         {
             if (publisherFromList.ListOfGames.Contains(game.Title))
             {

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyGameCity.DataModel;
 using MyGameCity.Services;
+using MyGameCity.Services.DevService;
 
 namespace MyGameCity.Controllers
 {
@@ -10,6 +11,13 @@ namespace MyGameCity.Controllers
     [ApiController]
     public class DeveloperController : ControllerBase
     {
+        private readonly IDeveloperService _developerService;
+
+        public DeveloperController(IDeveloperService develper_service)
+        {
+            _developerService = develper_service;
+            // TODO: implement all functions using new game
+        }
         [HttpGet("All developers")]
         public ActionResult<List<Developer>> GetAll() => DeveloperService.DeveloperList;
         [HttpGet("Developer and their games")]

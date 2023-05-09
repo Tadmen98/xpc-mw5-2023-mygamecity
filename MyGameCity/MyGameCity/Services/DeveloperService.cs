@@ -37,7 +37,7 @@ namespace MyGameCity.Services
                 }
             }
         }
-        public static void AddGameToDeveloper(Developer developerfromlist, Games game)
+        public static void AddGameToDeveloper(Developer developerfromlist, Game game)
         {
             if (developerfromlist.ListOfGames.Contains(game.Title))
             {

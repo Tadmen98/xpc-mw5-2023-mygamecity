@@ -1,9 +1,16 @@
-﻿using MyGameCity.DataModel;
+﻿using MyGameCity.DAL.Data;
+using MyGameCity.DataModel;
 
 namespace MyGameCity.Services.DevService
 {
     public class DeveloperService : IDeveloperService
     {
+        private readonly DataContext _context;
+
+        public DeveloperService(DataContext context)
+        {
+            _context = context;
+        }
         public Developer AddCategory(Developer developer)
         {
             throw new NotImplementedException();

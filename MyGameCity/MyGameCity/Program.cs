@@ -1,5 +1,6 @@
 
 using Microsoft.AspNetCore.HttpLogging;
+using MyGameCity.DAL.Data;
 using MyGameCity.Services.CatService;
 using MyGameCity.Services.DevService;
 using MyGameCity.Services.GameService;
@@ -23,6 +24,7 @@ namespace MyGameCity
             builder.Services.AddScoped<IDeveloperService, DeveloperService>();
             builder.Services.AddScoped<IGameService, GameService>();    
             builder.Services.AddScoped<IReviewService, ReviewService>();
+            builder.Services.AddDbContext<DataContext>();
 
             var app = builder.Build();
 

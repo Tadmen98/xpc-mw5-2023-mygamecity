@@ -11,7 +11,7 @@ namespace MyGameCity.Controllers
     {
         private readonly ICategoryService _categoryService;
 
-        public ReviewController(IGameService categoryService)
+        public CategoryController(ICategoryService categoryService)
         {
             _categoryService = categoryService;
             // TODO: implement all functions using new game

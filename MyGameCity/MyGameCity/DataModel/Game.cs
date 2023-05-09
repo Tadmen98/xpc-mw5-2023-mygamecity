@@ -10,7 +10,7 @@ namespace MyGameCity.DataModel
         public double Price { get; set; }
         public int Ammount { get; set; }
         public string Category { get; set; }
-        public Publisher Publisher { get; set; }
+        //public Publisher Publisher { get; set; }
         public Developer Developer { get; set; }   
         public Review Review { get; set; }
         public override string ToString()

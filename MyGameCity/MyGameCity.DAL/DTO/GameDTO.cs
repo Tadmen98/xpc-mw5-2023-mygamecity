@@ -1,4 +1,6 @@
-﻿  namespace MyGameCity.DAL.Entities;
+﻿using MyGameCity.DAL.Entities;
+
+namespace MyGameCity.DAL.DTO;
 
 public record GameEntity : EntityBase
 {
@@ -10,6 +12,6 @@ public record GameEntity : EntityBase
     public int NumberInStock { get; set; }
     public List<CategoryEntity> Category { get; set; }
     public List<DeveloperEntity> Developer { get; set; }
-    public List<ReviewEntity> Reviews { get; set; }
+    //public List<ReviewEntity> Reviews { get; set; }
 
 }

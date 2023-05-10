@@ -34,16 +34,12 @@ namespace MyGameCity_API_IntegrationTests.Controller_Tests
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
             //var data = JsonConvert.DeserializeObject<IEnumerable<GameEntity>>(await response.Content.ReadAsStringAsync());
-
             //Assert.Collection((data as IEnumerable<GameEntity>)!,
             //    r =>
             //    {
             //        Assert.Equal("3fa85f64-5717-4562-b3fc-2c963f66afb6", r.Id);
             //        Assert.Equal("string", r.ImagePath);
             //    }
-
-
-
             //    );
         }
 

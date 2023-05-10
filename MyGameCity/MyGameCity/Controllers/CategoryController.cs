@@ -16,15 +16,14 @@ namespace MyGameCity.Controllers
         public CategoryController(ICategoryService categoryService)
         {
             _categoryService = categoryService;
-            // TODO: implement all functions using new game
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<CategoryEntity>>> GetbyId(Guid id)
+        public async Task<ActionResult<List<CategoryEntity>>> GetCategoryById(Guid id)
         {
             var category = _categoryService.GetCategoryById(id);
             if (category == null)
-                return NotFound("Reviews not found");
+                return NotFound("Controller not found");
 
             return Ok(category);
         }
@@ -34,17 +33,17 @@ namespace MyGameCity.Controllers
         {
             var category = _categoryService.GetAllCategories();
             if (category == null)
-                return NotFound("Reviews not found");
+                return NotFound("Controller not found");
 
             return Ok(category);
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(CategoryDTO category)
+        public async Task<ActionResult> CreateCategory(CategoryDTO category)
         {
             var result = _categoryService.AddCategory(category);
 
-            return Ok("review was created");
+            return Ok("Controller was created");
         }
 
         [HttpPut("{id}")]
@@ -52,7 +51,7 @@ namespace MyGameCity.Controllers
         {
             var result = _categoryService.UpdateCategory(category);
 
-            return Ok("review was updated");
+            return Ok("Controller was updated");
         }
 
         [HttpDelete("{id}")]
@@ -61,9 +60,9 @@ namespace MyGameCity.Controllers
             var result = _categoryService.DeleteCategory(id);
 
             if (result == null)
-                return NotFound("Reviews not found");
+                return NotFound("Controller not found");
 
-            return Ok("Review was deleted");
+            return Ok("Controller was deleted");
         }
     }
 }

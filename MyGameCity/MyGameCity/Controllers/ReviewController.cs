@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using MyGameCity.DAL.DTO;
 using MyGameCity.DAL.Entities;
+using MyGameCity.DAL.QueryObjects.Filters;
+using MyGameCity.DAL.QueryObjects;
 using MyGameCity.DataModel;
 using MyGameCity.Services.CatService;
 using MyGameCity.Services.GameService;
@@ -14,11 +16,12 @@ namespace MyGameCity.Controllers
     public class ReviewController : ControllerBase
     {
         private readonly IReviewService _reviewService;
+        private readonly GetReviewFilterQuery _getReviewFilterQuery;
 
-        public ReviewController(IReviewService reviewService)
+        public ReviewController(IReviewService reviewService, GetReviewFilterQuery getReviewFilterQuery)
         {
             _reviewService = reviewService;
-            // TODO: implement all functions using new game
+            _getReviewFilterQuery = getReviewFilterQuery;
         }
 
         [HttpGet("{id}")]
@@ -42,8 +45,18 @@ namespace MyGameCity.Controllers
             return Ok(reviews);
         }
 
+        [HttpPost("Query")]
+        public async Task<ActionResult<List<GameEntity>>> GetFilteredGames(ReviewFilter filter)
+        {
+            var review = _getReviewFilterQuery.Execute(filter);
+            if (review == null)
+                return NotFound("Games not found");
+
+            return Ok(review);
+        }
+
         [HttpPost]
-        public async Task<ActionResult> Create(ReviewDTO review)
+        public async Task<ActionResult> CreateReview(ReviewDTO review)
         {
             var result = _reviewService.AddReview(review);
 

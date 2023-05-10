@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyGameCity.DAL.DTO;
 using MyGameCity.DAL.Entities;
+using MyGameCity.DAL.QueryObjects;
+using MyGameCity.DAL.QueryObjects.Filters;
 using MyGameCity.DataModel;
 using MyGameCity.Services;
 using MyGameCity.Services.DevService;
@@ -14,11 +16,12 @@ namespace MyGameCity.Controllers
     public class DeveloperController : ControllerBase
     {
         private readonly IDeveloperService _developerService;
+        private readonly GetDeveloperFilterQuery _getDeveloperFilterQuery;
 
-        public DeveloperController(IDeveloperService develper_service)
+        public DeveloperController(IDeveloperService develper_service, GetDeveloperFilterQuery getDeveloperFilterQuery)
         {
             _developerService = develper_service;
-            // TODO: implement all functions using new game
+            _getDeveloperFilterQuery = getDeveloperFilterQuery;
         }
 
         [HttpGet("{id}")]
@@ -41,8 +44,18 @@ namespace MyGameCity.Controllers
             return Ok(developer);
         }
 
+        [HttpPost("Query")]
+        public async Task<ActionResult<List<DeveloperEntity>>> GetFilteredDevelopers(DeveloperFilter filter)
+        {
+            var developer = _getDeveloperFilterQuery.Execute(filter);
+            if (developer == null)
+                return NotFound("Games not found");
+
+            return Ok(developer);
+        }
+
         [HttpPost]
-        public async Task<ActionResult> Create(DeveloperDTO developer)
+        public async Task<ActionResult> CreateDeveloper(DeveloperDTO developer)
         {
             var result = _developerService.AddDeveloper(developer);
 
@@ -50,7 +63,7 @@ namespace MyGameCity.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateGame(Guid id, DeveloperDTO developer)
+        public async Task<ActionResult> UpdateDeveloper(Guid id, DeveloperDTO developer)
         {
             var result = _developerService.UpdateDeveloper(developer);
 
@@ -58,7 +71,7 @@ namespace MyGameCity.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteReview(Guid id)
+        public async Task<ActionResult> DeleteDeveloper(Guid id)
         {
             var result = _developerService.DeleteDeveloper(id);
 
@@ -67,46 +80,5 @@ namespace MyGameCity.Controllers
 
             return Ok("Review was deleted");
         }
-        //[HttpGet("All developers")]
-        //public ActionResult<List<Developer>> GetAll() => DeveloperService.DeveloperList;
-        //[HttpGet("Developer and their games")]
-        //public ActionResult<Developer> Get(string title)
-        //{
-        //    var publisher = DeveloperService.Get(title);
-        //    if (publisher == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return publisher;
-        //}
-        //[HttpPost("Create new developer")]
-        //public IActionResult Create(Developer developer)
-        //{
-        //    DeveloperService.CreateDeveloper(developer);
-
-        //    return NoContent();
-        //}
-        //[HttpDelete("Delete Developer")]
-        //public IActionResult Delete(string title) 
-        //{
-        //    var developer = DeveloperService.Get(title);
-        //    if (developer is null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    DeveloperService.DeleteDeveloper(developer);
-        //    return NoContent();
-        //}
-        //[HttpPut("Update Developer")]
-        //public IActionResult Update(Developer developer) 
-        //{
-        //    var existingGame = DeveloperService.Get(developer.Title);
-        //    if (existingGame is null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    DeveloperService.Update(developer);
-        //    return NoContent();
-        //}
     }
 }

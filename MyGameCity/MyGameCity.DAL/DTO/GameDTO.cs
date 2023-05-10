@@ -22,7 +22,7 @@ public record GameDTO : EntityBase
         //Developer = game.Developer;
     }
 
-    public string Title { get; init; }
+    public string Title { get; set; } //changed from init
     public string ImagePath { get; set; }
     public string Description { get; set; }
     public int Price { get; set; }

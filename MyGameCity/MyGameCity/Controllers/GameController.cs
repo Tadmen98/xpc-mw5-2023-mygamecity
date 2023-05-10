@@ -5,8 +5,9 @@ using MyGameCity.DataModel;
 using MyGameCity.Services.GameService;
 using MyGameCity.DAL.Entities;
 using MyGameCity.DAL.DTO;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using MyGameCity.DAL.QueryObjects;
+using MyGameCity.DAL.QueryObjects.Filters;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace MyGameCity.Controllers
 {
@@ -15,30 +16,42 @@ namespace MyGameCity.Controllers
     public class GameController : ControllerBase
     {
         private readonly IGameService _gameService;
+        private readonly GetGamesFilterQuery _getGameFilterQuery;
+        //private readonly IQuery<GameEntity, GameFilter> _getGameFilterQuery;
 
-        public GameController(IGameService gameService)
+        public GameController(IGameService gameService, GetGamesFilterQuery getGameFilterQuery)
         {
             _gameService = gameService;
-            // TODO: implement all functions using new game
+            _getGameFilterQuery = getGameFilterQuery;
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<GameEntity>> GetbyId(Guid id)
+        public async Task<ActionResult<GameEntity>> GetGameById(Guid id)
         {
             var game = _gameService.GetGameById(id);
             if (game == null)
-                return NotFound("Reviews not found");
+                return NotFound("Games not found");
 
             return Ok(game);
         }
 
-        [HttpGet]
+        [HttpGet("all")]
         public async Task<ActionResult<GameEntity>> GetAllGames()
         {
             var games = _gameService.GetAllGames();
             if (games == null)
-                return NotFound("Reviews not found");
+                return NotFound("Games not found");
 
+            return Ok(games);
+        }
+
+        [HttpPost("Query")]
+        public async Task<ActionResult<List<GameEntity>>> GetFilteredGames(GameFilter filter)
+        {
+            var games = _getGameFilterQuery.Execute(filter);
+            if (games == null)
+                return NotFound("Games not found");
+            Console.WriteLine("Called query");
             return Ok(games);
         }
 
@@ -47,7 +60,7 @@ namespace MyGameCity.Controllers
         {
             var result = _gameService.AddGame(game);
 
-            return Ok("review was created");
+            return Ok("Games was created");
         }
 
         [HttpPut("{id}")]
@@ -55,7 +68,7 @@ namespace MyGameCity.Controllers
         {
             var result = _gameService.UpdateGame(game);
 
-            return Ok("review was updated");
+            return Ok("Games was updated");
         }
 
         [HttpDelete("{id}")]
@@ -64,55 +77,9 @@ namespace MyGameCity.Controllers
             var result = _gameService.DeleteGame(id);
 
             if (result == null)
-                return NotFound("Reviews not found");
+                return NotFound("Games not found");
 
-            return Ok("Review was deleted");
+            return Ok("Games was deleted");
         }
-
-        //[HttpGet("GetDatabase")]
-        //public ActionResult<List<Game>> GetAll() => FakeDatabaseService.ModelDatabase;
-
-        //[HttpGet("Game by Id")]
-        //public ActionResult<Game> Get(Guid id)
-        //{
-        //    var game = FakeDatabaseService.Get(id);
-        //    if(game == null) 
-        //    {
-        //        return NotFound();
-        //    }
-        //    return game;
-        //}
-
-        //[HttpPost("Add game to database")]
-        //public IActionResult Create (Game game)
-        //{
-        //    FakeDatabaseService.Add(game);
-        //    return NoContent();
-        //}
-
-        //[HttpPut("Update existing game")]
-        //public IActionResult Update(Game game)
-        //{
-        //    var existingGame = FakeDatabaseService.Get(game.Id);
-        //    if(existingGame is null) 
-        //    {
-        //        return NotFound();
-        //    }
-        //    FakeDatabaseService.Update(game);
-        //    return NoContent();
-        //}
-
-        //[HttpDelete("Delete game from database")]
-        //public IActionResult Delete(Guid id)
-        //{
-        //    var game = FakeDatabaseService.Get(id);
-
-        //    if(game is null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    FakeDatabaseService.Delete(id);
-        //    return NoContent();
-        //}
     }
 }

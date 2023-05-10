@@ -1,5 +1,6 @@
 
 using Microsoft.AspNetCore.HttpLogging;
+using Microsoft.EntityFrameworkCore;
 using MyGameCity.DAL.Data;
 using MyGameCity.Services.CatService;
 using MyGameCity.Services.DevService;
@@ -24,7 +25,11 @@ namespace MyGameCity
             builder.Services.AddScoped<IDeveloperService, DeveloperService>();
             builder.Services.AddScoped<IGameService, GameService>();    
             builder.Services.AddScoped<IReviewService, ReviewService>();
-            builder.Services.AddDbContext<DataContext>();
+            builder.Services.AddDbContext<DataContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
+            
 
             var app = builder.Build();
 

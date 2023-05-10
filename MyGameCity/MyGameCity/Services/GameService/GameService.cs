@@ -3,6 +3,7 @@ using MyGameCity.DAL.Data;
 using MyGameCity.DAL.DTO;
 using MyGameCity.DAL.Entities;
 
+
 namespace MyGameCity.Services.GameService
 {
     public class GameService : IGameService
@@ -12,6 +13,7 @@ namespace MyGameCity.Services.GameService
         {
             _context = context;
         }
+        
         public GameEntity AddGame(GameDTO game_dto)
         {
             List<CategoryEntity> categories = _context.Categories.Where(c => game_dto.CategoryIds.Contains(c.Id)).ToList();

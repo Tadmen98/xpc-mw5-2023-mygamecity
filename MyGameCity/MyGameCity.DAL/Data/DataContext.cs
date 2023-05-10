@@ -22,11 +22,11 @@ public class DataContext : DbContext
 
     public DbSet<DeveloperEntity> Developer { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        base.OnConfiguring(optionsBuilder);
-        optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=master4;Trusted_Connection=True;TrustServerCertificate=True;");//TrustServerCertificate=true?
-    }
+    //protected override void OnConfiguring(DbContextOptionsBuilder optionsbuilder)
+    //{
+    //    base.OnConfiguring(optionsbuilder);
+    //    optionsbuilder.UseSqlServer("server=localhost\\sqlexpress;database=TestDatabase;trusted_connection=true;trustservercertificate=true;");//trustservercertificate=true?
+    //}
     //TODO: remove harcoded path
     //TODO: replace with variable databaseName
 }

@@ -32,9 +32,11 @@ namespace MyGameCity.Services.RevService
             return review;
         }
 
-        public List<ReviewEntity> GetAllReviews()
+        public ReviewEntity GetReviewById(Guid id)
         {
-            throw new NotImplementedException();
+            var review = _context.Review.Where(c => c.Id == id).First();
+            //var review = new ReviewEntity() { };
+            return review;
         }
 
         public List<ReviewEntity> GetbyGameId(Guid game_id)

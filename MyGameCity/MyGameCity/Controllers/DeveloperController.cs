@@ -22,9 +22,19 @@ namespace MyGameCity.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<GameEntity>>> GetbyId(Guid id)
+        public async Task<ActionResult<List<DeveloperEntity>>> GetbyId(Guid id)
         {
             var developer = _developerService.GetDeveloperById(id);
+            if (developer == null)
+                return NotFound("Reviews not found");
+
+            return Ok(developer);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<DeveloperEntity>>> GetAllDevelopers()
+        {
+            var developer = _developerService.GetAllDevelopers();
             if (developer == null)
                 return NotFound("Reviews not found");
 

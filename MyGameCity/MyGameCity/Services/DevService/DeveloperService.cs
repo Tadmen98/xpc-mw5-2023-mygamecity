@@ -36,7 +36,8 @@ namespace MyGameCity.Services.DevService
 
         public List<DeveloperEntity> GetAllDevelopers()
         {
-            throw new NotImplementedException();
+            var developers = _context.Developer.ToList();
+            return developers;
         }
 
         public DeveloperEntity GetDeveloperById(Guid id)

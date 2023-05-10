@@ -21,8 +21,19 @@ namespace MyGameCity.Controllers
             // TODO: implement all functions using new game
         }
 
-        [HttpGet("{game_id}")]
-        public async Task<ActionResult<List<GameEntity>>> GetbyGameId(Guid game_id)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ReviewEntity>> GetReviewById(Guid id)
+        {
+            var reviews = _reviewService.GetReviewById(id);
+            if (reviews == null)
+                return NotFound("Reviews not found");
+
+            return Ok(reviews);
+            //return Ok();
+        }
+
+        [HttpGet("bygame/{game_id}")]
+        public async Task<ActionResult<List<ReviewEntity>>> GetbyGameId(Guid game_id)
         {
             var reviews = _reviewService.GetbyGameId(game_id);
             if (reviews == null)

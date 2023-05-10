@@ -23,13 +23,23 @@ namespace MyGameCity.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<GameEntity>>> GetbyId(Guid id)
+        public async Task<ActionResult<GameEntity>> GetbyId(Guid id)
         {
             var game = _gameService.GetGameById(id);
             if (game == null)
                 return NotFound("Reviews not found");
 
             return Ok(game);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<GameEntity>> GetAllGames()
+        {
+            var games = _gameService.GetAllGames();
+            if (games == null)
+                return NotFound("Reviews not found");
+
+            return Ok(games);
         }
 
         [HttpPost]

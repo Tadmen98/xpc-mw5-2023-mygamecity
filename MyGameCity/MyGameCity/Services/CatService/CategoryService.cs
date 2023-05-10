@@ -1,4 +1,5 @@
-﻿using MyGameCity.DAL.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using MyGameCity.DAL.Data;
 using MyGameCity.DAL.DTO;
 using MyGameCity.DAL.Entities;
 using MyGameCity.DataModel;
@@ -35,7 +36,8 @@ namespace MyGameCity.Services.CatService
 
         public List<CategoryEntity> GetAllCategories()
         {
-            throw new NotImplementedException();
+            var categories = _context.Categories.ToList();
+            return categories;
         }
 
         public CategoryEntity GetCategoryById(Guid id)

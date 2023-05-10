@@ -38,7 +38,8 @@ namespace MyGameCity.Services.GameService
 
         public List<GameEntity> GetAllGames()
         {
-            throw new NotImplementedException();
+            var games = _context.Game.ToList();
+            return games;
         }
 
         public GameEntity GetGameById(Guid id)

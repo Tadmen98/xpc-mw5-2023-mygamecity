@@ -20,9 +20,19 @@ namespace MyGameCity.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<GameEntity>>> GetbyId(Guid id)
+        public async Task<ActionResult<List<CategoryEntity>>> GetbyId(Guid id)
         {
             var category = _categoryService.GetCategoryById(id);
+            if (category == null)
+                return NotFound("Reviews not found");
+
+            return Ok(category);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<CategoryEntity>>> GetAllCategories()
+        {
+            var category = _categoryService.GetAllCategories();
             if (category == null)
                 return NotFound("Reviews not found");
 

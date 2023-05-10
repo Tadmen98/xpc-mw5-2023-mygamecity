@@ -6,7 +6,7 @@ namespace MyGameCity.Services.RevService
 {
     public interface IReviewService
     {
-        List<ReviewEntity> GetAllReviews();
+        ReviewEntity GetReviewById(Guid id);
 
         List<ReviewEntity> GetbyGameId(Guid game_id);
         //ReviewEntity GetGameById(Guid id);

@@ -21,5 +21,5 @@ public record DeveloperDTO : EntityBase
     public string Description { get; set; }
     public string LogoImg { get; set; }
     public string CountryOfOrigin { get; set;} //TODO: replace with class not string
-    //public List<GameEntity> GameList { get; set; }
+    //public List<Guid> GameIds { get; set; }
 }

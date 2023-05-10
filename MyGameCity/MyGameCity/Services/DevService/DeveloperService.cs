@@ -13,14 +13,25 @@ namespace MyGameCity.Services.DevService
         {
             _context = context;
         }
-        public DeveloperEntity AddDeveloper(DeveloperDTO developer)
+        public DeveloperEntity AddDeveloper(DeveloperDTO developer_dto)
         {
-            throw new NotImplementedException();
+            //List<GameEntity> games = _context.Game.Where(c => developer_dto.GameIds.Contains(c.Id)).ToList();
+
+            var developer = new DeveloperEntity(developer_dto) {};
+            _context.Developer.Add(developer);
+            _context.SaveChanges();
+            return developer;
         }
 
         public DeveloperEntity DeleteDeveloper(Guid id)
         {
-            throw new NotImplementedException();
+            var developer = _context.Developer.Find(id);
+            if (developer is null)
+                return null;
+
+            _context.Developer.Remove(developer);
+            _context.SaveChanges();
+            return developer;
         }
 
         public List<DeveloperEntity> GetAllDevelopers()
@@ -34,9 +45,18 @@ namespace MyGameCity.Services.DevService
             return developer;
         }
 
-            public DeveloperEntity UpdateDeveloper(DeveloperDTO developer)
+        public DeveloperEntity UpdateDeveloper(DeveloperDTO developer_dto)
         {
-            throw new NotImplementedException();
+            var developer = _context.Developer.Find(developer_dto.Id);
+            if (developer == null)
+                return null;
+            developer.Title = developer_dto.Title;
+            developer.Description = developer_dto.Description;
+            developer.LogoImg = developer_dto.LogoImg;
+            developer.CountryOfOrigin = developer_dto.CountryOfOrigin;
+
+            _context.SaveChanges();
+            return developer;
         }
     }
 }

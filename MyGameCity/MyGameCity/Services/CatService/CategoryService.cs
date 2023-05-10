@@ -1,4 +1,6 @@
 ﻿using MyGameCity.DAL.Data;
+using MyGameCity.DAL.DTO;
+using MyGameCity.DAL.Entities;
 using MyGameCity.DataModel;
 
 namespace MyGameCity.Services.CatService
@@ -12,27 +14,27 @@ namespace MyGameCity.Services.CatService
             _context = context;
         }
 
-        public Category AddCategory(Category category)
+        public CategoryEntity AddCategory(CategoryDTO category)
         {
             throw new NotImplementedException();
         }
 
-        public Category DeleteCategory(Guid id)
+        public CategoryEntity DeleteCategory(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public List<Category> GetAllCategories()
+        public List<CategoryEntity> GetAllCategories()
         {
             throw new NotImplementedException();
         }
 
-        public Category GetCategoryById(Guid id)
+        public CategoryEntity GetCategoryById(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public Category UpdateCategory(Category category)
+        public CategoryEntity UpdateCategory(CategoryDTO category)
         {
             throw new NotImplementedException();
         }

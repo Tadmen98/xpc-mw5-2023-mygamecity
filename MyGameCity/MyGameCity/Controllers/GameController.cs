@@ -33,7 +33,7 @@ namespace MyGameCity.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(GameDTO game)
+        public async Task<ActionResult> CreateGame(GameDTO game)
         {
             var result = _gameService.AddGame(game);
 
@@ -49,7 +49,7 @@ namespace MyGameCity.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteReview(Guid id)
+        public async Task<ActionResult> DeleteGame(Guid id)
         {
             var result = _gameService.DeleteGame(id);
 

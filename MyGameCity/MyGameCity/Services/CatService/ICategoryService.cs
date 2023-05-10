@@ -1,16 +1,18 @@
-﻿using MyGameCity.DataModel;
+﻿using MyGameCity.DAL.DTO;
+using MyGameCity.DAL.Entities;
+using MyGameCity.DataModel;
 
 namespace MyGameCity.Services.CatService
 {
     public interface ICategoryService
     {
-        List<Category> GetAllCategories();
-        Category GetCategoryById(Guid id);
+        List<CategoryEntity> GetAllCategories();
+        CategoryEntity GetCategoryById(Guid id);
 
-        Category AddCategory(Category category);
+        CategoryEntity AddCategory(CategoryDTO category);
 
-        Category UpdateCategory(Category category);
+        CategoryEntity UpdateCategory(CategoryDTO category);
 
-        Category DeleteCategory(Guid id);
+        CategoryEntity DeleteCategory(Guid id);
     }
 }

@@ -12,8 +12,8 @@ using MyGameCity.DAL.Data;
 namespace MyGameCity.DAL.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230509182226_GameReview")]
-    partial class GameReview
+    [Migration("20230510060343_one_dev_full")]
+    partial class one_dev_full
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -38,21 +38,6 @@ namespace MyGameCity.DAL.Migrations
                     b.HasIndex("GamesId");
 
                     b.ToTable("CategoryEntityGameEntity");
-                });
-
-            modelBuilder.Entity("DeveloperEntityGameEntity", b =>
-                {
-                    b.Property<Guid>("DeveloperId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("GameListId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("DeveloperId", "GameListId");
-
-                    b.HasIndex("GameListId");
-
-                    b.ToTable("DeveloperEntityGameEntity");
                 });
 
             modelBuilder.Entity("MyGameCity.DAL.Entities.CategoryEntity", b =>
@@ -94,7 +79,7 @@ namespace MyGameCity.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DeveloperEntity");
+                    b.ToTable("Developer");
                 });
 
             modelBuilder.Entity("MyGameCity.DAL.Entities.GameEntity", b =>
@@ -106,6 +91,9 @@ namespace MyGameCity.DAL.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("DeveloperId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ImagePath")
                         .IsRequired()
@@ -125,6 +113,8 @@ namespace MyGameCity.DAL.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DeveloperId");
 
                     b.ToTable("Game");
                 });
@@ -171,19 +161,15 @@ namespace MyGameCity.DAL.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("DeveloperEntityGameEntity", b =>
+            modelBuilder.Entity("MyGameCity.DAL.Entities.GameEntity", b =>
                 {
-                    b.HasOne("MyGameCity.DAL.Entities.DeveloperEntity", null)
-                        .WithMany()
+                    b.HasOne("MyGameCity.DAL.Entities.DeveloperEntity", "Developer")
+                        .WithMany("GameList")
                         .HasForeignKey("DeveloperId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MyGameCity.DAL.Entities.GameEntity", null)
-                        .WithMany()
-                        .HasForeignKey("GameListId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Developer");
                 });
 
             modelBuilder.Entity("MyGameCity.DAL.Entities.ReviewEntity", b =>
@@ -195,6 +181,11 @@ namespace MyGameCity.DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("Game");
+                });
+
+            modelBuilder.Entity("MyGameCity.DAL.Entities.DeveloperEntity", b =>
+                {
+                    b.Navigation("GameList");
                 });
 
             modelBuilder.Entity("MyGameCity.DAL.Entities.GameEntity", b =>

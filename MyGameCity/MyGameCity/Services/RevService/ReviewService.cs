@@ -41,6 +41,7 @@ namespace MyGameCity.Services.RevService
         {
             var reviews = _context.Review.Where(c => c.Game.Id == game_id).ToList();
             return reviews;
+            //TODO: remove list
         }
 
         //public Review GetGameById(Guid id)

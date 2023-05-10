@@ -25,7 +25,7 @@ public class DataContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         base.OnConfiguring(optionsBuilder);
-        optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=master2;Trusted_Connection=True;TrustServerCertificate=True;");//TrustServerCertificate=true?
+        optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=master4;Trusted_Connection=True;TrustServerCertificate=True;");//TrustServerCertificate=true?
     }
     //TODO: remove harcoded path
     //TODO: replace with variable databaseName

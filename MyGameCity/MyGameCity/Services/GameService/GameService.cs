@@ -30,7 +30,8 @@ namespace MyGameCity.Services.GameService
 
         public GameEntity GetGameById(Guid id)
         {
-            throw new NotImplementedException();
+            var game = _context.Game.Where(c => c.Id == id).First();
+            return game; ;
         }
 
         public GameEntity UpdateGame(GameDTO game)

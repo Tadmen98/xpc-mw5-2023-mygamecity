@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MyGameCity.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class full_mig : Migration
+    public partial class one_dev_full : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -39,6 +39,30 @@ namespace MyGameCity.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Game",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<int>(type: "int", nullable: false),
+                    Weight = table.Column<int>(type: "int", nullable: false),
+                    NumberInStock = table.Column<int>(type: "int", nullable: false),
+                    DeveloperId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Game", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Game_Developer_DeveloperId",
+                        column: x => x.DeveloperId,
+                        principalTable: "Developer",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CategoryEntityGameEntity",
                 columns: table => new
                 {
@@ -63,24 +87,21 @@ namespace MyGameCity.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DeveloperEntityGameEntity",
+                name: "Review",
                 columns: table => new
                 {
-                    DeveloperId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    GameListId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    StarsCount = table.Column<int>(type: "int", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    GameId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DeveloperEntityGameEntity", x => new { x.DeveloperId, x.GameListId });
+                    table.PrimaryKey("PK_Review", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_DeveloperEntityGameEntity_Developer_DeveloperId",
-                        column: x => x.DeveloperId,
-                        principalTable: "Developer",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_DeveloperEntityGameEntity_Game_GameListId",
-                        column: x => x.GameListId,
+                        name: "FK_Review_Game_GameId",
+                        column: x => x.GameId,
                         principalTable: "Game",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -92,9 +113,14 @@ namespace MyGameCity.DAL.Migrations
                 column: "GamesId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DeveloperEntityGameEntity_GameListId",
-                table: "DeveloperEntityGameEntity",
-                column: "GameListId");
+                name: "IX_Game_DeveloperId",
+                table: "Game",
+                column: "DeveloperId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Review_GameId",
+                table: "Review",
+                column: "GameId");
         }
 
         /// <inheritdoc />
@@ -104,10 +130,13 @@ namespace MyGameCity.DAL.Migrations
                 name: "CategoryEntityGameEntity");
 
             migrationBuilder.DropTable(
-                name: "DeveloperEntityGameEntity");
+                name: "Review");
 
             migrationBuilder.DropTable(
                 name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "Game");
 
             migrationBuilder.DropTable(
                 name: "Developer");

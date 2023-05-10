@@ -37,21 +37,6 @@ namespace MyGameCity.DAL.Migrations
                     b.ToTable("CategoryEntityGameEntity");
                 });
 
-            modelBuilder.Entity("DeveloperEntityGameEntity", b =>
-                {
-                    b.Property<Guid>("DeveloperId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("GameListId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("DeveloperId", "GameListId");
-
-                    b.HasIndex("GameListId");
-
-                    b.ToTable("DeveloperEntityGameEntity");
-                });
-
             modelBuilder.Entity("MyGameCity.DAL.Entities.CategoryEntity", b =>
                 {
                     b.Property<Guid>("Id")
@@ -104,6 +89,9 @@ namespace MyGameCity.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("DeveloperId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("ImagePath")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -122,6 +110,8 @@ namespace MyGameCity.DAL.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DeveloperId");
 
                     b.ToTable("Game");
                 });
@@ -168,19 +158,15 @@ namespace MyGameCity.DAL.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("DeveloperEntityGameEntity", b =>
+            modelBuilder.Entity("MyGameCity.DAL.Entities.GameEntity", b =>
                 {
-                    b.HasOne("MyGameCity.DAL.Entities.DeveloperEntity", null)
-                        .WithMany()
+                    b.HasOne("MyGameCity.DAL.Entities.DeveloperEntity", "Developer")
+                        .WithMany("GameList")
                         .HasForeignKey("DeveloperId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MyGameCity.DAL.Entities.GameEntity", null)
-                        .WithMany()
-                        .HasForeignKey("GameListId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Developer");
                 });
 
             modelBuilder.Entity("MyGameCity.DAL.Entities.ReviewEntity", b =>
@@ -192,6 +178,11 @@ namespace MyGameCity.DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("Game");
+                });
+
+            modelBuilder.Entity("MyGameCity.DAL.Entities.DeveloperEntity", b =>
+                {
+                    b.Navigation("GameList");
                 });
 
             modelBuilder.Entity("MyGameCity.DAL.Entities.GameEntity", b =>

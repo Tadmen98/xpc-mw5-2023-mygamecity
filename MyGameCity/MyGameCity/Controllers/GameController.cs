@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MyGameCity.Services;
 using MyGameCity.DataModel;
 using MyGameCity.Services.GameService;
+using MyGameCity.DAL.Entities;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 

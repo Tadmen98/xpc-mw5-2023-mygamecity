@@ -1,16 +1,20 @@
-﻿using MyGameCity.DataModel;
+﻿using MyGameCity.DAL.DTO;
+using MyGameCity.DAL.Entities;
+using MyGameCity.DataModel;
 
 namespace MyGameCity.Services.RevService
 {
     public interface IReviewService
     {
-        List<Review> GetAllReviews();
-        Review GetGameById(Guid id);
+        List<ReviewEntity> GetAllReviews();
 
-        Review AddGame(Review review);
+        List<ReviewEntity> GetbyGameId(Guid game_id);
+        //ReviewEntity GetGameById(Guid id);
 
-        Review UpdateGame(Review review);
+        ReviewEntity AddReview(ReviewDTO review);
 
-        Review DeleteGame(Guid id);
+        ReviewEntity UpdateGame(ReviewEntity review);
+
+        ReviewEntity DeleteGame(Guid id);
     }
 }

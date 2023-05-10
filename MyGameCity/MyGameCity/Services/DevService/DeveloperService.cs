@@ -1,4 +1,6 @@
 ﻿using MyGameCity.DAL.Data;
+using MyGameCity.DAL.DTO;
+using MyGameCity.DAL.Entities;
 using MyGameCity.DataModel;
 
 namespace MyGameCity.Services.DevService
@@ -11,27 +13,27 @@ namespace MyGameCity.Services.DevService
         {
             _context = context;
         }
-        public Developer AddCategory(Developer developer)
+        public DeveloperEntity AddDeveloper(DeveloperDTO developer)
         {
             throw new NotImplementedException();
         }
 
-        public Developer DeleteCategory(Guid id)
+        public DeveloperEntity DeleteDeveloper(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public List<Developer> GetAllCategories()
+        public List<DeveloperEntity> GetAllDevelopers()
         {
             throw new NotImplementedException();
         }
 
-        public Developer GetCategoryById(Guid id)
+        public DeveloperEntity GetDeveloperById(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public Developer UpdateCategory(Developer developer)
+        public DeveloperEntity UpdateDeveloper(DeveloperDTO developer)
         {
             throw new NotImplementedException();
         }

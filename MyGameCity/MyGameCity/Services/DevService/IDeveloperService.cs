@@ -1,16 +1,18 @@
-﻿using MyGameCity.DataModel;
+﻿using MyGameCity.DAL.DTO;
+using MyGameCity.DAL.Entities;
+using MyGameCity.DataModel;
 
 namespace MyGameCity.Services.DevService
 {
     public interface IDeveloperService
     {
-        List<Developer> GetAllCategories();
-        Developer GetCategoryById(Guid id);
+        List<DeveloperEntity> GetAllDevelopers();
+        DeveloperEntity GetDeveloperById(Guid id);
 
-        Developer AddCategory(Developer developer);
+        DeveloperEntity AddDeveloper(DeveloperDTO developer);
 
-        Developer UpdateCategory(Developer developer);
+        DeveloperEntity UpdateDeveloper(DeveloperDTO developer);
 
-        Developer DeleteCategory(Guid id);
+        DeveloperEntity DeleteDeveloper(Guid id);
     }
 }

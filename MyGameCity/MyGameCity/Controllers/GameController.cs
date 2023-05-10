@@ -25,11 +25,11 @@ namespace MyGameCity.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<List<GameEntity>>> GetbyId(Guid id)
         {
-            var reviews = _gameService.GetGameById(id);
-            if (reviews == null)
+            var game = _gameService.GetGameById(id);
+            if (game == null)
                 return NotFound("Reviews not found");
 
-            return Ok(reviews);
+            return Ok(game);
         }
 
         [HttpPost]

@@ -8,6 +8,7 @@ public record ReviewDTO: EntityBase
 
     public ReviewDTO(ReviewEntity review)
     {
+        Id = review.Id;
         StarsCount = review.StarsCount;
         Title = review.Title;
         Description = review.Description;

@@ -13,9 +13,16 @@ namespace MyGameCity.Services.GameService
         {
             _context = context;
         }
-        public GameEntity AddGame(GameDTO game)
+        public GameEntity AddGame(GameDTO game_dto)
         {
-            throw new NotImplementedException();
+            List<CategoryEntity> categories = _context.Categories.Where(c => game_dto.CategoryIds.Contains(c.Id)).ToList();
+            var developer = _context.Categories.Where(c => c.Id == game_dto.Id).First();
+            
+            //var game = new GameEntity(game_dto) {Category = categories, };
+            //_context.Review.Add(review);
+            //_context.SaveChanges();
+            var gam = new GameEntity() { Title="sdfsd"};
+            return gam;
         }
 
         public GameEntity DeleteGame(Guid id)
@@ -31,7 +38,7 @@ namespace MyGameCity.Services.GameService
         public GameEntity GetGameById(Guid id)
         {
             var game = _context.Game.Where(c => c.Id == id).First();
-            return game; ;
+            return game;
         }
 
         public GameEntity UpdateGame(GameDTO game)

@@ -11,6 +11,7 @@ public record GameEntity : EntityBase
 
     public GameEntity(GameDTO game)
     {
+        Id = game.Id;
         Title = game.Title;
         ImagePath = game.ImagePath;
         Description = game.Description;

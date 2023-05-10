@@ -8,6 +8,7 @@ public record CategoryDTO: EntityBase
 
     public CategoryDTO(CategoryEntity category)
     {
+        Id = category.Id;
         Name = category.Name;
     }
     public string Name { get; set; }

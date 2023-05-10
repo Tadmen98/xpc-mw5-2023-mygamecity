@@ -30,10 +30,11 @@ namespace MyGameCity.Services.DevService
 
         public DeveloperEntity GetDeveloperById(Guid id)
         {
-            throw new NotImplementedException();
+            var developer = _context.Developer.Where(c => c.Id == id).First();
+            return developer;
         }
 
-        public DeveloperEntity UpdateDeveloper(DeveloperDTO developer)
+            public DeveloperEntity UpdateDeveloper(DeveloperDTO developer)
         {
             throw new NotImplementedException();
         }

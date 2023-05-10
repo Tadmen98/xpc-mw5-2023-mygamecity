@@ -11,6 +11,7 @@ public record DeveloperEntity : EntityBase
 
     public DeveloperEntity(DeveloperDTO entity)
     {
+        Id = entity.Id;
         Title = entity.Title;
         Description = entity.Description;
         LogoImg = entity.LogoImg;

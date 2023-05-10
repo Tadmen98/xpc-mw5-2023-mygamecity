@@ -31,7 +31,8 @@ namespace MyGameCity.Services.CatService
 
         public CategoryEntity GetCategoryById(Guid id)
         {
-            throw new NotImplementedException();
+            var category = _context.Categories.Where(c => c.Id == id).First();
+            return category;
         }
 
         public CategoryEntity UpdateCategory(CategoryDTO category)

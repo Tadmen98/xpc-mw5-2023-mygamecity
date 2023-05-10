@@ -4,6 +4,7 @@ using MyGameCity.Services;
 using MyGameCity.DataModel;
 using MyGameCity.Services.GameService;
 using MyGameCity.DAL.Entities;
+using MyGameCity.DAL.DTO;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -21,50 +22,87 @@ namespace MyGameCity.Controllers
             // TODO: implement all functions using new game
         }
 
-        [HttpGet("GetDatabase")]
-        public ActionResult<List<Game>> GetAll() => FakeDatabaseService.ModelDatabase;
-        
-        [HttpGet("Game by Id")]
-        public ActionResult<Game> Get(Guid id)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<List<GameEntity>>> GetbyId(Guid id)
         {
-            var game = FakeDatabaseService.Get(id);
-            if(game == null) 
-            {
-                return NotFound();
-            }
-            return game;
+            var reviews = _gameService.GetGameById(id);
+            if (reviews == null)
+                return NotFound("Reviews not found");
+
+            return Ok(reviews);
         }
 
-        [HttpPost("Add game to database")]
-        public IActionResult Create (Game game)
+        [HttpPost]
+        public async Task<ActionResult> Create(GameDTO game)
         {
-            FakeDatabaseService.Add(game);
-            return NoContent();
+            var result = _gameService.AddGame(game);
+
+            return Ok("review was created");
         }
 
-        [HttpPut("Update existing game")]
-        public IActionResult Update(Game game)
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateGame(Guid id, GameDTO game)
         {
-            var existingGame = FakeDatabaseService.Get(game.Id);
-            if(existingGame is null) 
-            {
-                return NotFound();
-            }
-            FakeDatabaseService.Update(game);
-            return NoContent();
+            var result = _gameService.UpdateGame(game);
+
+            return Ok("review was updated");
         }
 
-        [HttpDelete("Delete game from database")]
-        public IActionResult Delete(Guid id)
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteReview(Guid id)
         {
-            var game = FakeDatabaseService.Get(id);
+            var result = _gameService.DeleteGame(id);
 
-            if(game is null)
-            {
-                return NotFound();
-            }
-            FakeDatabaseService.Delete(id);
-            return NoContent();
+            if (result == null)
+                return NotFound("Reviews not found");
+
+            return Ok("Review was deleted");
         }
+
+        //[HttpGet("GetDatabase")]
+        //public ActionResult<List<Game>> GetAll() => FakeDatabaseService.ModelDatabase;
+
+        //[HttpGet("Game by Id")]
+        //public ActionResult<Game> Get(Guid id)
+        //{
+        //    var game = FakeDatabaseService.Get(id);
+        //    if(game == null) 
+        //    {
+        //        return NotFound();
+        //    }
+        //    return game;
+        //}
+
+        //[HttpPost("Add game to database")]
+        //public IActionResult Create (Game game)
+        //{
+        //    FakeDatabaseService.Add(game);
+        //    return NoContent();
+        //}
+
+        //[HttpPut("Update existing game")]
+        //public IActionResult Update(Game game)
+        //{
+        //    var existingGame = FakeDatabaseService.Get(game.Id);
+        //    if(existingGame is null) 
+        //    {
+        //        return NotFound();
+        //    }
+        //    FakeDatabaseService.Update(game);
+        //    return NoContent();
+        //}
+
+        //[HttpDelete("Delete game from database")]
+        //public IActionResult Delete(Guid id)
+        //{
+        //    var game = FakeDatabaseService.Get(id);
+
+        //    if(game is null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    FakeDatabaseService.Delete(id);
+        //    return NoContent();
+        //}
     }
 }

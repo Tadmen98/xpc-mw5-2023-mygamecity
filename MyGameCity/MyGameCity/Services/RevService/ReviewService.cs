@@ -21,9 +21,15 @@ namespace MyGameCity.Services.RevService
             return review;
         }
 
-        public ReviewEntity DeleteGame(Guid id)
+        public ReviewEntity DeleteReview(Guid id)
         {
-            throw new NotImplementedException();
+            var review = _context.Review.Find(id);
+            if (review is null)
+                return null;
+
+            _context.Review.Remove(review);
+            _context.SaveChanges();
+            return review;
         }
 
         public List<ReviewEntity> GetAllReviews()
@@ -42,14 +48,22 @@ namespace MyGameCity.Services.RevService
         //    throw new NotImplementedException();
         //}
 
-        public Review UpdateGame(ReviewEntity review)
+        public ReviewEntity UpdateReview(ReviewDTO review_dto)
         {
-            throw new NotImplementedException();
+            var review = _context.Review.Find(review_dto.Id);
+            if (review == null)
+                return null;
+            review.Title = review_dto.Title;
+            review.Description = review_dto.Description;
+            review.StarsCount = review_dto.StarsCount;
+
+            _context.SaveChanges();
+            return review;
         }
 
-        ReviewEntity IReviewService.UpdateGame(ReviewEntity review)
-        {
-            throw new NotImplementedException();
-        }
+        //ReviewEntity IReviewService.UpdateReview(ReviewEntity review)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

@@ -1,16 +1,18 @@
-﻿using MyGameCity.DataModel;
+﻿using MyGameCity.DAL.DTO;
+using MyGameCity.DAL.Entities;
+using MyGameCity.DataModel;
 
 namespace MyGameCity.Services.GameService
 {
     public interface IGameService
     {
-        List<Game> GetAllGames();
-        Game GetGameById(Guid id);
+        List<GameEntity> GetAllGames();
+        GameEntity GetGameById(Guid id);
 
-        Game AddGame(Game game);
+        GameEntity AddGame(GameDTO game);
 
-        Game UpdateGame(Game game);
+        GameEntity UpdateGame(GameDTO game);
 
-        Game DeleteGame(Guid id);
+        GameEntity DeleteGame(Guid id);
     }
 }

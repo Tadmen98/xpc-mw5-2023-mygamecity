@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyGameCity.DAL.Data;
+using MyGameCity.DAL.DTO;
+using MyGameCity.DAL.Entities;
 using MyGameCity.DataModel;
 
 namespace MyGameCity.Services.GameService
@@ -11,27 +13,27 @@ namespace MyGameCity.Services.GameService
         {
             _context = context;
         }
-        public Game AddGame(Game game)
+        public GameEntity AddGame(GameDTO game)
         {
             throw new NotImplementedException();
         }
 
-        public Game DeleteGame(Guid id)
+        public GameEntity DeleteGame(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public List<Game> GetAllGames()
+        public List<GameEntity> GetAllGames()
         {
             throw new NotImplementedException();
         }
 
-        public Game GetGameById(Guid id)
+        public GameEntity GetGameById(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public Game UpdateGame(Game game)
+        public GameEntity UpdateGame(GameDTO game)
         {
             throw new NotImplementedException();
         }

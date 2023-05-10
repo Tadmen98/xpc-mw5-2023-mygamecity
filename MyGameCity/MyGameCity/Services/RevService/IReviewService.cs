@@ -13,8 +13,8 @@ namespace MyGameCity.Services.RevService
 
         ReviewEntity AddReview(ReviewDTO review);
 
-        ReviewEntity UpdateGame(ReviewEntity review);
+        ReviewEntity UpdateReview(ReviewDTO review);
 
-        ReviewEntity DeleteGame(Guid id);
+        ReviewEntity DeleteReview(Guid id);
     }
 }

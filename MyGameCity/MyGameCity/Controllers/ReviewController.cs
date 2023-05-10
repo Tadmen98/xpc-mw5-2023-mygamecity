@@ -38,5 +38,24 @@ namespace MyGameCity.Controllers
 
             return Ok("review was created");
         }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult> UpdateReview(Guid id, ReviewDTO review)
+        {
+            var result = _reviewService.UpdateReview(review);
+
+            return Ok("review was updated");
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteReview(Guid id)
+        {
+            var result = _reviewService.DeleteReview(id);
+
+            if (result == null)
+                return NotFound("Reviews not found");
+
+            return Ok("Review was deleted");
+        }
     }
 }

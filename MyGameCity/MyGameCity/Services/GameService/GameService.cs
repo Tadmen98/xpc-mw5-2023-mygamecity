@@ -16,18 +16,24 @@ namespace MyGameCity.Services.GameService
         public GameEntity AddGame(GameDTO game_dto)
         {
             List<CategoryEntity> categories = _context.Categories.Where(c => game_dto.CategoryIds.Contains(c.Id)).ToList();
-            var developer = _context.Categories.Where(c => c.Id == game_dto.Id).First();
+            var developer = _context.Developer.Where(c => c.Id == game_dto.DeveloperId).First();
             
-            //var game = new GameEntity(game_dto) {Category = categories, };
-            //_context.Review.Add(review);
-            //_context.SaveChanges();
-            var gam = new GameEntity() { Title="sdfsd"};
-            return gam;
+            var game = new GameEntity(game_dto) {Category = categories, Developer = developer};
+            _context.Game.Add(game);
+            _context.SaveChanges();
+            //var gam = new GameEntity() { Title="sdfsd"};
+            return game;
         }
 
         public GameEntity DeleteGame(Guid id)
         {
-            throw new NotImplementedException();
+            var game = _context.Game.Find(id);
+            if (game is null)
+                return null;
+
+            _context.Game.Remove(game);
+            _context.SaveChanges();
+            return game;
         }
 
         public List<GameEntity> GetAllGames()
@@ -41,9 +47,21 @@ namespace MyGameCity.Services.GameService
             return game;
         }
 
-        public GameEntity UpdateGame(GameDTO game)
+        public GameEntity UpdateGame(GameDTO game_dto)
         {
-            throw new NotImplementedException();
+            var game = _context.Game.Find(game_dto.Id);
+            if (game == null)
+                return null;
+            game.Id = game_dto.Id;
+            game.Title = game_dto.Title;
+            game.ImagePath = game_dto.ImagePath;
+            game.Description = game_dto.Description;
+            game.Price = game_dto.Price;
+            game.Weight = game_dto.Weight;
+            game.NumberInStock = game_dto.NumberInStock;
+
+            _context.SaveChanges();
+            return game;
         }
     }
 }

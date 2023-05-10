@@ -9,9 +9,9 @@ namespace MyGameCity.Services.GameService
         List<GameEntity> GetAllGames();
         GameEntity GetGameById(Guid id);
 
-        GameEntity AddGame(GameDTO game);
+        GameEntity AddGame(GameDTO game_dto);
 
-        GameEntity UpdateGame(GameDTO game);
+        GameEntity UpdateGame(GameDTO game_dto);
 
         GameEntity DeleteGame(Guid id);
     }

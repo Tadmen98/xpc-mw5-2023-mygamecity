@@ -22,7 +22,7 @@ public record GameEntity : EntityBase
         //Developer = game.Developer;
     }
 
-    public required string Title { get; init; }
+    public string Title { get; set; }
     public string ImagePath { get; set; }
     public string Description { get; set; }
     public int Price { get; set; }

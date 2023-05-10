@@ -1,6 +1,5 @@
 ﻿using MyGameCity.DAL.DTO;
 using MyGameCity.DAL.Entities;
-using MyGameCity.DataModel;
 
 namespace MyGameCity.Services.CatService
 {

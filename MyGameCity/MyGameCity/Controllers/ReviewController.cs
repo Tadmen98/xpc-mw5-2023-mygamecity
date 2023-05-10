@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using MyGameCity.DAL.DTO;
 using MyGameCity.DAL.Entities;
-using MyGameCity.DataModel;
 using MyGameCity.Services.CatService;
 using MyGameCity.Services.GameService;
 using MyGameCity.Services.RevService;

@@ -1,7 +1,6 @@
 ﻿using Bogus;
 using Microsoft.AspNetCore.Mvc;
 using MyGameCity.Services;
-using MyGameCity.DataModel;
 using MyGameCity.Services.GameService;
 using MyGameCity.DAL.Entities;
 using MyGameCity.DAL.DTO;

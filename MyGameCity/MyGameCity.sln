@@ -5,7 +5,9 @@ VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyGameCity", "MyGameCity\MyGameCity.csproj", "{28CA8327-1071-4A60-ABC5-95A710B77B80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyGameCity.DAL", "MyGameCity.DAL\MyGameCity.DAL.csproj", "{CF03A38B-DD53-4226-947F-A7B34FD90913}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyGameCity.DAL", "MyGameCity.DAL\MyGameCity.DAL.csproj", "{CF03A38B-DD53-4226-947F-A7B34FD90913}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyGameCity.IntegrationTests", "MyGameCity_API_IntegrationTests\MyGameCity.IntegrationTests.csproj", "{EE207213-AF5E-45FD-9DF4-72BCEA43EC2E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{CF03A38B-DD53-4226-947F-A7B34FD90913}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF03A38B-DD53-4226-947F-A7B34FD90913}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF03A38B-DD53-4226-947F-A7B34FD90913}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE207213-AF5E-45FD-9DF4-72BCEA43EC2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE207213-AF5E-45FD-9DF4-72BCEA43EC2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE207213-AF5E-45FD-9DF4-72BCEA43EC2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE207213-AF5E-45FD-9DF4-72BCEA43EC2E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

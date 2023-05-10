@@ -14,14 +14,23 @@ namespace MyGameCity.Services.CatService
             _context = context;
         }
 
-        public CategoryEntity AddCategory(CategoryDTO category)
+        public CategoryEntity AddCategory(CategoryDTO category_dto)
         {
-            throw new NotImplementedException();
+            var category = new CategoryEntity(category_dto);
+            _context.Categories.Add(category);
+            _context.SaveChanges();
+            return category;
         }
 
         public CategoryEntity DeleteCategory(Guid id)
         {
-            throw new NotImplementedException();
+            var category = _context.Categories.Find(id);
+            if (category is null)
+                return null;
+
+            _context.Categories.Remove(category);
+            _context.SaveChanges();
+            return category;
         }
 
         public List<CategoryEntity> GetAllCategories()
@@ -35,9 +44,16 @@ namespace MyGameCity.Services.CatService
             return category;
         }
 
-        public CategoryEntity UpdateCategory(CategoryDTO category)
+        public CategoryEntity UpdateCategory(CategoryDTO category_dto)
         {
-            throw new NotImplementedException();
+            var category = _context.Categories.Find(category_dto.Id);
+            if (category == null)
+                return null;
+            category.Id = category_dto.Id;
+            category.Name = category_dto.Name;
+
+            _context.SaveChanges();
+            return category;
         }
     }
 }

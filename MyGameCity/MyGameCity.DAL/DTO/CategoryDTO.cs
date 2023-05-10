@@ -4,7 +4,7 @@ namespace MyGameCity.DAL.DTO;
 
 public record CategoryDTO: EntityBase
 {
-    CategoryDTO() { }
+    public CategoryDTO() { }
 
     public CategoryDTO(CategoryEntity category)
     {

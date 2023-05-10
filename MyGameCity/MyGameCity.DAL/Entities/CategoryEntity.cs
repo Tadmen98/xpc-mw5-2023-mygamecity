@@ -4,7 +4,7 @@ namespace MyGameCity.DAL.Entities;
 
 public record CategoryEntity: EntityBase
 {
-    CategoryEntity() { }
+    public CategoryEntity() { }
     public CategoryEntity(CategoryDTO category)
     {
         Id = category.Id;    

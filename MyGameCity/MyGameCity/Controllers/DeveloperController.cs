@@ -1,7 +1,14 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Bogus.DataSets;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using MyGameCity.DataModel;
-using MyGameCity.Services;
+using MyGameCity.DAL.DTO;
+using MyGameCity.DAL.Entities;
+using MyGameCity.DAL.Exceptions;
+using MyGameCity.DAL.QueryObjects;
+using MyGameCity.DAL.QueryObjects.Filters;
+//using MyGameCity.DataModel;
+using MyGameCity.DAL.Services;
+using MyGameCity.DAL.Services.DevService;
 
 namespace MyGameCity.Controllers
 {
@@ -9,15 +16,100 @@ namespace MyGameCity.Controllers
     [ApiController]
     public class DeveloperController : ControllerBase
     {
-        [HttpGet("Developer and their games")]
-        public ActionResult<Developer> Get(string title)
+        private readonly IDeveloperService _developerService;
+        private readonly GetDeveloperFilterQuery _getDeveloperFilterQuery;
+
+        public DeveloperController(IDeveloperService develper_service, GetDeveloperFilterQuery getDeveloperFilterQuery)
         {
-            var publisher = DeveloperService.Get(title);
-            if (publisher == null)
+            _developerService = develper_service;
+            _getDeveloperFilterQuery = getDeveloperFilterQuery;
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<List<DeveloperDTO>>> GetbyId(Guid id)
+        {
+            try
             {
-                return NotFound();
+                var developer = await _developerService.GetDeveloperById(id);
+                var developer_dto = new DeveloperDTO(developer);
+                return Ok(developer_dto);
             }
-            return publisher;
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<DeveloperDTO>>> GetAllDevelopers()
+        {
+            var developers = await _developerService.GetAllDevelopers();
+            //if (developer == null)
+            //    return NotFound("Reviews not found");
+            List<DeveloperDTO> developer_dtos = new List<DeveloperDTO>();
+            foreach (var developer in developers)
+            {
+                var developer_dto = new DeveloperDTO(developer);
+                developer_dtos.Add(developer_dto);
+            }
+
+            return Ok(developer_dtos);
+        }
+
+        [HttpPost("Query")]
+        public async Task<ActionResult<List<DeveloperEntity>>> GetFilteredDevelopers(DeveloperFilter filter)
+        {
+            var developer = await _getDeveloperFilterQuery.Execute(filter);
+            //if (developer == null)
+            //    return NotFound("Games not found");
+
+            return Ok(developer);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> CreateDeveloper(DeveloperDTO developer)
+        {
+            try
+            {
+                var result = await _developerService.AddDeveloper(developer);
+                return Ok("review was created");
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (AlreadyExistException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> UpdateDeveloper(DeveloperDTO developer)
+        {
+            try
+            {
+                var result = await _developerService.UpdateDeveloper(developer);
+                return Ok("Developer was updated");
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteDeveloper(Guid id)
+        {
+            try
+            {
+                var result = await _developerService.DeleteDeveloper(id);
+                return Ok("Developer was deleted");
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
     }
 }

@@ -5,7 +5,6 @@ using MyGameCity.DAL.DTO;
 using MyGameCity.DAL.Entities;
 using MyGameCity.DAL.Exceptions;
 using MyGameCity.DAL.Services.CatService;
-using MyGameCity.DAL.Services.GameService;
 
 namespace MyGameCity.Controllers
 {
@@ -19,7 +18,6 @@ namespace MyGameCity.Controllers
         {
             _categoryService = categoryService;
             _logger = logger;
-            // TODO: implement all functions using new game
         }
 
         [HttpGet("{id}")]

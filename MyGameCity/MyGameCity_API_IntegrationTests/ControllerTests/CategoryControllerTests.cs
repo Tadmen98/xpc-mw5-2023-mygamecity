@@ -70,7 +70,7 @@ namespace MyGameCity.IntegrationTests.Controller_Tests
         public void Dispose()
         {
             _factory.Dispose();
-            _client.Dispose(); 
+            _client.Dispose();
         }
     }
 }

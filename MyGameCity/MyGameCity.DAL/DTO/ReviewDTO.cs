@@ -1,10 +1,10 @@
-﻿ using MyGameCity.DAL.Entities;
+﻿using MyGameCity.DAL.Entities;
 
 namespace MyGameCity.DAL.DTO;
 
-public record ReviewDTO: EntityBase
+public record ReviewDTO : EntityBase
 {
-    public ReviewDTO() {}
+    public ReviewDTO() { }
 
     public ReviewDTO(ReviewEntity review)
     {

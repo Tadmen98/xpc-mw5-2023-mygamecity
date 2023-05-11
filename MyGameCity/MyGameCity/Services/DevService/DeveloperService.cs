@@ -14,8 +14,6 @@ namespace MyGameCity.Services.DevService
         }
         public DeveloperEntity AddDeveloper(DeveloperDTO developer_dto)
         {
-            //List<GameEntity> games = _context.Game.Where(c => developer_dto.GameIds.Contains(c.Id)).ToList();
-
             var developer = new DeveloperEntity(developer_dto) {};
             _context.Developer.Add(developer);
             _context.SaveChanges();

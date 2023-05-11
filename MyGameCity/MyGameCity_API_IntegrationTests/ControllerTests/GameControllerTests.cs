@@ -19,7 +19,7 @@ namespace MyGameCity_API_IntegrationTests.Controller_Tests
     {
         private CustomWebApplicationFactory _factory;
         private HttpClient _client;
-        
+
         public GameControllerTests()
         {
             _factory = new CustomWebApplicationFactory();
@@ -56,7 +56,8 @@ namespace MyGameCity_API_IntegrationTests.Controller_Tests
         [Fact]
         public async Task PUT_IfExists_UpdateGame()
         {
-            var TestGame = new GameDTO{
+            var TestGame = new GameDTO
+            {
                 CategoryIds = new List<Guid> { Guid.NewGuid(), Guid.NewGuid(), Guid.NewGuid() },
                 Description = "Boring",
                 DeveloperId = Guid.NewGuid(),
@@ -65,7 +66,8 @@ namespace MyGameCity_API_IntegrationTests.Controller_Tests
                 NumberInStock = 25,
                 Price = 60,
                 Title = "Infinimanier",
-                Weight = 1 };
+                Weight = 1
+            };
             var response = await _client.PutAsync("/api/Game/aa7d9060-4df4-44ec-b86e-767568c432fc", JsonContent.Create(TestGame));
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }

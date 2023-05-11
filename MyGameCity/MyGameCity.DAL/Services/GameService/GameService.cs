@@ -31,7 +31,7 @@ namespace MyGameCity.DAL.Services.GameService
             {
                 throw new NotFoundException($"Review {game_dto.DeveloperId} was not found");
             }
-            var game = new GameEntity(game_dto) {Category = categories, Developer = developer};
+            var game = new GameEntity(game_dto) { Category = categories, Developer = developer };
             await _context.Game.AddAsync(game);
             await _context.SaveChangesAsync();
             //var gam = new GameEntity() { Title="sdfsd"};

@@ -2,12 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using MyGameCity.DAL.DTO;
 using MyGameCity.DAL.Entities;
-using MyGameCity.Services.CatService;
-using MyGameCity.Services.GameService;
-using MyGameCity.Services.RevService;
 using MyGameCity.DAL.QueryObjects.Filters;
 using MyGameCity.DAL.QueryObjects;
-//using MyGameCity.DataModel;
 using MyGameCity.DAL.Services.CatService;
 using MyGameCity.DAL.Services.GameService;
 using MyGameCity.DAL.Services.RevService;
@@ -68,7 +64,7 @@ namespace MyGameCity.Controllers
         {
             var review = await _getReviewFilterQuery.Execute(filter);
             //if (review == null)
-                //return NotFound("Games not found");
+            //return NotFound("Games not found");
             return Ok(review);
         }
 
@@ -98,7 +94,7 @@ namespace MyGameCity.Controllers
                 var result = await _reviewService.UpdateReview(review);
                 return Ok("Review was updated");
             }
-            catch (NotFoundException ex) 
+            catch (NotFoundException ex)
             {
                 return NotFound(ex.Message);
             }

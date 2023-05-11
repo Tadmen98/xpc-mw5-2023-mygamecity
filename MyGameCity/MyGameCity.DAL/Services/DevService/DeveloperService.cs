@@ -24,7 +24,7 @@ namespace MyGameCity.DAL.Services.DevService
                 throw new AlreadyExistException($"Developer {developer_dto.Id} already exists");
             }
 
-            var developer = new DeveloperEntity(developer_dto) {};
+            var developer = new DeveloperEntity(developer_dto) { };
             await _context.Developer.AddAsync(developer);
             await _context.SaveChangesAsync();
             return developer;

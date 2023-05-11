@@ -1,5 +1,5 @@
 ﻿using MyGameCity.DAL.DTO;
-using MyGameCity.DAL.Entities;  
+using MyGameCity.DAL.Entities;
 
 namespace MyGameCity.Services.DevService
 {

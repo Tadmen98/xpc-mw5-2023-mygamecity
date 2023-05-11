@@ -22,7 +22,6 @@ namespace MyGameCity.Services.GameService
             var game = new GameEntity(game_dto) {Category = categories, Developer = developer};
             _context.Game.Add(game);
             _context.SaveChanges();
-            //var gam = new GameEntity() { Title="sdfsd"};
             return game;
         }
 

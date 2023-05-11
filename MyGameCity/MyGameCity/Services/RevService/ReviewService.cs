@@ -15,7 +15,7 @@ namespace MyGameCity.Services.RevService
         public ReviewEntity AddReview(ReviewDTO review_dto)
         {
             var game = _context.Game.Where(c => c.Id == review_dto.GameId).First();
-            var review = new ReviewEntity(review_dto) {Game = game};
+            var review = new ReviewEntity(review_dto) { Game = game };
             _context.Review.Add(review);
             _context.SaveChanges();
             return review;

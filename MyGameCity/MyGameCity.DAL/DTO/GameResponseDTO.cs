@@ -6,7 +6,7 @@ public record GameResponseDTO : EntityBase
 {
     public GameResponseDTO()
     {
-        
+
     }
 
     public GameResponseDTO(GameEntity game)

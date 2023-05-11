@@ -2,7 +2,7 @@
 
 namespace MyGameCity.DAL.DTO;
 
-public record CategoryDTO: EntityBase
+public record CategoryDTO : EntityBase
 {
     public CategoryDTO() { }
 

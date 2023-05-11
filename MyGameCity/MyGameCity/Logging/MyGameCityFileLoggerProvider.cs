@@ -4,14 +4,14 @@ namespace MyGameCity.Logging
 {
     [ProviderAlias("MyGameCityFile")]
     public class MyGameCityFileLoggerProvider : ILoggerProvider
-    {   
+    {
         public readonly MyGameCityFileLoggerOptions Options;
 
         public MyGameCityFileLoggerProvider(IOptions<MyGameCityFileLoggerOptions> _options)
         {
             Options = _options.Value;
 
-            if(!Directory.Exists(Options.FolderPath))
+            if (!Directory.Exists(Options.FolderPath))
             {
                 Directory.CreateDirectory(Options.FolderPath);
 
@@ -24,7 +24,7 @@ namespace MyGameCity.Logging
         }
 
         public void Dispose()
-        {            
+        {
         }
     }
 }

@@ -6,13 +6,13 @@ namespace MyGameCity.DAL.Services.CatService
 {
     public interface ICategoryService
     {
-        List<CategoryEntity> GetAllCategories();
-        CategoryEntity GetCategoryById(Guid id);
+        Task<List<CategoryEntity>> GetAllCategories();
+        Task<CategoryEntity> GetCategoryById(Guid id);
 
-        CategoryEntity AddCategory(CategoryDTO category);
+        Task<CategoryEntity> AddCategory(CategoryDTO category);
 
-        CategoryEntity UpdateCategory(CategoryDTO category);
+        Task<CategoryEntity> UpdateCategory(CategoryDTO category);
 
-        CategoryEntity DeleteCategory(Guid id);
+        Task<CategoryEntity> DeleteCategory(Guid id);
     }
 }

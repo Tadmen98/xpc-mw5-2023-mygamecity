@@ -31,7 +31,7 @@ namespace MyGameCity.Controllers
         {
             try
             {
-                var game = _gameService.GetGameById(id);
+                var game = await _gameService.GetGameById(id);
                 var game_dto = new GameResponseDTO(game);
                 return Ok(game_dto);
             }
@@ -45,7 +45,7 @@ namespace MyGameCity.Controllers
         [HttpGet("all")]
         public async Task<ActionResult<GameResponseDTO>> GetAllGames()
         {
-            var games = _gameService.GetAllGames();
+            var games = await _gameService.GetAllGames();
             List<GameResponseDTO> game_dtos = new List<GameResponseDTO>();
             foreach (var game in games)
             {
@@ -59,7 +59,7 @@ namespace MyGameCity.Controllers
         [HttpPost("Query")]
         public async Task<ActionResult<List<GameEntity>>> GetFilteredGames(GameFilter filter)
         {
-            var games = _getGameFilterQuery.Execute(filter);
+            var games = await _getGameFilterQuery.Execute(filter);
             //if (games == null)
             //    return NotFound("Games not found");
             //Console.WriteLine("Called query");
@@ -71,14 +71,14 @@ namespace MyGameCity.Controllers
         {
             try
             {
-                var result = _gameService.AddGame(game);
+                var result = await _gameService.AddGame(game);
                 return Ok("Games was created");
             }
             catch (NotFoundException ex)
             {
                 return NotFound(ex.Message);
             }
-            catch (AlreadyExistException ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -86,12 +86,12 @@ namespace MyGameCity.Controllers
 
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateGame(Guid id, GameDTO game)
+        [HttpPut]
+        public async Task<ActionResult> UpdateGame(GameDTO game)
         {
             try
             {
-                var result = _gameService.UpdateGame(game);
+                var result = await _gameService.UpdateGame(game);
                 return Ok("Games was updated");
             }
             catch (NotFoundException ex)
@@ -106,7 +106,7 @@ namespace MyGameCity.Controllers
         {
             try
             {
-                var result = _gameService.DeleteGame(id);
+                var result = await _gameService.DeleteGame(id);
                 return Ok("Games was deleted");
             }
             catch (NotFoundException ex)

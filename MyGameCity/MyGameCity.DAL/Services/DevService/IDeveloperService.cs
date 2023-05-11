@@ -6,13 +6,13 @@ namespace MyGameCity.DAL.Services.DevService
 {
     public interface IDeveloperService
     {
-        List<DeveloperEntity> GetAllDevelopers();
-        DeveloperEntity GetDeveloperById(Guid id);
+        Task<List<DeveloperEntity>> GetAllDevelopers();
+        Task<DeveloperEntity> GetDeveloperById(Guid id);
 
-        DeveloperEntity AddDeveloper(DeveloperDTO developer);
+        Task<DeveloperEntity> AddDeveloper(DeveloperDTO developer);
 
-        DeveloperEntity UpdateDeveloper(DeveloperDTO developer);
+        Task<DeveloperEntity> UpdateDeveloper(DeveloperDTO developer);
 
-        DeveloperEntity DeleteDeveloper(Guid id);
+        Task<DeveloperEntity> DeleteDeveloper(Guid id);
     }
 }

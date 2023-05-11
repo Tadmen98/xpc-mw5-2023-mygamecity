@@ -30,7 +30,7 @@ namespace MyGameCity.Controllers
         {
             try
             {
-                var reviews = _reviewService.GetReviewById(id);
+                var reviews = await _reviewService.GetReviewById(id);
                 var review_dto = new ReviewResponseDTO(reviews);
                 return Ok(review_dto);
             }
@@ -46,7 +46,7 @@ namespace MyGameCity.Controllers
         {
             try
             {
-                var reviews = _reviewService.GetbyGameId(game_id);
+                var reviews = await _reviewService.GetbyGameId(game_id);
                 List<ReviewResponseDTO> review_dtos = new List<ReviewResponseDTO>();
                 foreach (var review in reviews)
                 {
@@ -65,7 +65,7 @@ namespace MyGameCity.Controllers
         [HttpPost("Query")]
         public async Task<ActionResult<List<GameEntity>>> GetFilteredGames(ReviewFilter filter)
         {
-            var review = _getReviewFilterQuery.Execute(filter);
+            var review = await _getReviewFilterQuery.Execute(filter);
             //if (review == null)
                 //return NotFound("Games not found");
             return Ok(review);
@@ -76,7 +76,7 @@ namespace MyGameCity.Controllers
         {
             try
             {
-                var result = _reviewService.AddReview(review);
+                var result = await _reviewService.AddReview(review);
                 return Ok("review was created");
             }
             catch (NotFoundException ex)
@@ -90,12 +90,12 @@ namespace MyGameCity.Controllers
             StatusCode(500);
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateReview(Guid id, ReviewDTO review)
+        [HttpPut]
+        public async Task<ActionResult> UpdateReview(ReviewDTO review)
         {
             try
             {
-                var result = _reviewService.UpdateReview(review);
+                var result = await _reviewService.UpdateReview(review);
                 return Ok("Review was updated");
             }
             catch (NotFoundException ex) 
@@ -110,7 +110,7 @@ namespace MyGameCity.Controllers
         {
             try
             {
-                var result = _reviewService.DeleteReview(id);
+                var result = await _reviewService.DeleteReview(id);
                 return Ok("Review was deleted");
             }
             catch (NotFoundException ex)

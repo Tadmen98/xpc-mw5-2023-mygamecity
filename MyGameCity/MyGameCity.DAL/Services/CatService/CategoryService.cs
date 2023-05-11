@@ -16,41 +16,41 @@ namespace MyGameCity.DAL.Services.CatService
             _context = context;
         }
 
-        public CategoryEntity AddCategory(CategoryDTO category_dto)
+        public async Task<CategoryEntity> AddCategory(CategoryDTO category_dto)
         {
-            var category_check = _context.Categories.Where(c => c.Id == category_dto.Id).FirstOrDefault();
+            var category_check = await _context.Categories.Where(c => c.Id == category_dto.Id).FirstOrDefaultAsync();
             if (category_check != null)
             {
                 throw new AlreadyExistException($"Category {category_dto.Id} already exists");
             }
             var category = new CategoryEntity(category_dto);
-            _context.Categories.Add(category);
-            _context.SaveChanges();
+            await _context.Categories.AddAsync(category);
+            await _context.SaveChangesAsync();
             return category;
         }
 
-        public CategoryEntity DeleteCategory(Guid id)
+        public async Task<CategoryEntity> DeleteCategory(Guid id)
         {
-            var category = _context.Categories.Find(id);
+            var category = await _context.Categories.FindAsync(id);
             if (category is null)
             {
                 throw new NotFoundException($"Category {id} was not found");
             }
 
             _context.Categories.Remove(category);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return category;
         }
 
-        public List<CategoryEntity> GetAllCategories()
+        public async Task<List<CategoryEntity>> GetAllCategories()
         {
-            var categories = _context.Categories.ToList();
+            var categories = await _context.Categories.ToListAsync();
             return categories;
         }
 
-        public CategoryEntity GetCategoryById(Guid id)
+        public async Task<CategoryEntity> GetCategoryById(Guid id)
         {
-            var category = _context.Categories.Where(c => c.Id == id).FirstOrDefault();
+            var category = await _context.Categories.Where(c => c.Id == id).FirstOrDefaultAsync();
             if (category is null)
             {
                 throw new NotFoundException($"Category {id} was not found");
@@ -58,9 +58,9 @@ namespace MyGameCity.DAL.Services.CatService
             return category;
         }
 
-        public CategoryEntity UpdateCategory(CategoryDTO category_dto)
+        public async Task<CategoryEntity> UpdateCategory(CategoryDTO category_dto)
         {
-            var category = _context.Categories.Find(category_dto.Id);
+            var category = await _context.Categories.FindAsync(category_dto.Id);
             if (category == null)
             {
                 throw new NotFoundException($"Category {category_dto.Id} was not found");
@@ -68,7 +68,7 @@ namespace MyGameCity.DAL.Services.CatService
             category.Id = category_dto.Id;
             category.Name = category_dto.Name;
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return category;
         }
     }

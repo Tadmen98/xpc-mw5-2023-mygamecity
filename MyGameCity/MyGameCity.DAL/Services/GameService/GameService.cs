@@ -14,33 +14,33 @@ namespace MyGameCity.DAL.Services.GameService
         {
             _context = context;
         }
-        public GameEntity AddGame(GameDTO game_dto)
+        public async Task<GameEntity> AddGame(GameDTO game_dto)
         {
-            var game_check = _context.Game.Where(c => c.Id == game_dto.Id).FirstOrDefault();
+            var game_check = await _context.Game.Where(c => c.Id == game_dto.Id).FirstOrDefaultAsync();
             if (game_check != null)
             {
                 throw new AlreadyExistException($"Game {game_dto.Id} already exists");
             }
-            List<CategoryEntity> categories = _context.Categories.Where(c => game_dto.CategoryIds.Contains(c.Id)).ToList();
+            List<CategoryEntity> categories = await _context.Categories.Where(c => game_dto.CategoryIds.Contains(c.Id)).ToListAsync();
             if (!categories.Any())
             {
                 throw new NotFoundException($"Categories were not found");
             }
-            var developer = _context.Developer.Where(c => c.Id == game_dto.DeveloperId).FirstOrDefault();
+            var developer = await _context.Developer.Where(c => c.Id == game_dto.DeveloperId).FirstOrDefaultAsync();
             if (developer == null)
             {
                 throw new NotFoundException($"Review {game_dto.DeveloperId} was not found");
             }
             var game = new GameEntity(game_dto) {Category = categories, Developer = developer};
-            _context.Game.Add(game);
-            _context.SaveChanges();
+            await _context.Game.AddAsync(game);
+            await _context.SaveChangesAsync();
             //var gam = new GameEntity() { Title="sdfsd"};
             return game;
         }
 
-        public GameEntity DeleteGame(Guid id)
+        public async Task<GameEntity> DeleteGame(Guid id)
         {
-            var game = _context.Game.Find(id);
+            var game = await _context.Game.FindAsync(id);
             if (game is null)
             {
                 throw new NotFoundException($"Game {id} was not found");
@@ -51,15 +51,15 @@ namespace MyGameCity.DAL.Services.GameService
             return game;
         }
 
-        public List<GameEntity> GetAllGames()
+        public async Task<List<GameEntity>> GetAllGames()
         {
-            var games = _context.Game.ToList();
+            var games = await _context.Game.ToListAsync();
             return games;
         }
 
-        public GameEntity GetGameById(Guid id)
+        public async Task<GameEntity> GetGameById(Guid id)
         {
-            var game = _context.Game.Where(c => c.Id == id).FirstOrDefault();
+            var game = await _context.Game.Where(c => c.Id == id).FirstOrDefaultAsync();
             if (game is null)
             {
                 throw new NotFoundException($"Game {id} was not found");
@@ -67,9 +67,9 @@ namespace MyGameCity.DAL.Services.GameService
             return game;
         }
 
-        public GameEntity UpdateGame(GameDTO game_dto)
+        public async Task<GameEntity> UpdateGame(GameDTO game_dto)
         {
-            var game = _context.Game.Find(game_dto.Id);
+            var game = await _context.Game.FindAsync(game_dto.Id);
             if (game == null)
             {
                 throw new NotFoundException($"Game {game_dto.Id} was not found");
@@ -82,7 +82,7 @@ namespace MyGameCity.DAL.Services.GameService
             game.Weight = game_dto.Weight;
             game.NumberInStock = game_dto.NumberInStock;
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return game;
         }
     }

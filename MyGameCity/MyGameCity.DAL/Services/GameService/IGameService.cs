@@ -5,13 +5,13 @@ namespace MyGameCity.DAL.Services.GameService
 {
     public interface IGameService
     {
-        List<GameEntity> GetAllGames();
-        GameEntity GetGameById(Guid id);
+        Task<List<GameEntity>> GetAllGames();
+        Task<GameEntity> GetGameById(Guid id);
 
-        GameEntity AddGame(GameDTO game_dto);
+        Task<GameEntity> AddGame(GameDTO game_dto);
 
-        GameEntity UpdateGame(GameDTO game_dto);
+        Task<GameEntity> UpdateGame(GameDTO game_dto);
 
-        GameEntity DeleteGame(Guid id);
+        Task<GameEntity> DeleteGame(Guid id);
     }
 }

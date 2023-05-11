@@ -1,4 +1,5 @@
-﻿using MyGameCity.DAL.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using MyGameCity.DAL.Data;
 using MyGameCity.DAL.Entities;
 using MyGameCity.DAL.QueryObjects.Filters;
 using System;
@@ -17,7 +18,7 @@ namespace MyGameCity.DAL.QueryObjects
             _context = context;
         }
 
-        public IList<GameEntity> Execute(GameFilter filters)
+        public async Task<IList<GameEntity>> Execute(GameFilter filters)
         {
             IQueryable<GameEntity> query = _context.Game;
 
@@ -41,7 +42,7 @@ namespace MyGameCity.DAL.QueryObjects
                 query = query.Where(g => g.Category.Any(c => c.Name == filters.CategoryNameFilter.Title));
             }
 
-            return query.ToList();
+            return await query.ToListAsync();
         }
     }
 }

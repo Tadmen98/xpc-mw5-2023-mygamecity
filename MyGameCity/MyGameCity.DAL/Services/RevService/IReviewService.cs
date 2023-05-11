@@ -6,15 +6,15 @@ namespace MyGameCity.DAL.Services.RevService
 {
     public interface IReviewService
     {
-        ReviewEntity GetReviewById(Guid id);
+        Task<ReviewEntity> GetReviewById(Guid id);
 
-        List<ReviewEntity> GetbyGameId(Guid game_id);
+        Task<List<ReviewEntity>> GetbyGameId(Guid game_id);
         //ReviewEntity GetGameById(Guid id);
 
-        ReviewEntity AddReview(ReviewDTO review);
+        Task<ReviewEntity> AddReview(ReviewDTO review);
 
-        ReviewEntity UpdateReview(ReviewDTO review);
+        Task<ReviewEntity> UpdateReview(ReviewDTO review);
 
-        ReviewEntity DeleteReview(Guid id);
+        Task<ReviewEntity> DeleteReview(Guid id);
     }
 }

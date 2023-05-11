@@ -25,7 +25,7 @@ namespace MyGameCity.Controllers
         {
             try
             {
-                var category = _categoryService.GetCategoryById(id);
+                var category = await _categoryService.GetCategoryById(id);
                 var category_dto = new CategoryDTO(category);
                 return Ok(category_dto);
             }
@@ -41,7 +41,7 @@ namespace MyGameCity.Controllers
         [HttpGet]
         public async Task<ActionResult<List<CategoryEntity>>> GetAllCategories()
         {
-            var categoríes = _categoryService.GetAllCategories();
+            var categoríes = await _categoryService.GetAllCategories();
             List<CategoryDTO> categories_dtos = new List<CategoryDTO>();
             foreach (var category in categoríes)
             {
@@ -57,8 +57,8 @@ namespace MyGameCity.Controllers
         {
             try
             {
-                var result = _categoryService.AddCategory(category);
-                return Ok("Controller was created");
+                var result = await _categoryService.AddCategory(category);
+                return Ok("Category was created");
             }
             catch (NotFoundException ex)
             {
@@ -71,20 +71,18 @@ namespace MyGameCity.Controllers
             StatusCode(500);
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateCategory(Guid id, CategoryDTO category)
+        [HttpPut]
+        public async Task<ActionResult> UpdateCategory(CategoryDTO category)
         {
             try
             {
-                var result = _categoryService.UpdateCategory(category);
-                return Ok("Controller was updated");
+                var result = await _categoryService.UpdateCategory(category);
+                return Ok("Category was updated");
             }
             catch (NotFoundException ex)
             {
                 return NotFound(ex.Message);
             }
-            StatusCode(500);
-
         }
 
         [HttpDelete("{id}")]
@@ -92,8 +90,8 @@ namespace MyGameCity.Controllers
         {
             try
             {
-                var result = _categoryService.DeleteCategory(id);
-                return Ok("Controller was deleted");
+                var result = await _categoryService.DeleteCategory(id);
+                return Ok("Category was deleted");
             }
             catch (NotFoundException ex)
             {

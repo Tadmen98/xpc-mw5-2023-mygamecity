@@ -1,4 +1,5 @@
-﻿using MyGameCity.DAL.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using MyGameCity.DAL.Data;
 using MyGameCity.DAL.DTO;
 using MyGameCity.DAL.Entities;
 using MyGameCity.DAL.Exceptions;
@@ -14,43 +15,43 @@ namespace MyGameCity.DAL.Services.DevService
         {
             _context = context;
         }
-        public DeveloperEntity AddDeveloper(DeveloperDTO developer_dto)
+        public async Task<DeveloperEntity> AddDeveloper(DeveloperDTO developer_dto)
         {
             //List<GameEntity> games = _context.Game.Where(c => developer_dto.GameIds.Contains(c.Id)).ToList();
-            var developer_check = _context.Review.Where(c => c.Id == developer_dto.Id).FirstOrDefault();
+            var developer_check = await _context.Developer.Where(c => c.Id == developer_dto.Id).FirstOrDefaultAsync();
             if (developer_check != null)
             {
                 throw new AlreadyExistException($"Developer {developer_dto.Id} already exists");
             }
 
             var developer = new DeveloperEntity(developer_dto) {};
-            _context.Developer.Add(developer);
-            _context.SaveChanges();
+            await _context.Developer.AddAsync(developer);
+            await _context.SaveChangesAsync();
             return developer;
         }
 
-        public DeveloperEntity DeleteDeveloper(Guid id)
+        public async Task<DeveloperEntity> DeleteDeveloper(Guid id)
         {
-            var developer = _context.Developer.Find(id);
+            var developer = await _context.Developer.FindAsync(id);
             if (developer is null)
             {
                 throw new NotFoundException($"Developer {id} was not found");
             }
 
             _context.Developer.Remove(developer);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return developer;
         }
 
-        public List<DeveloperEntity> GetAllDevelopers()
+        public async Task<List<DeveloperEntity>> GetAllDevelopers()
         {
-            var developers = _context.Developer.ToList();
+            var developers = await _context.Developer.ToListAsync();
             return developers;
         }
 
-        public DeveloperEntity GetDeveloperById(Guid id)
+        public async Task<DeveloperEntity> GetDeveloperById(Guid id)
         {
-            var developer = _context.Developer.Where(c => c.Id == id).FirstOrDefault();
+            var developer = await _context.Developer.Where(c => c.Id == id).FirstOrDefaultAsync();
             if (developer is null)
             {
                 throw new NotFoundException($"Developer {id} was not found");
@@ -58,9 +59,9 @@ namespace MyGameCity.DAL.Services.DevService
             return developer;
         }
 
-        public DeveloperEntity UpdateDeveloper(DeveloperDTO developer_dto)
+        public async Task<DeveloperEntity> UpdateDeveloper(DeveloperDTO developer_dto)
         {
-            var developer = _context.Developer.Find(developer_dto.Id);
+            var developer = await _context.Developer.FindAsync(developer_dto.Id);
             if (developer == null)
             {
                 throw new NotFoundException($"Developer {developer_dto.Id} was not found");
@@ -70,7 +71,7 @@ namespace MyGameCity.DAL.Services.DevService
             developer.LogoImg = developer_dto.LogoImg;
             developer.CountryOfOrigin = developer_dto.CountryOfOrigin;
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             return developer;
         }
     }

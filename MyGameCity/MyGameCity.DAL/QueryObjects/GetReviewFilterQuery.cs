@@ -17,9 +17,9 @@ namespace MyGameCity.DAL.QueryObjects
         {
             _context = context;
         }
-        public IList<ReviewEntity> Execute(ReviewFilter filter)
+        public async Task<IList<ReviewEntity>> Execute(ReviewFilter filter)
         {
-            return _context.Review.Where(s => s.Game.Title == filter.GameName).ToList();
+            return await _context.Review.Where(s => s.Game.Title == filter.GameName).ToListAsync();
         }
     }
 }

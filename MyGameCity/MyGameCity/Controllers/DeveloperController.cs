@@ -30,7 +30,7 @@ namespace MyGameCity.Controllers
         {
             try
             {
-                var developer = _developerService.GetDeveloperById(id);
+                var developer = await _developerService.GetDeveloperById(id);
                 var developer_dto = new DeveloperDTO(developer);
                 return Ok(developer_dto);
             }
@@ -44,7 +44,7 @@ namespace MyGameCity.Controllers
         [HttpGet]
         public async Task<ActionResult<List<DeveloperDTO>>> GetAllDevelopers()
         {
-            var developers = _developerService.GetAllDevelopers();
+            var developers = await _developerService.GetAllDevelopers();
             //if (developer == null)
             //    return NotFound("Reviews not found");
             List<DeveloperDTO> developer_dtos = new List<DeveloperDTO>();
@@ -60,7 +60,7 @@ namespace MyGameCity.Controllers
         [HttpPost("Query")]
         public async Task<ActionResult<List<DeveloperEntity>>> GetFilteredDevelopers(DeveloperFilter filter)
         {
-            var developer = _getDeveloperFilterQuery.Execute(filter);
+            var developer = await _getDeveloperFilterQuery.Execute(filter);
             //if (developer == null)
             //    return NotFound("Games not found");
 
@@ -72,7 +72,7 @@ namespace MyGameCity.Controllers
         {
             try
             {
-                var result = _developerService.AddDeveloper(developer);
+                var result = await _developerService.AddDeveloper(developer);
                 return Ok("review was created");
             }
             catch (NotFoundException ex)
@@ -86,12 +86,12 @@ namespace MyGameCity.Controllers
             StatusCode(500);
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateDeveloper(Guid id, DeveloperDTO developer)
+        [HttpPut]
+        public async Task<ActionResult> UpdateDeveloper(DeveloperDTO developer)
         {
             try
             {
-                var result = _developerService.UpdateDeveloper(developer);
+                var result = await _developerService.UpdateDeveloper(developer);
                 return Ok("Developer was updated");
             }
             catch (NotFoundException ex)
@@ -106,7 +106,7 @@ namespace MyGameCity.Controllers
         {
             try
             {
-                var result = _developerService.DeleteDeveloper(id);
+                var result = await _developerService.DeleteDeveloper(id);
                 return Ok("Developer was deleted");
             }
             catch (NotFoundException ex)

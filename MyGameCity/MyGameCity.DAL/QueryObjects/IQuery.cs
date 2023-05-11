@@ -8,6 +8,6 @@ namespace MyGameCity.DAL.QueryObjects
 {
     public interface IQuery<TModel, TFilter>
     {
-        IList<TModel> Execute(TFilter filter);
+        Task<IList<TModel>> Execute(TFilter filter);
     }
 }

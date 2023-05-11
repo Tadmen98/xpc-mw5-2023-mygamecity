@@ -1,8 +1,7 @@
 ﻿using Bogus;
 using Microsoft.AspNetCore.Mvc;
-using MyGameCity.DAL.Services;
-//using MyGameCity.DataModel;
-using MyGameCity.DAL.Services.GameService;
+using MyGameCity.Services;
+using MyGameCity.Services.GameService;
 using MyGameCity.DAL.Entities;
 using MyGameCity.DAL.DTO;
 using MyGameCity.DAL.QueryObjects;
@@ -110,7 +109,7 @@ namespace MyGameCity.Controllers
             {
                 return NotFound(ex.Message);
             }
-            
+
         }
     }
 }

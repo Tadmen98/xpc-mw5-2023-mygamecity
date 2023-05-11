@@ -27,7 +27,7 @@ namespace MyGameCity.DAL.Services.RevService
                 throw new AlreadyExistException($"Review {review_dto.GameId} already exists");
             }
 
-            var review = new ReviewEntity(review_dto) {Game = game};
+            var review = new ReviewEntity(review_dto) { Game = game };
             await _context.Review.AddAsync(review);
             await _context.SaveChangesAsync();
             return review;

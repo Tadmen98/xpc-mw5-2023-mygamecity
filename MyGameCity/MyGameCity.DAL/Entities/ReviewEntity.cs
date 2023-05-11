@@ -2,7 +2,7 @@
 
 namespace MyGameCity.DAL.Entities;
 
-public record ReviewEntity: EntityBase
+public record ReviewEntity : EntityBase
 {
     public ReviewEntity() { }
 

@@ -2,12 +2,12 @@
 
 namespace MyGameCity.DAL.Entities;
 
-public record CategoryEntity: EntityBase
+public record CategoryEntity : EntityBase
 {
     public CategoryEntity() { }
     public CategoryEntity(CategoryDTO category)
     {
-        Id = category.Id;    
+        Id = category.Id;
         Name = category.Name;
     }
     public string Name { get; set; }

@@ -23,6 +23,8 @@ namespace MyGameCity.Controllers
         {
             _developerService = develper_service;
             _getDeveloperFilterQuery = getDeveloperFilterQuery;
+            _logger = logger;
+            // TODO: implement all functions using new game
         }
 
         [HttpGet("{id}")]

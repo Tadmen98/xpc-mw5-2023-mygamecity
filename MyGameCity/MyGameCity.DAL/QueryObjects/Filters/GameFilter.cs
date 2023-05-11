@@ -15,7 +15,7 @@ namespace MyGameCity.DAL.QueryObjects.Filters
         public StockFilter StockFilter { get; set; }
     }
 
-    
 
-    
+
+
 }

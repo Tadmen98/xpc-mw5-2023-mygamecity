@@ -19,7 +19,7 @@ namespace MyGameCity.DAL.QueryObjects
         }
         public async Task<IList<DeveloperEntity>> Execute(DeveloperFilter filter)
         {
-            return await _context.Developer.Where(s => s.CountryOfOrigin == filter.CountryOfOrigin).ToListAsync(); 
+            return await _context.Developer.Where(s => s.CountryOfOrigin == filter.CountryOfOrigin).ToListAsync();
         }
     }
 }

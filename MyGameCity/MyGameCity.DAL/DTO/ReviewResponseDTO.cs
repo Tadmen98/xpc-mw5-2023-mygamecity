@@ -4,7 +4,7 @@ namespace MyGameCity.DAL.DTO;
 
 public record ReviewResponseDTO : EntityBase
 {
-    public ReviewResponseDTO() {}
+    public ReviewResponseDTO() { }
 
     public ReviewResponseDTO(ReviewEntity review)
     {

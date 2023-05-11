@@ -5,7 +5,6 @@ using MyGameCity.DAL.DTO;
 using MyGameCity.DAL.Entities;
 using MyGameCity.DAL.Exceptions;
 using MyGameCity.DAL.Services.CatService;
-using MyGameCity.DAL.Services.GameService;
 
 namespace MyGameCity.Controllers
 {
@@ -14,10 +13,11 @@ namespace MyGameCity.Controllers
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryService _categoryService;
-
-        public CategoryController(ICategoryService categoryService)
+        protected readonly ILogger<GameController> _logger;
+        public CategoryController(ICategoryService categoryService, ILogger<GameController> logger)
         {
             _categoryService = categoryService;
+            _logger = logger;
         }
 
         [HttpGet("{id}")]

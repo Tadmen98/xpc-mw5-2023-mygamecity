@@ -34,7 +34,6 @@ namespace MyGameCity.Controllers
                 string message = ex.Message;
                 return NotFound(message);
             }
-            StatusCode(500);
 
         }
 
@@ -68,7 +67,6 @@ namespace MyGameCity.Controllers
             {
                 return BadRequest(ex.Message);
             }
-            StatusCode(500);
         }
 
         [HttpPut]

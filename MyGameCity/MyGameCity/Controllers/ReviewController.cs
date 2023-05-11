@@ -38,7 +38,6 @@ namespace MyGameCity.Controllers
             {
                 return NotFound(ex.Message.ToString());
             }
-            StatusCode(505);
         }
 
         [HttpGet("bygame/{game_id}")]
@@ -59,7 +58,6 @@ namespace MyGameCity.Controllers
             {
                 return NotFound(ex.Message);
             }
-            StatusCode(500);
         }
 
         [HttpPost("Query")]
@@ -87,7 +85,6 @@ namespace MyGameCity.Controllers
             {
                 return BadRequest(ex.Message);
             }
-            StatusCode(500);
         }
 
         [HttpPut]
@@ -102,7 +99,6 @@ namespace MyGameCity.Controllers
             {
                 return NotFound(ex.Message);
             }
-            StatusCode(500);
         }
 
         [HttpDelete("{id}")]

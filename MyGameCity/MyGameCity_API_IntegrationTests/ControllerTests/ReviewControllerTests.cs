@@ -43,12 +43,12 @@ namespace MyGameCity.IntegrationTests.Controller_Tests
             {
                 Description = "Very boring",
                 Title = "Meh Game",
-                Id = Guid.Parse("a34605f2-b789-4d80-a45a-beed13de19a5"),
-                GameId = Guid.Parse("739bfc28-0b47-41e6-83ce-f3de0e630041"),
-                StarsCount = 2
+                Id = Guid.Parse("51bdb679-b86e-4a4c-ab72-21d96ed0ec35"),
+                GameId = Guid.Parse("c67fddba-2f3f-4a84-96f1-02058156864f"),
+                StarsCount = 1
             };
 
-            var response = await _client.PutAsync("/api/Review", JsonContent.Create(TestReview));
+            var response = await _client.PutAsync("/api/Review/{id}", JsonContent.Create(TestReview));
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
 
@@ -61,13 +61,13 @@ namespace MyGameCity.IntegrationTests.Controller_Tests
         [Fact]
         public async Task GET_IfIdExists_GetReviewByID()
         {
-            var response = await _client.GetAsync("/api/Review/3fa85f64-0717-4562-b3fc-2c963f66afa7");
+            var response = await _client.GetAsync("/api/Review/c67fddba-2f3f-4a84-96f1-02058156864f");
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
         [Fact]
         public async Task DELETE_IfIdExists_GetReviewByID()
         {
-            var response = await _client.DeleteAsync("/api/Review/a34605f2-b789-4d80-a45a-beed13de19a5");
+            var response = await _client.DeleteAsync("/api/Review/51bdb679-b86e-4a4c-ab72-21d96ed0ec35");
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
 

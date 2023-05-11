@@ -25,16 +25,16 @@ namespace MyGameCity.IntegrationTests.Controller_Tests
     {
         public IConfiguration Configuration { get; private set; }
 
-        //protected override void ConfigureWebHost(IWebHostBuilder builder)
-        //{
-        //    builder.ConfigureAppConfiguration(config =>
-        //    {
-        //        Configuration = new ConfigurationBuilder()
-        //        .AddJsonFile("integrationtesting.json")
-        //        .Build();
+        protected override void ConfigureWebHost(IWebHostBuilder builder)
+        {
+            builder.ConfigureAppConfiguration(config =>
+            {
+                Configuration = new ConfigurationBuilder()
+                .AddJsonFile("integrationtesting.json")
+                .Build();
 
-        //        config.AddConfiguration(Configuration);
-        //    });
-        //}
+                config.AddConfiguration(Configuration);
+            });
+        }
     }
 }

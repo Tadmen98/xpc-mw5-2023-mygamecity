@@ -47,9 +47,9 @@ namespace MyGameCity.IntegrationTests.Controller_Tests
         }
 
         [Fact]
-        public async Task GET_IfIdExists_GameById()
+        public async Task GET_IfIdExists_CategoryById()
         {
-            var response = await _client.GetAsync("/api/Category/3fa85f64-5017-4562-b3fc-2c963f66afa6");
+            var response = await _client.GetAsync("/api/Category/6704e2f6-2c6a-47f1-a518-02653a45bc13");
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
         [Fact]

@@ -1,6 +1,7 @@
 ﻿using MyGameCity.DAL.Data;
 using MyGameCity.DAL.DTO;
 using MyGameCity.DAL.Entities;
+using MyGameCity.DAL.Exceptions;
 //using MyGameCity.DataModel;
 
 namespace MyGameCity.DAL.Services.DevService
@@ -16,6 +17,11 @@ namespace MyGameCity.DAL.Services.DevService
         public DeveloperEntity AddDeveloper(DeveloperDTO developer_dto)
         {
             //List<GameEntity> games = _context.Game.Where(c => developer_dto.GameIds.Contains(c.Id)).ToList();
+            var developer_check = _context.Review.Where(c => c.Id == developer_dto.Id).FirstOrDefault();
+            if (developer_check != null)
+            {
+                throw new AlreadyExistException($"Developer {developer_dto.Id} already exists");
+            }
 
             var developer = new DeveloperEntity(developer_dto) {};
             _context.Developer.Add(developer);
@@ -27,7 +33,9 @@ namespace MyGameCity.DAL.Services.DevService
         {
             var developer = _context.Developer.Find(id);
             if (developer is null)
-                return null;
+            {
+                throw new NotFoundException($"Developer {id} was not found");
+            }
 
             _context.Developer.Remove(developer);
             _context.SaveChanges();
@@ -42,7 +50,11 @@ namespace MyGameCity.DAL.Services.DevService
 
         public DeveloperEntity GetDeveloperById(Guid id)
         {
-            var developer = _context.Developer.Where(c => c.Id == id).First();
+            var developer = _context.Developer.Where(c => c.Id == id).FirstOrDefault();
+            if (developer is null)
+            {
+                throw new NotFoundException($"Developer {id} was not found");
+            }
             return developer;
         }
 
@@ -50,7 +62,9 @@ namespace MyGameCity.DAL.Services.DevService
         {
             var developer = _context.Developer.Find(developer_dto.Id);
             if (developer == null)
-                return null;
+            {
+                throw new NotFoundException($"Developer {developer_dto.Id} was not found");
+            }
             developer.Title = developer_dto.Title;
             developer.Description = developer_dto.Description;
             developer.LogoImg = developer_dto.LogoImg;

@@ -3,9 +3,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyGameCity.DAL.DTO;
 using MyGameCity.DAL.Entities;
+using MyGameCity.DAL.Exceptions;
 using MyGameCity.DAL.QueryObjects;
 using MyGameCity.DAL.QueryObjects.Filters;
-using MyGameCity.DataModel;
+//using MyGameCity.DataModel;
 using MyGameCity.DAL.Services;
 using MyGameCity.DAL.Services.DevService;
 
@@ -27,19 +28,24 @@ namespace MyGameCity.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<List<DeveloperEntity>>> GetbyId(Guid id)
         {
-            var developer = _developerService.GetDeveloperById(id);
-            if (developer == null)
-                return NotFound("Reviews not found");
-
-            return Ok(developer);
+            try
+            {
+                var developer = _developerService.GetDeveloperById(id);
+                return Ok(developer);
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            StatusCode(500);
         }
 
         [HttpGet]
         public async Task<ActionResult<List<DeveloperEntity>>> GetAllDevelopers()
         {
             var developer = _developerService.GetAllDevelopers();
-            if (developer == null)
-                return NotFound("Reviews not found");
+            //if (developer == null)
+            //    return NotFound("Reviews not found");
 
             return Ok(developer);
         }
@@ -48,8 +54,8 @@ namespace MyGameCity.Controllers
         public async Task<ActionResult<List<DeveloperEntity>>> GetFilteredDevelopers(DeveloperFilter filter)
         {
             var developer = _getDeveloperFilterQuery.Execute(filter);
-            if (developer == null)
-                return NotFound("Games not found");
+            //if (developer == null)
+            //    return NotFound("Games not found");
 
             return Ok(developer);
         }
@@ -57,28 +63,49 @@ namespace MyGameCity.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateDeveloper(DeveloperDTO developer)
         {
-            var result = _developerService.AddDeveloper(developer);
-
-            return Ok("review was created");
+            try
+            {
+                var result = _developerService.AddDeveloper(developer);
+                return Ok("review was created");
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (AlreadyExistException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            StatusCode(500);
         }
 
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateDeveloper(Guid id, DeveloperDTO developer)
         {
-            var result = _developerService.UpdateDeveloper(developer);
-
-            return Ok("review was updated");
+            try
+            {
+                var result = _developerService.UpdateDeveloper(developer);
+                return Ok("Developer was updated");
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            StatusCode(500);
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteDeveloper(Guid id)
         {
-            var result = _developerService.DeleteDeveloper(id);
-
-            if (result == null)
-                return NotFound("Reviews not found");
-
-            return Ok("Review was deleted");
+            try
+            {
+                var result = _developerService.DeleteDeveloper(id);
+                return Ok("Developer was deleted");
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
     }
 }

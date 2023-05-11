@@ -1,13 +1,14 @@
 ﻿using Bogus;
 using Microsoft.AspNetCore.Mvc;
 using MyGameCity.DAL.Services;
-using MyGameCity.DataModel;
+//using MyGameCity.DataModel;
 using MyGameCity.DAL.Services.GameService;
 using MyGameCity.DAL.Entities;
 using MyGameCity.DAL.DTO;
 using MyGameCity.DAL.QueryObjects;
 using MyGameCity.DAL.QueryObjects.Filters;
 using Microsoft.EntityFrameworkCore.Query;
+using MyGameCity.DAL.Exceptions;
 
 namespace MyGameCity.Controllers
 {
@@ -28,11 +29,16 @@ namespace MyGameCity.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<GameEntity>> GetGameById(Guid id)
         {
-            var game = _gameService.GetGameById(id);
-            if (game == null)
-                return NotFound("Games not found");
-
-            return Ok(game);
+            try
+            {
+                var game = _gameService.GetGameById(id);
+                return Ok(game);
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            StatusCode(500);
         }
 
         [HttpGet("all")]
@@ -49,37 +55,60 @@ namespace MyGameCity.Controllers
         public async Task<ActionResult<List<GameEntity>>> GetFilteredGames(GameFilter filter)
         {
             var games = _getGameFilterQuery.Execute(filter);
-            if (games == null)
-                return NotFound("Games not found");
-            Console.WriteLine("Called query");
+            //if (games == null)
+            //    return NotFound("Games not found");
+            //Console.WriteLine("Called query");
             return Ok(games);
         }
 
         [HttpPost]
         public async Task<ActionResult> CreateGame(GameDTO game)
         {
-            var result = _gameService.AddGame(game);
+            try
+            {
+                var result = _gameService.AddGame(game);
+                return Ok("Games was created");
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (AlreadyExistException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            StatusCode(500);
 
-            return Ok("Games was created");
         }
 
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateGame(Guid id, GameDTO game)
         {
-            var result = _gameService.UpdateGame(game);
-
-            return Ok("Games was updated");
+            try
+            {
+                var result = _gameService.UpdateGame(game);
+                return Ok("Games was updated");
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            StatusCode(500);
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteGame(Guid id)
         {
-            var result = _gameService.DeleteGame(id);
-
-            if (result == null)
-                return NotFound("Games not found");
-
-            return Ok("Games was deleted");
+            try
+            {
+                var result = _gameService.DeleteGame(id);
+                return Ok("Games was deleted");
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            
         }
     }
 }

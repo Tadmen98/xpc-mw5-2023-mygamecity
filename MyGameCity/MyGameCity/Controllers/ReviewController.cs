@@ -4,10 +4,11 @@ using MyGameCity.DAL.DTO;
 using MyGameCity.DAL.Entities;
 using MyGameCity.DAL.QueryObjects.Filters;
 using MyGameCity.DAL.QueryObjects;
-using MyGameCity.DataModel;
+//using MyGameCity.DataModel;
 using MyGameCity.DAL.Services.CatService;
 using MyGameCity.DAL.Services.GameService;
 using MyGameCity.DAL.Services.RevService;
+using MyGameCity.DAL.Exceptions;
 
 namespace MyGameCity.Controllers
 {
@@ -27,59 +28,88 @@ namespace MyGameCity.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ReviewEntity>> GetReviewById(Guid id)
         {
-            var reviews = _reviewService.GetReviewById(id);
-            if (reviews == null)
-                return NotFound("Reviews not found");
-
-            return Ok(reviews);
-            //return Ok();
+            try
+            {
+                var reviews = _reviewService.GetReviewById(id);
+                return Ok(reviews);
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message.ToString());
+            }
+            StatusCode(505);
         }
 
         [HttpGet("bygame/{game_id}")]
         public async Task<ActionResult<List<ReviewEntity>>> GetbyGameId(Guid game_id)
         {
-            var reviews = _reviewService.GetbyGameId(game_id);
-            if (reviews == null)
-                return NotFound("Reviews not found");
-
-            return Ok(reviews);
+            try
+            {
+                var reviews = _reviewService.GetbyGameId(game_id);
+                return Ok(reviews);
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            StatusCode(500);
         }
 
         [HttpPost("Query")]
         public async Task<ActionResult<List<GameEntity>>> GetFilteredGames(ReviewFilter filter)
         {
             var review = _getReviewFilterQuery.Execute(filter);
-            if (review == null)
-                return NotFound("Games not found");
-
+            //if (review == null)
+                //return NotFound("Games not found");
             return Ok(review);
         }
 
         [HttpPost]
         public async Task<ActionResult> CreateReview(ReviewDTO review)
         {
-            var result = _reviewService.AddReview(review);
-
-            return Ok("review was created");
+            try
+            {
+                var result = _reviewService.AddReview(review);
+                return Ok("review was created");
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (AlreadyExistException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            StatusCode(500);
         }
 
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateReview(Guid id, ReviewDTO review)
         {
-            var result = _reviewService.UpdateReview(review);
-
-            return Ok("review was updated");
+            try
+            {
+                var result = _reviewService.UpdateReview(review);
+                return Ok("Review was updated");
+            }
+            catch (NotFoundException ex) 
+            {
+                return NotFound(ex.Message);
+            }
+            StatusCode(500);
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteReview(Guid id)
         {
-            var result = _reviewService.DeleteReview(id);
-
-            if (result == null)
-                return NotFound("Reviews not found");
-
-            return Ok("Review was deleted");
+            try
+            {
+                var result = _reviewService.DeleteReview(id);
+                return Ok("Review was deleted");
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
     }
 }

@@ -2,6 +2,7 @@
 using MyGameCity.DAL.Data;
 using MyGameCity.DAL.DTO;
 using MyGameCity.DAL.Entities;
+using MyGameCity.DAL.Exceptions;
 //using MyGameCity.DataModel;
 
 namespace MyGameCity.DAL.Services.GameService
@@ -15,9 +16,21 @@ namespace MyGameCity.DAL.Services.GameService
         }
         public GameEntity AddGame(GameDTO game_dto)
         {
+            var game_check = _context.Game.Where(c => c.Id == game_dto.Id).FirstOrDefault();
+            if (game_check != null)
+            {
+                throw new AlreadyExistException($"Game {game_dto.Id} already exists");
+            }
             List<CategoryEntity> categories = _context.Categories.Where(c => game_dto.CategoryIds.Contains(c.Id)).ToList();
-            var developer = _context.Developer.Where(c => c.Id == game_dto.DeveloperId).First();
-            
+            if (!categories.Any())
+            {
+                throw new NotFoundException($"Categories were not found");
+            }
+            var developer = _context.Developer.Where(c => c.Id == game_dto.DeveloperId).FirstOrDefault();
+            if (developer == null)
+            {
+                throw new NotFoundException($"Review {game_dto.DeveloperId} was not found");
+            }
             var game = new GameEntity(game_dto) {Category = categories, Developer = developer};
             _context.Game.Add(game);
             _context.SaveChanges();
@@ -29,7 +42,9 @@ namespace MyGameCity.DAL.Services.GameService
         {
             var game = _context.Game.Find(id);
             if (game is null)
-                return null;
+            {
+                throw new NotFoundException($"Game {id} was not found");
+            }
 
             _context.Game.Remove(game);
             _context.SaveChanges();
@@ -44,7 +59,11 @@ namespace MyGameCity.DAL.Services.GameService
 
         public GameEntity GetGameById(Guid id)
         {
-            var game = _context.Game.Where(c => c.Id == id).First();
+            var game = _context.Game.Where(c => c.Id == id).FirstOrDefault();
+            if (game is null)
+            {
+                throw new NotFoundException($"Game {id} was not found");
+            }
             return game;
         }
 
@@ -52,7 +71,9 @@ namespace MyGameCity.DAL.Services.GameService
         {
             var game = _context.Game.Find(game_dto.Id);
             if (game == null)
-                return null;
+            {
+                throw new NotFoundException($"Game {game_dto.Id} was not found");
+            }
             game.Id = game_dto.Id;
             game.Title = game_dto.Title;
             game.ImagePath = game_dto.ImagePath;

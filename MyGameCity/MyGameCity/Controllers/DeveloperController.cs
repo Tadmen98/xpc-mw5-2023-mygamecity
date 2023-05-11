@@ -26,12 +26,13 @@ namespace MyGameCity.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<DeveloperEntity>>> GetbyId(Guid id)
+        public async Task<ActionResult<List<DeveloperDTO>>> GetbyId(Guid id)
         {
             try
             {
                 var developer = _developerService.GetDeveloperById(id);
-                return Ok(developer);
+                var developer_dto = new DeveloperDTO(developer);
+                return Ok(developer_dto);
             }
             catch (NotFoundException ex)
             {
@@ -41,13 +42,19 @@ namespace MyGameCity.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<DeveloperEntity>>> GetAllDevelopers()
+        public async Task<ActionResult<List<DeveloperDTO>>> GetAllDevelopers()
         {
-            var developer = _developerService.GetAllDevelopers();
+            var developers = _developerService.GetAllDevelopers();
             //if (developer == null)
             //    return NotFound("Reviews not found");
+            List<DeveloperDTO> developer_dtos = new List<DeveloperDTO>();
+            foreach (var developer in developers)
+            {
+                var developer_dto = new DeveloperDTO(developer);
+                developer_dtos.Add(developer_dto);
+            }
 
-            return Ok(developer);
+            return Ok(developer_dtos);
         }
 
         [HttpPost("Query")]

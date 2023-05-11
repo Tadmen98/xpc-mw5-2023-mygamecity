@@ -21,12 +21,13 @@ namespace MyGameCity.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<CategoryEntity>>> GetCategoryById(Guid id)
+        public async Task<ActionResult<List<CategoryDTO>>> GetCategoryById(Guid id)
         {
             try
             {
                 var category = _categoryService.GetCategoryById(id);
-                return Ok(category);
+                var category_dto = new CategoryDTO(category);
+                return Ok(category_dto);
             }
             catch (NotFoundException ex)
             {
@@ -40,11 +41,15 @@ namespace MyGameCity.Controllers
         [HttpGet]
         public async Task<ActionResult<List<CategoryEntity>>> GetAllCategories()
         {
-            var category = _categoryService.GetAllCategories();
-            //if (category == null)
-            //    return NotFound("Controller not found");
+            var categoríes = _categoryService.GetAllCategories();
+            List<CategoryDTO> categories_dtos = new List<CategoryDTO>();
+            foreach (var category in categoríes)
+            {
+                var category_dto = new CategoryDTO(category);
+                categories_dtos.Add(category_dto);
+            }
 
-            return Ok(category);
+            return Ok(categories_dtos);
         }
 
         [HttpPost]

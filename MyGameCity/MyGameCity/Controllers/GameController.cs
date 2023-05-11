@@ -27,12 +27,13 @@ namespace MyGameCity.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<GameEntity>> GetGameById(Guid id)
+        public async Task<ActionResult<GameResponseDTO>> GetGameById(Guid id)
         {
             try
             {
                 var game = _gameService.GetGameById(id);
-                return Ok(game);
+                var game_dto = new GameResponseDTO(game);
+                return Ok(game_dto);
             }
             catch (NotFoundException ex)
             {
@@ -42,13 +43,17 @@ namespace MyGameCity.Controllers
         }
 
         [HttpGet("all")]
-        public async Task<ActionResult<GameEntity>> GetAllGames()
+        public async Task<ActionResult<GameResponseDTO>> GetAllGames()
         {
             var games = _gameService.GetAllGames();
-            if (games == null)
-                return NotFound("Games not found");
+            List<GameResponseDTO> game_dtos = new List<GameResponseDTO>();
+            foreach (var game in games)
+            {
+                var game_dto = new GameResponseDTO(game);
+                game_dtos.Add(game_dto);
+            }
 
-            return Ok(games);
+            return Ok(game_dtos);
         }
 
         [HttpPost("Query")]

@@ -26,12 +26,13 @@ namespace MyGameCity.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ReviewEntity>> GetReviewById(Guid id)
+        public async Task<ActionResult<ReviewResponseDTO>> GetReviewById(Guid id)
         {
             try
             {
                 var reviews = _reviewService.GetReviewById(id);
-                return Ok(reviews);
+                var review_dto = new ReviewResponseDTO(reviews);
+                return Ok(review_dto);
             }
             catch (NotFoundException ex)
             {
@@ -41,12 +42,18 @@ namespace MyGameCity.Controllers
         }
 
         [HttpGet("bygame/{game_id}")]
-        public async Task<ActionResult<List<ReviewEntity>>> GetbyGameId(Guid game_id)
+        public async Task<ActionResult<List<ReviewResponseDTO>>> GetbyGameId(Guid game_id)
         {
             try
             {
                 var reviews = _reviewService.GetbyGameId(game_id);
-                return Ok(reviews);
+                List<ReviewResponseDTO> review_dtos = new List<ReviewResponseDTO>();
+                foreach (var review in reviews)
+                {
+                    var creview_dto = new ReviewResponseDTO(review);
+                    review_dtos.Add(creview_dto);
+                }
+                return Ok(review_dtos);
             }
             catch (NotFoundException ex)
             {

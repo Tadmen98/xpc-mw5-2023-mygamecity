@@ -1,4 +1,4 @@
-﻿using MyGameCity.DAL.Entities;
+﻿ using MyGameCity.DAL.Entities;
 
 namespace MyGameCity.DAL.DTO;
 

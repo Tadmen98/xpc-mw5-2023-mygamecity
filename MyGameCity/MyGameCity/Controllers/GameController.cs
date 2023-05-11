@@ -4,6 +4,7 @@ using MyGameCity.Services;
 using MyGameCity.Services.GameService;
 using MyGameCity.DAL.Entities;
 using MyGameCity.DAL.DTO;
+using Bogus.DataSets;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,29 +15,42 @@ namespace MyGameCity.Controllers
     public class GameController : ControllerBase
     {
         private readonly IGameService _gameService;
-
-        public GameController(IGameService gameService)
+        protected readonly ILogger<GameController> _logger;
+        public GameController(IGameService gameService,ILogger<GameController> logger)
         {
             _gameService = gameService;
+            _logger = logger;
             // TODO: implement all functions using new game
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<GameEntity>> GetbyId(Guid id)
         {
+            _logger.LogInformation("Run endpoint /api/game/{Id} GET");
+
             var game = _gameService.GetGameById(id);
             if (game == null)
-                return NotFound("Reviews not found");
-
+            {
+                _logger.LogTrace("Game was not found");
+                return NotFound("Game not found");
+            }
+            _logger.LogTrace("Game was found");
             return Ok(game);
         }
 
         [HttpGet]
         public async Task<ActionResult<GameEntity>> GetAllGames()
         {
+            _logger.LogInformation("Run endpoint /api/game GET");
+
             var games = _gameService.GetAllGames();
             if (games == null)
-                return NotFound("Reviews not found");
+            {
+                _logger.LogTrace("Database is empty");
+                return NotFound("Games not found");
+            }
+
+            _logger.LogTrace("Got all games from database");
 
             return Ok(games);
         }
@@ -44,28 +58,41 @@ namespace MyGameCity.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateGame(GameDTO game)
         {
+            _logger.LogInformation("Run endpoint /api/game POST");
+
             var result = _gameService.AddGame(game);
 
-            return Ok("review was created");
+            _logger.LogTrace("Added new game to database with Id {id}",game.Id);
+
+            return Ok("Game was created");
         }
 
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateGame(Guid id, GameDTO game)
         {
+            _logger.LogInformation("Run endpoint /api/game/{Id} PUT");
+
             var result = _gameService.UpdateGame(game);
 
-            return Ok("review was updated");
+            _logger.LogTrace("Updated game in database with Id {id}", game.Id);
+
+            return Ok("Game was updated");
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteGame(Guid id)
         {
+            _logger.LogInformation("Run endpoint /api/game/{Id} DELETE");
+
             var result = _gameService.DeleteGame(id);
 
             if (result == null)
-                return NotFound("Reviews not found");
-
-            return Ok("Review was deleted");
+            {
+                _logger.LogTrace("Game in database with Id {id} was not found",id);
+                return NotFound("Game not found");
+            }
+            _logger.LogTrace("Deleted game in database with Id {id}", id);
+            return Ok("Game was deleted");
         }
 
         //[HttpGet("GetDatabase")]

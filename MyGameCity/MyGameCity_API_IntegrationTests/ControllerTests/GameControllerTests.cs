@@ -27,7 +27,7 @@ namespace MyGameCity_API_IntegrationTests.Controller_Tests
         }
 
         [Fact]
-        public async Task POST_IfDoesntExist_CreateGane()
+        public async Task POST_IfDoesntExist_CreateGame()
         {
             var TestGame = new GameDTO
             {

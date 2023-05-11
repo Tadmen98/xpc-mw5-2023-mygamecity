@@ -13,57 +13,73 @@ namespace MyGameCity.Controllers
     public class DeveloperController : ControllerBase
     {
         private readonly IDeveloperService _developerService;
-
-        public DeveloperController(IDeveloperService develper_service)
+        protected readonly ILogger<GameController> _logger;
+        public DeveloperController(IDeveloperService develper_service, ILogger<GameController> logger)
         {
             _developerService = develper_service;
+            _logger = logger;
             // TODO: implement all functions using new game
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<List<DeveloperEntity>>> GetbyId(Guid id)
         {
+            _logger.LogInformation("Run endpoint /api/Developer/{Id} GET");
             var developer = _developerService.GetDeveloperById(id);
             if (developer == null)
+            {
+                _logger.LogTrace("Developer was not found");
                 return NotFound("Reviews not found");
-
+            }
+            _logger.LogTrace("Developer was found");
             return Ok(developer);
         }
 
         [HttpGet]
         public async Task<ActionResult<List<DeveloperEntity>>> GetAllDevelopers()
         {
+            _logger.LogInformation("Run endpoint /api/Developer GET");
             var developer = _developerService.GetAllDevelopers();
             if (developer == null)
-                return NotFound("Reviews not found");
-
+            {
+                _logger.LogTrace("Developer was not found");
+                return NotFound("Developer not found");
+            }
+            _logger.LogTrace("Developers were found");
             return Ok(developer);
         }
 
         [HttpPost]
         public async Task<ActionResult> Create(DeveloperDTO developer)
         {
+            _logger.LogInformation("Run endpoint /api/Developer Create");
             var result = _developerService.AddDeveloper(developer);
 
-            return Ok("review was created");
+            _logger.LogTrace("Developer was created");
+            return Ok("Developer was created");
         }
 
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateGame(Guid id, DeveloperDTO developer)
         {
+            _logger.LogInformation("Run endpoint /api/Developer/{Id} PUT");
             var result = _developerService.UpdateDeveloper(developer);
-
-            return Ok("review was updated");
+            _logger.LogTrace("Developer was updated");
+            return Ok("Developer was updated");
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteReview(Guid id)
         {
+            _logger.LogInformation("Run endpoint /api/Developer/{Id} DELETE");
             var result = _developerService.DeleteDeveloper(id);
 
             if (result == null)
-                return NotFound("Reviews not found");
-
+            {
+                _logger.LogTrace("Developer was not found");
+                return NotFound("Developer not found");
+            }
+            _logger.LogTrace("Developer was deleted");
             return Ok("Review was deleted");
         }
         //[HttpGet("All developers")]

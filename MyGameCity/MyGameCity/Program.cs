@@ -3,12 +3,14 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using MyGameCity.DAL.Data;
+using MyGameCity.DAL.Entities;
+using MyGameCity.DAL.QueryObjects;
+using MyGameCity.DAL.QueryObjects.Filters;
+using MyGameCity.DAL.Services.CatService;
+using MyGameCity.DAL.Services.DevService;
+using MyGameCity.DAL.Services.GameService;
+using MyGameCity.DAL.Services.RevService;
 using MyGameCity.Logging;
-using MyGameCity.Services.CatService;
-using MyGameCity.Services.DevService;
-using MyGameCity.Services.GameService;
-using MyGameCity.Services.RevService;
 
 namespace MyGameCity
 {
@@ -26,6 +28,14 @@ namespace MyGameCity
             builder.Services.AddScoped<IDeveloperService, DeveloperService>();
             builder.Services.AddScoped<IGameService, GameService>();
             builder.Services.AddScoped<IReviewService, ReviewService>();
+
+            builder.Services.AddScoped<GetGamesFilterQuery>();
+            builder.Services.AddScoped<GetDeveloperFilterQuery>();
+            builder.Services.AddScoped<GetReviewFilterQuery>();
+
+           
+
+            builder.Services.AddDbContext<DataContext>();
             builder.Services.AddDbContext<DataContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));

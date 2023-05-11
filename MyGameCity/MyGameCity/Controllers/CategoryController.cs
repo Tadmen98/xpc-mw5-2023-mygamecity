@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic;
 using MyGameCity.DAL.DTO;
 using MyGameCity.DAL.Entities;
-using MyGameCity.Services.CatService;
-using MyGameCity.Services.GameService;
+using MyGameCity.DAL.Exceptions;
+using MyGameCity.DAL.Services.CatService;
+using MyGameCity.DAL.Services.GameService;
 
 namespace MyGameCity.Controllers
 {
@@ -21,67 +23,80 @@ namespace MyGameCity.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<CategoryEntity>>> GetbyId(Guid id)
+        public async Task<ActionResult<List<CategoryDTO>>> GetCategoryById(Guid id)
         {
-            _logger.LogInformation("Run endpoint /api/Category/{Id} GET");
-            var category = _categoryService.GetCategoryById(id);
-            if (category == null)
+            try
             {
-                _logger.LogTrace("Category was not found");
-                return NotFound("Category was not found");
+                var category = await _categoryService.GetCategoryById(id);
+                var category_dto = new CategoryDTO(category);
+                return Ok(category_dto);
             }
-            _logger.LogTrace("Category was found");
-            return Ok(category);
+            catch (NotFoundException ex)
+            {
+                string message = ex.Message;
+                return NotFound(message);
+            }
+
         }
 
         [HttpGet]
         public async Task<ActionResult<List<CategoryEntity>>> GetAllCategories()
         {
-            _logger.LogInformation("Run endpoint /api/Category GET");
-            var category = _categoryService.GetAllCategories();
-            if (category == null)
+            var categoríes = await _categoryService.GetAllCategories();
+            List<CategoryDTO> categories_dtos = new List<CategoryDTO>();
+            foreach (var category in categoríes)
             {
-                _logger.LogTrace("Category was not found");
-                return NotFound("Category not found");
+                var category_dto = new CategoryDTO(category);
+                categories_dtos.Add(category_dto);
             }
-            _logger.LogTrace("Categories were found");
-            return Ok(category);
+
+            return Ok(categories_dtos);
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(CategoryDTO category)
+        public async Task<ActionResult> CreateCategory(CategoryDTO category)
         {
-            _logger.LogInformation("Run endpoint /api/Category POST");
-            var result = _categoryService.AddCategory(category);
-
-            _logger.LogTrace("Category was created");
-            return Ok("Category was created");
+            try
+            {
+                var result = await _categoryService.AddCategory(category);
+                return Ok("Category was created");
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (AlreadyExistException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateCategory(Guid id, CategoryDTO category)
+        [HttpPut]
+        public async Task<ActionResult> UpdateCategory(CategoryDTO category)
         {
-            _logger.LogInformation("Run endpoint /api/Category/{Id} PUT");
-            var result = _categoryService.UpdateCategory(category);
-
-            _logger.LogTrace("Category was updated");
-            return Ok("Category was updated");
+            try
+            {
+                var result = await _categoryService.UpdateCategory(category);
+                return Ok("Category was updated");
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteCategory(Guid id)
         {
-            _logger.LogInformation("Run endpoint /api/Category/{Id} DELETE");
-            var result = _categoryService.DeleteCategory(id);
-
-            if (result == null)
+            try
             {
-                _logger.LogTrace("Category was not found");
-                return NotFound("Categroy was not found");
+                var result = await _categoryService.DeleteCategory(id);
+                return Ok("Category was deleted");
             }
-
-            _logger.LogTrace("Category was deleted");
-            return Ok("Categroy was deleted");
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
     }
 }

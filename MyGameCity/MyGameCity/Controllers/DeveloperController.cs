@@ -3,8 +3,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MyGameCity.DAL.DTO;
 using MyGameCity.DAL.Entities;
-using MyGameCity.Services;
-using MyGameCity.Services.DevService;
+using MyGameCity.DAL.Exceptions;
+using MyGameCity.DAL.QueryObjects;
+using MyGameCity.DAL.QueryObjects.Filters;
+//using MyGameCity.DataModel;
+using MyGameCity.DAL.Services;
+using MyGameCity.DAL.Services.DevService;
 
 namespace MyGameCity.Controllers
 {
@@ -13,115 +17,101 @@ namespace MyGameCity.Controllers
     public class DeveloperController : ControllerBase
     {
         private readonly IDeveloperService _developerService;
-        protected readonly ILogger<GameController> _logger;
-        public DeveloperController(IDeveloperService develper_service, ILogger<GameController> logger)
+        private readonly GetDeveloperFilterQuery _getDeveloperFilterQuery;
+
+        public DeveloperController(IDeveloperService develper_service, GetDeveloperFilterQuery getDeveloperFilterQuery)
         {
             _developerService = develper_service;
+            _getDeveloperFilterQuery = getDeveloperFilterQuery;
             _logger = logger;
             // TODO: implement all functions using new game
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<DeveloperEntity>>> GetbyId(Guid id)
+        public async Task<ActionResult<List<DeveloperDTO>>> GetbyId(Guid id)
         {
-            _logger.LogInformation("Run endpoint /api/Developer/{Id} GET");
-            var developer = _developerService.GetDeveloperById(id);
-            if (developer == null)
+            try
             {
-                _logger.LogTrace("Developer was not found");
-                return NotFound("Reviews not found");
+                var developer = await _developerService.GetDeveloperById(id);
+                var developer_dto = new DeveloperDTO(developer);
+                return Ok(developer_dto);
             }
-            _logger.LogTrace("Developer was found");
-            return Ok(developer);
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<DeveloperEntity>>> GetAllDevelopers()
+        public async Task<ActionResult<List<DeveloperDTO>>> GetAllDevelopers()
         {
-            _logger.LogInformation("Run endpoint /api/Developer GET");
-            var developer = _developerService.GetAllDevelopers();
-            if (developer == null)
+            var developers = await _developerService.GetAllDevelopers();
+            //if (developer == null)
+            //    return NotFound("Reviews not found");
+            List<DeveloperDTO> developer_dtos = new List<DeveloperDTO>();
+            foreach (var developer in developers)
             {
-                _logger.LogTrace("Developer was not found");
-                return NotFound("Developer not found");
+                var developer_dto = new DeveloperDTO(developer);
+                developer_dtos.Add(developer_dto);
             }
-            _logger.LogTrace("Developers were found");
+
+            return Ok(developer_dtos);
+        }
+
+        [HttpPost("Query")]
+        public async Task<ActionResult<List<DeveloperEntity>>> GetFilteredDevelopers(DeveloperFilter filter)
+        {
+            var developer = await _getDeveloperFilterQuery.Execute(filter);
+            //if (developer == null)
+            //    return NotFound("Games not found");
+
             return Ok(developer);
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(DeveloperDTO developer)
+        public async Task<ActionResult> CreateDeveloper(DeveloperDTO developer)
         {
-            _logger.LogInformation("Run endpoint /api/Developer Create");
-            var result = _developerService.AddDeveloper(developer);
-
-            _logger.LogTrace("Developer was created");
-            return Ok("Developer was created");
+            try
+            {
+                var result = await _developerService.AddDeveloper(developer);
+                return Ok("review was created");
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (AlreadyExistException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateGame(Guid id, DeveloperDTO developer)
+        [HttpPut]
+        public async Task<ActionResult> UpdateDeveloper(DeveloperDTO developer)
         {
-            _logger.LogInformation("Run endpoint /api/Developer/{Id} PUT");
-            var result = _developerService.UpdateDeveloper(developer);
-            _logger.LogTrace("Developer was updated");
-            return Ok("Developer was updated");
+            try
+            {
+                var result = await _developerService.UpdateDeveloper(developer);
+                return Ok("Developer was updated");
+            }
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteReview(Guid id)
+        public async Task<ActionResult> DeleteDeveloper(Guid id)
         {
-            _logger.LogInformation("Run endpoint /api/Developer/{Id} DELETE");
-            var result = _developerService.DeleteDeveloper(id);
-
-            if (result == null)
+            try
             {
-                _logger.LogTrace("Developer was not found");
-                return NotFound("Developer not found");
+                var result = await _developerService.DeleteDeveloper(id);
+                return Ok("Developer was deleted");
             }
-            _logger.LogTrace("Developer was deleted");
-            return Ok("Review was deleted");
+            catch (NotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
-        //[HttpGet("All developers")]
-        //public ActionResult<List<Developer>> GetAll() => DeveloperService.DeveloperList;
-        //[HttpGet("Developer and their games")]
-        //public ActionResult<Developer> Get(string title)
-        //{
-        //    var publisher = DeveloperService.Get(title);
-        //    if (publisher == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return publisher;
-        //}
-        //[HttpPost("Create new developer")]
-        //public IActionResult Create(Developer developer)
-        //{
-        //    DeveloperService.CreateDeveloper(developer);
-
-        //    return NoContent();
-        //}
-        //[HttpDelete("Delete Developer")]
-        //public IActionResult Delete(string title) 
-        //{
-        //    var developer = DeveloperService.Get(title);
-        //    if (developer is null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    DeveloperService.DeleteDeveloper(developer);
-        //    return NoContent();
-        //}
-        //[HttpPut("Update Developer")]
-        //public IActionResult Update(Developer developer) 
-        //{
-        //    var existingGame = DeveloperService.Get(developer.Title);
-        //    if (existingGame is null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    DeveloperService.Update(developer);
-        //    return NoContent();
-        //}
     }
 }

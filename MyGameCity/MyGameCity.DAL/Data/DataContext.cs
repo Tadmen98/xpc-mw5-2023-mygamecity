@@ -17,9 +17,7 @@ public class DataContext : DbContext
     }
     public DbSet<CategoryEntity> Categories { get; set; }
     public DbSet<GameEntity> Game { get; set; }
-    //public DbSet<ManufacturerEntity> Manufacturer { get; set; }
     public DbSet<ReviewEntity> Review { get; set; }
-
     public DbSet<DeveloperEntity> Developer { get; set; }
 
     //protected override void OnConfiguring(DbContextOptionsBuilder optionsbuilder)

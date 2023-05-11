@@ -6,8 +6,8 @@ using MyGameCity.DAL.Entities;
 using MyGameCity.DAL.QueryObjects;
 using MyGameCity.DAL.QueryObjects.Filters;
 using MyGameCity.DataModel;
-using MyGameCity.Services;
-using MyGameCity.Services.DevService;
+using MyGameCity.DAL.Services;
+using MyGameCity.DAL.Services.DevService;
 
 namespace MyGameCity.Controllers
 {

@@ -2,9 +2,9 @@
 using MyGameCity.DAL.Data;
 using MyGameCity.DAL.DTO;
 using MyGameCity.DAL.Entities;
-using MyGameCity.DataModel;
+//using MyGameCity.DataModel;
 
-namespace MyGameCity.Services.CatService
+namespace MyGameCity.DAL.Services.CatService
 {
     public class CategoryService : ICategoryService
     {

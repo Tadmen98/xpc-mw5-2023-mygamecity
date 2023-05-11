@@ -5,9 +5,9 @@ using MyGameCity.DAL.Entities;
 using MyGameCity.DAL.QueryObjects.Filters;
 using MyGameCity.DAL.QueryObjects;
 using MyGameCity.DataModel;
-using MyGameCity.Services.CatService;
-using MyGameCity.Services.GameService;
-using MyGameCity.Services.RevService;
+using MyGameCity.DAL.Services.CatService;
+using MyGameCity.DAL.Services.GameService;
+using MyGameCity.DAL.Services.RevService;
 
 namespace MyGameCity.Controllers
 {

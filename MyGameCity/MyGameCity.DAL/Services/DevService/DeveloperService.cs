@@ -1,9 +1,9 @@
 ﻿using MyGameCity.DAL.Data;
 using MyGameCity.DAL.DTO;
 using MyGameCity.DAL.Entities;
-using MyGameCity.DataModel;
+//using MyGameCity.DataModel;
 
-namespace MyGameCity.Services.DevService
+namespace MyGameCity.DAL.Services.DevService
 {
     public class DeveloperService : IDeveloperService
     {

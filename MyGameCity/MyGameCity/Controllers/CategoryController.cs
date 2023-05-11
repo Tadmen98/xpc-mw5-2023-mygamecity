@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using MyGameCity.DAL.DTO;
 using MyGameCity.DAL.Entities;
-using MyGameCity.Services.CatService;
-using MyGameCity.Services.GameService;
+using MyGameCity.DAL.Services.CatService;
+using MyGameCity.DAL.Services.GameService;
 
 namespace MyGameCity.Controllers
 {

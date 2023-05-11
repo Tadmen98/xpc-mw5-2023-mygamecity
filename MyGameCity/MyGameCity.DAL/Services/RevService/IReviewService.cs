@@ -1,8 +1,8 @@
 ﻿using MyGameCity.DAL.DTO;
 using MyGameCity.DAL.Entities;
-using MyGameCity.DataModel;
+//using MyGameCity.DataModel;
 
-namespace MyGameCity.Services.RevService
+namespace MyGameCity.DAL.Services.RevService
 {
     public interface IReviewService
     {

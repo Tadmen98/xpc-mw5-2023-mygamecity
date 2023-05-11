@@ -1,8 +1,7 @@
 ﻿using MyGameCity.DAL.DTO;
 using MyGameCity.DAL.Entities;
-using MyGameCity.DataModel;
 
-namespace MyGameCity.Services.GameService
+namespace MyGameCity.DAL.Services.GameService
 {
     public interface IGameService
     {

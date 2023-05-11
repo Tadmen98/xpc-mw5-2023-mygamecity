@@ -4,10 +4,10 @@ using MyGameCity.DAL.Data;
 using MyGameCity.DAL.Entities;
 using MyGameCity.DAL.QueryObjects;
 using MyGameCity.DAL.QueryObjects.Filters;
-using MyGameCity.Services.CatService;
-using MyGameCity.Services.DevService;
-using MyGameCity.Services.GameService;
-using MyGameCity.Services.RevService;
+using MyGameCity.DAL.Services.CatService;
+using MyGameCity.DAL.Services.DevService;
+using MyGameCity.DAL.Services.GameService;
+using MyGameCity.DAL.Services.RevService;
 
 namespace MyGameCity
 {

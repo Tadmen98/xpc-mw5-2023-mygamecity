@@ -17,11 +17,12 @@ namespace MyGameCity.Controllers
     {
         private readonly IReviewService _reviewService;
         private readonly GetReviewFilterQuery _getReviewFilterQuery;
-
-        public ReviewController(IReviewService reviewService, GetReviewFilterQuery getReviewFilterQuery)
+        private readonly ILogger<ReviewController> _logger;
+        public ReviewController(IReviewService reviewService, GetReviewFilterQuery getReviewFilterQuery, ILogger<ReviewController> logger)
         {
             _reviewService = reviewService;
             _getReviewFilterQuery = getReviewFilterQuery;
+            _logger = logger;
         }
 
         [HttpGet("{id}")]
@@ -63,8 +64,7 @@ namespace MyGameCity.Controllers
         public async Task<ActionResult<List<GameEntity>>> GetFilteredGames(ReviewFilter filter)
         {
             var review = await _getReviewFilterQuery.Execute(filter);
-            //if (review == null)
-            //return NotFound("Games not found");
+
             return Ok(review);
         }
 

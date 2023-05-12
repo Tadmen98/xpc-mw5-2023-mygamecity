@@ -2,10 +2,6 @@
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
-using MyGameCity.Services.CatService;
-using MyGameCity.Services.DevService;
-using MyGameCity.Services.GameService;
-using MyGameCity.Services.RevService;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Moq;
@@ -21,18 +17,17 @@ using Microsoft.Extensions.Configuration;
 
 namespace MyGameCity.IntegrationTests.Controller_Tests
 {
-    internal class CustomWebApplicationFactory : WebApplicationFactory<Program>
+    public class CustomWebApplicationFactory : WebApplicationFactory<Program>
     {
-        public IConfiguration Configuration { get; private set; }
-
+        public IConfigurationRoot Configuration { get; private set; }
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
             builder.ConfigureAppConfiguration(config =>
             {
                 Configuration = new ConfigurationBuilder()
                 .AddJsonFile("integrationtesting.json")
-                .Build();
 
+                .Build();
                 config.AddConfiguration(Configuration);
             });
         }

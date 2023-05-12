@@ -12,5 +12,4 @@ public record CategoryDTO : EntityBase
         Name = category.Name;
     }
     public string Name { get; set; }
-    //public List<GameEntity> Games { get; set; }
 }

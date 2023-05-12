@@ -18,13 +18,12 @@ namespace MyGameCity.Controllers
     {
         private readonly IDeveloperService _developerService;
         private readonly GetDeveloperFilterQuery _getDeveloperFilterQuery;
-
-        public DeveloperController(IDeveloperService develper_service, GetDeveloperFilterQuery getDeveloperFilterQuery)
+        private readonly ILogger<DeveloperController> _logger;
+        public DeveloperController(IDeveloperService develper_service, GetDeveloperFilterQuery getDeveloperFilterQuery, ILogger<DeveloperController> logger)
         {
             _developerService = develper_service;
             _getDeveloperFilterQuery = getDeveloperFilterQuery;
             _logger = logger;
-            // TODO: implement all functions using new game
         }
 
         [HttpGet("{id}")]
@@ -46,8 +45,6 @@ namespace MyGameCity.Controllers
         public async Task<ActionResult<List<DeveloperDTO>>> GetAllDevelopers()
         {
             var developers = await _developerService.GetAllDevelopers();
-            //if (developer == null)
-            //    return NotFound("Reviews not found");
             List<DeveloperDTO> developer_dtos = new List<DeveloperDTO>();
             foreach (var developer in developers)
             {
@@ -62,8 +59,6 @@ namespace MyGameCity.Controllers
         public async Task<ActionResult<List<DeveloperEntity>>> GetFilteredDevelopers(DeveloperFilter filter)
         {
             var developer = await _getDeveloperFilterQuery.Execute(filter);
-            //if (developer == null)
-            //    return NotFound("Games not found");
 
             return Ok(developer);
         }

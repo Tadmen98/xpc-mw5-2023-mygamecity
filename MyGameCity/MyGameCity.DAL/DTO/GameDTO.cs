@@ -18,11 +18,9 @@ public record GameDTO : EntityBase
         Price = game.Price;
         Weight = game.Weight;
         NumberInStock = game.NumberInStock;
-        //Category = game.Category;
-        //Developer = game.Developer;
     }
 
-    public string Title { get; set; } //changed from init
+    public string Title { get; set; } 
     public string ImagePath { get; set; }
     public string Description { get; set; }
     public int Price { get; set; }
@@ -30,6 +28,6 @@ public record GameDTO : EntityBase
     public int NumberInStock { get; set; }
     public List<Guid> CategoryIds { get; set; }
     public Guid DeveloperId { get; set; }
-    //public List<ReviewEntity> Reviews { get; set; }
+    
 
 }

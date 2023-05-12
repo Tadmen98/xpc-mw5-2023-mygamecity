@@ -3,7 +3,6 @@ using MyGameCity.DAL.Data;
 using MyGameCity.DAL.DTO;
 using MyGameCity.DAL.Entities;
 using MyGameCity.DAL.Exceptions;
-//using MyGameCity.DataModel;
 
 namespace MyGameCity.DAL.Services.RevService
 {
@@ -58,21 +57,13 @@ namespace MyGameCity.DAL.Services.RevService
 
         public async Task<List<ReviewEntity>> GetbyGameId(Guid game_id)
         {
-            //TODO: make game check
-            //var game = _context.Game.Where(c => c.Id == game_id).FirstOrDefault();
-            //if (game == null)
-            //{
-            //    throw new NotFoundException($"Game {game_id} was not found");
-            //}
+            
             var reviews = await _context.Review.Where(c => c.Game.Id == game_id).ToListAsync();
             return reviews;
-            //TODO: remove list
+            
         }
 
-        //public Review GetGameById(Guid id)
-        //{
-        //    throw new NotImplementedException();
-        //}
+       
 
         public async Task<ReviewEntity> UpdateReview(ReviewDTO review_dto)
         {
@@ -88,10 +79,5 @@ namespace MyGameCity.DAL.Services.RevService
             await _context.SaveChangesAsync();
             return review;
         }
-
-        //ReviewEntity IReviewService.UpdateReview(ReviewEntity review)
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 }

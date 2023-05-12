@@ -19,6 +19,6 @@ public record ReviewEntity : EntityBase
     public string Title { get; set; }
     public string Description { get; set; }
     public GameEntity Game { get; set; }
-    public Guid GameId{ get; set; }
-    
+    public Guid GameId { get; set; }
+
 }

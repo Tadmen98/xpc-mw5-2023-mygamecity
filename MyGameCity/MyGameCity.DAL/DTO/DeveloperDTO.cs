@@ -20,5 +20,5 @@ public record DeveloperDTO : EntityBase
     public string Title { get; set; }
     public string Description { get; set; }
     public string LogoImg { get; set; }
-    public string CountryOfOrigin { get; set; } 
+    public string CountryOfOrigin { get; set; }
 }

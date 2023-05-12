@@ -91,7 +91,7 @@ namespace MyGameCity.IntegrationTests.Controller_Tests
                 context.Categories.Add(category);
                 await context.SaveChangesAsync();
             }
-                var response = await _client.DeleteAsync($"/api/Category/{guid}");
+            var response = await _client.DeleteAsync($"/api/Category/{guid}");
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
 

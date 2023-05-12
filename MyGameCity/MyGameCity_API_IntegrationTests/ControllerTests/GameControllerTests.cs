@@ -34,7 +34,7 @@ namespace MyGameCity_API_IntegrationTests.Controller_Tests
             Guid guid = Guid.NewGuid();
             var TestGame = new GameDTO
             {
-                CategoryIds = new List<Guid> { Guid.Parse("739bfc28-0b47-41e6-83ce-f3de0e630041"), Guid.Parse("07136703-0204-4e55-bcc9-3c5b2a6411b8")},
+                CategoryIds = new List<Guid> { Guid.Parse("739bfc28-0b47-41e6-83ce-f3de0e630041"), Guid.Parse("07136703-0204-4e55-bcc9-3c5b2a6411b8") },
                 Description = "Amazing visuals",
                 DeveloperId = Guid.Parse("3fa85f64-0717-4562-b3fc-2c963f66afa6"),
                 Id = guid,
@@ -91,12 +91,12 @@ namespace MyGameCity_API_IntegrationTests.Controller_Tests
                 var context = scope.ServiceProvider.GetRequiredService<DataContext>();
                 var game_dto = new GameDTO
                 {
-                    CategoryIds = new List<Guid> {Guid.Parse("6704e2f6-2c6a-47f1-a518-02653a45bc13"),Guid.Parse("b82637b8-f931-4a82-be4f-d2dde6660128") },
+                    CategoryIds = new List<Guid> { Guid.Parse("6704e2f6-2c6a-47f1-a518-02653a45bc13"), Guid.Parse("b82637b8-f931-4a82-be4f-d2dde6660128") },
                     Description = "Just alright",
                     DeveloperId = Guid.Parse("2cd997cf-46c1-43a1-8963-d1e67abfc295"),
                     Id = guid,
                     ImagePath = "string",
-                    NumberInStock= 25,
+                    NumberInStock = 25,
                     Price = 30,
                     Title = "CoolMiner",
                     Weight = 2

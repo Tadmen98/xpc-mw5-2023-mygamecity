@@ -57,13 +57,13 @@ namespace MyGameCity.DAL.Services.RevService
 
         public async Task<List<ReviewEntity>> GetbyGameId(Guid game_id)
         {
-            
+
             var reviews = await _context.Review.Where(c => c.Game.Id == game_id).ToListAsync();
             return reviews;
-            
+
         }
 
-       
+
 
         public async Task<ReviewEntity> UpdateReview(ReviewDTO review_dto)
         {

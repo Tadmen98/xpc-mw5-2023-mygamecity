@@ -16,16 +16,16 @@ using Microsoft.Extensions.Configuration;
 
 namespace MyGameCity.IntegrationTests.Controller_Tests
 {
-    public class ReviewControllerTests :IDisposable
+    public class ReviewControllerTests : IDisposable
     {
-       
+
         private CustomWebApplicationFactory _factory;
         private HttpClient _client;
-        
+
         public ReviewControllerTests()
         {
             _factory = new CustomWebApplicationFactory();
-            _client = _factory.CreateClient();   
+            _client = _factory.CreateClient();
         }
 
         [Fact]

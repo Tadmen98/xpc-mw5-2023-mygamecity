@@ -20,7 +20,7 @@ public record GameDTO : EntityBase
         NumberInStock = game.NumberInStock;
     }
 
-    public string Title { get; set; } 
+    public string Title { get; set; }
     public string ImagePath { get; set; }
     public string Description { get; set; }
     public int Price { get; set; }
@@ -28,6 +28,6 @@ public record GameDTO : EntityBase
     public int NumberInStock { get; set; }
     public List<Guid> CategoryIds { get; set; }
     public Guid DeveloperId { get; set; }
-    
+
 
 }

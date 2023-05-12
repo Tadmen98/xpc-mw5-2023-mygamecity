@@ -13,8 +13,8 @@ namespace MyGameCity.Controllers
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryService _categoryService;
-        protected readonly ILogger<GameController> _logger;
-        public CategoryController(ICategoryService categoryService, ILogger<GameController> logger)
+        protected readonly ILogger<CategoryController> _logger;
+        public CategoryController(ICategoryService categoryService, ILogger<CategoryController> logger)
         {
             _categoryService = categoryService;
             _logger = logger;

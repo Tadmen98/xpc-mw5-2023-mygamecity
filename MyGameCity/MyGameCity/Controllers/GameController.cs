@@ -1,7 +1,6 @@
 ﻿using Bogus;
 using Microsoft.AspNetCore.Mvc;
-using MyGameCity.Services;
-using MyGameCity.Services.GameService;
+using MyGameCity.DAL.Services.GameService;
 using MyGameCity.DAL.Entities;
 using MyGameCity.DAL.DTO;
 using MyGameCity.DAL.QueryObjects;
@@ -17,12 +16,14 @@ namespace MyGameCity.Controllers
     {
         private readonly IGameService _gameService;
         private readonly GetGamesFilterQuery _getGameFilterQuery;
-        //private readonly IQuery<GameEntity, GameFilter> _getGameFilterQuery;
+        private readonly ILogger<GameController> _logger;
 
-        public GameController(IGameService gameService, GetGamesFilterQuery getGameFilterQuery)
+
+        public GameController(IGameService gameService, GetGamesFilterQuery getGameFilterQuery, ILogger<GameController> logger)
         {
             _gameService = gameService;
             _getGameFilterQuery = getGameFilterQuery;
+            _logger = logger;
         }
 
         [HttpGet("{id}")]
@@ -58,9 +59,7 @@ namespace MyGameCity.Controllers
         public async Task<ActionResult<List<GameEntity>>> GetFilteredGames(GameFilter filter)
         {
             var games = await _getGameFilterQuery.Execute(filter);
-            //if (games == null)
-            //    return NotFound("Games not found");
-            //Console.WriteLine("Called query");
+
             return Ok(games);
         }
 

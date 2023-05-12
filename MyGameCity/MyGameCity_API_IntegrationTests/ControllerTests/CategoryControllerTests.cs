@@ -1,4 +1,7 @@
-﻿using MyGameCity.DAL.DTO;
+﻿using Microsoft.Extensions.DependencyInjection;
+using MyGameCity.DAL.Data;
+using MyGameCity.DAL.DTO;
+using MyGameCity.DAL.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,9 +9,11 @@ using System.Net;
 using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
+using Xunit.Sdk;
 
 namespace MyGameCity.IntegrationTests.Controller_Tests
 {
+    [Collection("TestCollection")]
     public class CategoryControllerTests : IDisposable
     {
         private CustomWebApplicationFactory _factory;
@@ -23,13 +28,25 @@ namespace MyGameCity.IntegrationTests.Controller_Tests
         [Fact]
         public async Task POST_IfDoesntExist_CreateCategory()
         {
+            Guid guid = Guid.NewGuid();
             var TestCategory = new CategoryDTO
             {
-                Id = Guid.Parse("0fcd579e-8b64-435f-a306-4afbea773a48"),
-                Name = "Adventure"
+                Id = guid,
+                Name = "Puzzle"
             };
-
             var response = await _client.PostAsync("/api/Category", JsonContent.Create(TestCategory));
+            //using (var scope = _factory.Services.CreateScope())
+            //{
+            //    var context = scope.ServiceProvider.GetRequiredService<DataContext>();
+            //    var category_dto = new CategoryDTO
+            //    {
+            //        Id = guid,
+            //        Name = "Puzzle"
+            //    };
+            //    var category = new CategoryEntity(category_dto);
+            //    context.Categories.Remove(category);
+            //    await context.SaveChangesAsync();
+            //}
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
 
@@ -38,11 +55,10 @@ namespace MyGameCity.IntegrationTests.Controller_Tests
         {
             var TestCategory = new CategoryDTO
             {
-                Id = Guid.Parse("0fcd579e-8b64-435f-a306-4afbea773a48"),
+                Id = Guid.Parse("6c14d3d0-26f7-4349-891c-caf9c1e5b42f"),
                 Name = "RPG"
             };
-
-            var response = await _client.PutAsync("/api/Category/0fcd579e-8b64-435f-a306-4afbea773a48", JsonContent.Create(TestCategory));
+            var response = await _client.PutAsync("/api/Category", JsonContent.Create(TestCategory));
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
 
@@ -60,10 +76,22 @@ namespace MyGameCity.IntegrationTests.Controller_Tests
         }
 
         [Fact]
-
         public async Task Delete_Always_GetAllCategories()
         {
-            var response = await _client.DeleteAsync("/api/Category/0fcd579e-8b64-435f-a306-4afbea773a48");
+            var guid = Guid.NewGuid();
+            using (var scope = _factory.Services.CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<DataContext>();
+                var category_dto = new CategoryDTO
+                {
+                    Id = guid,
+                    Name = "RPG"
+                };
+                var category = new CategoryEntity(category_dto);
+                context.Categories.Add(category);
+                await context.SaveChangesAsync();
+            }
+                var response = await _client.DeleteAsync($"/api/Category/{guid}");
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
 

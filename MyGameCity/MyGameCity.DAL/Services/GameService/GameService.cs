@@ -34,7 +34,6 @@ namespace MyGameCity.DAL.Services.GameService
             var game = new GameEntity(game_dto) { Category = categories, Developer = developer };
             await _context.Game.AddAsync(game);
             await _context.SaveChangesAsync();
-            //var gam = new GameEntity() { Title="sdfsd"};
             return game;
         }
 
@@ -45,7 +44,6 @@ namespace MyGameCity.DAL.Services.GameService
             {
                 throw new NotFoundException($"Game {id} was not found");
             }
-
             _context.Game.Remove(game);
             _context.SaveChanges();
             return game;

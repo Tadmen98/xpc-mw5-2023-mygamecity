@@ -12,11 +12,13 @@ public record ReviewEntity : EntityBase
         StarsCount = review.StarsCount;
         Title = review.Title;
         Description = review.Description;
-        // TODO: non nullable property
+        GameId = review.GameId;
     }
 
     public int StarsCount { get; set; }
     public string Title { get; set; }
     public string Description { get; set; }
     public GameEntity Game { get; set; }
+    public Guid GameId{ get; set; }
+    
 }

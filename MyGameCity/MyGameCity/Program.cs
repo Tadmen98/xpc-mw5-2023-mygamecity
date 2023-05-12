@@ -32,16 +32,15 @@ namespace MyGameCity
             builder.Services.AddScoped<GetGamesFilterQuery>();
             builder.Services.AddScoped<GetDeveloperFilterQuery>();
             builder.Services.AddScoped<GetReviewFilterQuery>();
-            builder.Services.AddDbContext<DataContext>();
             builder.Services.AddDbContext<DataContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
-            builder.Logging.AddMyGameCityFileLogger(options =>
-            {
-                builder.Configuration.GetSection("Logging")
-                .GetSection("MyGameCityFile").GetSection("Options").Bind(options);
-            });
+            //builder.Logging.AddMyGameCityFileLogger(options =>
+            //{
+            //    builder.Configuration.GetSection("Logging")
+            //    .GetSection("MyGameCityFile").GetSection("Options").Bind(options);
+            //});
 
 
             var app = builder.Build();

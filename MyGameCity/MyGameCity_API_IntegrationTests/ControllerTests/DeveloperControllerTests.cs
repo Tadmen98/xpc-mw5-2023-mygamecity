@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace MyGameCity.IntegrationTests.Controller_Tests
 {
+    [Collection("TestCollection")]
     public class DeveloperControllerTests : IDisposable
     {
         private CustomWebApplicationFactory _factory;
@@ -37,7 +38,7 @@ namespace MyGameCity.IntegrationTests.Controller_Tests
         }
 
         [Fact]
-        public async Task PUT_IfDoesntExist_CreateGane()
+        public async Task PUT_IfExist_CreateDeveloper()
         {
             var TestDeveloper = new DeveloperDTO
             {
@@ -48,7 +49,7 @@ namespace MyGameCity.IntegrationTests.Controller_Tests
                 Title = "Kifuz"
             };
 
-            var response = await _client.PutAsync("/api/Developer/12463f65-a2d2-4db8-b53a-fee3f02241b4", JsonContent.Create(TestDeveloper));
+            var response = await _client.PutAsync("/api/Developer", JsonContent.Create(TestDeveloper));
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
 

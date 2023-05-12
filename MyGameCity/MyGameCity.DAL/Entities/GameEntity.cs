@@ -18,8 +18,7 @@ public record GameEntity : EntityBase
         Price = game.Price;
         Weight = game.Weight;
         NumberInStock = game.NumberInStock;
-        //Category = game.Category;
-        //Developer = game.Developer;
+        DeveloperID = game.DeveloperId;
     }
 
     public string Title { get; set; }
@@ -30,6 +29,7 @@ public record GameEntity : EntityBase
     public int NumberInStock { get; set; }
     public List<CategoryEntity> Category { get; set; }
     public DeveloperEntity Developer { get; set; }
+    public Guid DeveloperID { get; set; }
     public List<ReviewEntity> Reviews { get; set; }
 
 }

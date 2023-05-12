@@ -17,7 +17,6 @@ namespace MyGameCity.DAL.Services.DevService
         }
         public async Task<DeveloperEntity> AddDeveloper(DeveloperDTO developer_dto)
         {
-            //List<GameEntity> games = _context.Game.Where(c => developer_dto.GameIds.Contains(c.Id)).ToList();
             var developer_check = await _context.Developer.Where(c => c.Id == developer_dto.Id).FirstOrDefaultAsync();
             if (developer_check != null)
             {

@@ -19,6 +19,11 @@ namespace MyGameCity.Controllers
             _categoryService = categoryService;
             _logger = logger;
         }
+        //DFSDKMVS KMV SKLVMS
+
+
+
+
 
         [HttpGet("{id}")]
         public async Task<ActionResult<List<CategoryDTO>>> GetCategoryById(Guid id)

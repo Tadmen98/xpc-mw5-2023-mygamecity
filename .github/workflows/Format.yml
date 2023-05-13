@@ -23,6 +23,7 @@ jobs:
 
       - name: Restore dependencies
         run: dotnet restore
-
+        working-directory: ./MyGameCity
       - name: Format code
         run: dotnet format --check --fix --verbosity diagnostic
+        working-directory: ./MyGameCity

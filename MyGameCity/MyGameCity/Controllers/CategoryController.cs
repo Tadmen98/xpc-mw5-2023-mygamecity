@@ -19,7 +19,7 @@ namespace MyGameCity.Controllers
             _categoryService = categoryService;
             _logger = logger;
         }
-
+        //TestingCI
         [HttpGet("{id}")]
         public async Task<ActionResult<List<CategoryDTO>>> GetCategoryById(Guid id)
         {

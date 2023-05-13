@@ -28,5 +28,5 @@ jobs:
       working-directory: ./MyGameCity
       
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test --no-build
       working-directory: ./MyGameCity

@@ -25,5 +25,5 @@ jobs:
         run: dotnet restore
         working-directory: ./MyGameCity
       - name: Format code
-        run: dotnet format --check --fix --verbosity diagnostic
+        run: dotnet format --check --verbosity diagnostic
         working-directory: ./MyGameCity

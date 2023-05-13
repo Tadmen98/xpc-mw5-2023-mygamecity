@@ -25,23 +25,7 @@ namespace MyGameCity.Controllers
 
 
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<List<CategoryDTO>>> GetCategoryById(Guid id)
-        {
-            _logger.LogInformation("Run endpoint /api/Category/{id} GET");
-            try
-            {
-                var category = await _categoryService.GetCategoryById(id);
-                var category_dto = new CategoryDTO(category);
-                return Ok(category_dto);
-            }
-            catch (NotFoundException ex)
-            {
-                _logger.LogError(ex, ex.Message);
-                string message = ex.Message;
-                return NotFound(message);
-            }
-        }
+       
 
         [HttpGet]
         public async Task<ActionResult<List<CategoryEntity>>> GetAllCategories()

@@ -28,7 +28,6 @@ namespace MyGameCity.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ReviewResponseDTO>> GetReviewById(Guid id)
         {
-            _logger.LogInformation("Run endpoint /api/Review/{id} GET");
             try
             {
                 var reviews = await _reviewService.GetReviewById(id);
@@ -37,7 +36,6 @@ namespace MyGameCity.Controllers
             }
             catch (NotFoundException ex)
             {
-                _logger.LogError(ex, ex.Message);
                 return NotFound(ex.Message.ToString());
             }
         }
@@ -45,7 +43,6 @@ namespace MyGameCity.Controllers
         [HttpGet("bygame/{game_id}")]
         public async Task<ActionResult<List<ReviewResponseDTO>>> GetbyGameId(Guid game_id)
         {
-            _logger.LogInformation("Run endpoint /api/Review GET");
             try
             {
                 var reviews = await _reviewService.GetbyGameId(game_id);
@@ -59,7 +56,6 @@ namespace MyGameCity.Controllers
             }
             catch (NotFoundException ex)
             {
-                _logger.LogError(ex, ex.Message);
                 return NotFound(ex.Message);
             }
         }
@@ -67,7 +63,6 @@ namespace MyGameCity.Controllers
         [HttpPost("Query")]
         public async Task<ActionResult<List<GameEntity>>> GetFilteredGames(ReviewFilter filter)
         {
-            _logger.LogInformation("Run endpoint /api/Review/Query POST");
             var review = await _getReviewFilterQuery.Execute(filter);
 
             return Ok(review);
@@ -76,7 +71,6 @@ namespace MyGameCity.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateReview(ReviewDTO review)
         {
-            _logger.LogInformation("Run endpoint /api/Review POST");
             try
             {
                 var result = await _reviewService.AddReview(review);
@@ -84,12 +78,10 @@ namespace MyGameCity.Controllers
             }
             catch (NotFoundException ex)
             {
-                _logger.LogError(ex, ex.Message);
                 return NotFound(ex.Message);
             }
             catch (AlreadyExistException ex)
             {
-                _logger.LogError(ex, ex.Message);
                 return BadRequest(ex.Message);
             }
         }
@@ -97,7 +89,6 @@ namespace MyGameCity.Controllers
         [HttpPut]
         public async Task<ActionResult> UpdateReview(ReviewDTO review)
         {
-            _logger.LogInformation("Run endpoint /api/Review PUT");
             try
             {
                 var result = await _reviewService.UpdateReview(review);
@@ -105,7 +96,6 @@ namespace MyGameCity.Controllers
             }
             catch (NotFoundException ex)
             {
-                _logger.LogError(ex, ex.Message);
                 return NotFound(ex.Message);
             }
         }
@@ -113,7 +103,6 @@ namespace MyGameCity.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteReview(Guid id)
         {
-            _logger.LogInformation("Run endpoint /api/Review DELETE");
             try
             {
                 var result = await _reviewService.DeleteReview(id);
@@ -121,7 +110,6 @@ namespace MyGameCity.Controllers
             }
             catch (NotFoundException ex)
             {
-                _logger.LogError(ex, ex.Message);
                 return NotFound(ex.Message);
             }
         }

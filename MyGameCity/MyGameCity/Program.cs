@@ -1,3 +1,4 @@
+
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.EntityFrameworkCore;
@@ -35,11 +36,11 @@ namespace MyGameCity
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
-            builder.Logging.AddMyGameCityFileLogger(options =>
-            {
-                builder.Configuration.GetSection("Logging")
-                .GetSection("MyGameCityFile").GetSection("Options").Bind(options);
-            });
+            //builder.Logging.AddMyGameCityFileLogger(options =>
+            //{
+            //    builder.Configuration.GetSection("Logging")
+            //    .GetSection("MyGameCityFile").GetSection("Options").Bind(options);
+            //});
 
 
             var app = builder.Build();

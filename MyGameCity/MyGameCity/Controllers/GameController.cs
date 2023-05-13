@@ -18,7 +18,6 @@ namespace MyGameCity.Controllers
         private readonly GetGamesFilterQuery _getGameFilterQuery;
         private readonly ILogger<GameController> _logger;
 
-
         public GameController(IGameService gameService, GetGamesFilterQuery getGameFilterQuery, ILogger<GameController> logger)
         {
             _gameService = gameService;
@@ -29,6 +28,7 @@ namespace MyGameCity.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<GameResponseDTO>> GetGameById(Guid id)
         {
+            _logger.LogInformation("Run endpoint /api/Game/{id} GET");
             try
             {
                 var game = await _gameService.GetGameById(id);
@@ -37,6 +37,7 @@ namespace MyGameCity.Controllers
             }
             catch (NotFoundException ex)
             {
+                _logger.LogError(ex, ex.Message);
                 return NotFound(ex.Message);
             }
         }
@@ -44,6 +45,7 @@ namespace MyGameCity.Controllers
         [HttpGet("all")]
         public async Task<ActionResult<GameResponseDTO>> GetAllGames()
         {
+            _logger.LogInformation("Run endpoint /api/Game/all GET");
             var games = await _gameService.GetAllGames();
             List<GameResponseDTO> game_dtos = new List<GameResponseDTO>();
             foreach (var game in games)
@@ -66,6 +68,7 @@ namespace MyGameCity.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateGame(GameDTO game)
         {
+            _logger.LogInformation("Run endpoint /api/Game POST");
             try
             {
                 var result = await _gameService.AddGame(game);
@@ -73,10 +76,12 @@ namespace MyGameCity.Controllers
             }
             catch (NotFoundException ex)
             {
+                _logger.LogError(ex, ex.Message);
                 return NotFound(ex.Message);
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, ex.Message);
                 return BadRequest(ex.Message);
             }
 
@@ -85,6 +90,7 @@ namespace MyGameCity.Controllers
         [HttpPut]
         public async Task<ActionResult> UpdateGame(GameDTO game)
         {
+            _logger.LogInformation("Run endpoint /api/Game PUT");
             try
             {
                 var result = await _gameService.UpdateGame(game);
@@ -92,6 +98,7 @@ namespace MyGameCity.Controllers
             }
             catch (NotFoundException ex)
             {
+                _logger.LogError(ex, ex.Message);
                 return NotFound(ex.Message);
             }
         }
@@ -99,6 +106,7 @@ namespace MyGameCity.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteGame(Guid id)
         {
+            _logger.LogInformation("Run endpoint /api/Game DELETE");
             try
             {
                 var result = await _gameService.DeleteGame(id);
@@ -106,6 +114,7 @@ namespace MyGameCity.Controllers
             }
             catch (NotFoundException ex)
             {
+                _logger.LogError(ex, ex.Message);
                 return NotFound(ex.Message);
             }
 

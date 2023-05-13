@@ -8,7 +8,6 @@ namespace MyGameCity.DAL.Exceptions
 {
     public class NotFoundException : Exception
     {
-        // Constructors
         public NotFoundException() : base()
         {
         }

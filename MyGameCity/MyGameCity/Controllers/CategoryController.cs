@@ -23,6 +23,7 @@ namespace MyGameCity.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<List<CategoryDTO>>> GetCategoryById(Guid id)
         {
+            _logger.LogInformation("Run endpoint /api/Category/{id} GET");
             try
             {
                 var category = await _categoryService.GetCategoryById(id);
@@ -31,15 +32,16 @@ namespace MyGameCity.Controllers
             }
             catch (NotFoundException ex)
             {
+                _logger.LogError(ex, ex.Message);
                 string message = ex.Message;
                 return NotFound(message);
             }
-
         }
 
         [HttpGet]
         public async Task<ActionResult<List<CategoryEntity>>> GetAllCategories()
         {
+            _logger.LogInformation("Run endpoint /api/Category GET");
             var categoríes = await _categoryService.GetAllCategories();
             List<CategoryDTO> categories_dtos = new List<CategoryDTO>();
             foreach (var category in categoríes)
@@ -47,13 +49,13 @@ namespace MyGameCity.Controllers
                 var category_dto = new CategoryDTO(category);
                 categories_dtos.Add(category_dto);
             }
-
             return Ok(categories_dtos);
         }
 
         [HttpPost]
         public async Task<ActionResult> CreateCategory(CategoryDTO category)
         {
+            _logger.LogInformation("Run endpoint /api/Category POST");
             try
             {
                 var result = await _categoryService.AddCategory(category);
@@ -61,10 +63,12 @@ namespace MyGameCity.Controllers
             }
             catch (NotFoundException ex)
             {
+                _logger.LogError(ex, ex.Message);
                 return NotFound(ex.Message);
             }
             catch (AlreadyExistException ex)
             {
+                _logger.LogError(ex, ex.Message);
                 return BadRequest(ex.Message);
             }
         }
@@ -72,6 +76,7 @@ namespace MyGameCity.Controllers
         [HttpPut]
         public async Task<ActionResult> UpdateCategory(CategoryDTO category)
         {
+            _logger.LogInformation("Run endpoint /api/Category PUT");
             try
             {
                 var result = await _categoryService.UpdateCategory(category);
@@ -79,6 +84,7 @@ namespace MyGameCity.Controllers
             }
             catch (NotFoundException ex)
             {
+                _logger.LogError(ex, ex.Message);
                 return NotFound(ex.Message);
             }
         }
@@ -86,6 +92,7 @@ namespace MyGameCity.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteCategory(Guid id)
         {
+            _logger.LogInformation("Run endpoint /api/Category/{id} DELETE");
             try
             {
                 var result = await _categoryService.DeleteCategory(id);
@@ -93,6 +100,7 @@ namespace MyGameCity.Controllers
             }
             catch (NotFoundException ex)
             {
+                _logger.LogError(ex, ex.Message);
                 return NotFound(ex.Message);
             }
         }

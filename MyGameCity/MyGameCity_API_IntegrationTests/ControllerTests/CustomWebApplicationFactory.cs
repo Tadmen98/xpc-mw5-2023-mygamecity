@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace MyGameCity.IntegrationTests.Controller_Tests
 {
@@ -30,6 +31,7 @@ namespace MyGameCity.IntegrationTests.Controller_Tests
                 .Build();
                 config.AddConfiguration(Configuration);
             });
+            builder.ConfigureLogging(logging => { logging.ClearProviders(); });
         }
     }
 }

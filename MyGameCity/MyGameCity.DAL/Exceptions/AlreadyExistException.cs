@@ -8,7 +8,6 @@ namespace MyGameCity.DAL.Exceptions
 {
     public class AlreadyExistException : Exception
     {
-        // Constructors
         public AlreadyExistException() : base()
         {
         }

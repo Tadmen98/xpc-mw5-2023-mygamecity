@@ -36,11 +36,11 @@ namespace MyGameCity
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
-            //builder.Logging.AddMyGameCityFileLogger(options =>
-            //{
-            //    builder.Configuration.GetSection("Logging")
-            //    .GetSection("MyGameCityFile").GetSection("Options").Bind(options);
-            //});
+            builder.Logging.AddMyGameCityFileLogger(options =>
+            {
+                builder.Configuration.GetSection("Logging")
+                .GetSection("MyGameCityFile").GetSection("Options").Bind(options);
+            });
 
 
             var app = builder.Build();
